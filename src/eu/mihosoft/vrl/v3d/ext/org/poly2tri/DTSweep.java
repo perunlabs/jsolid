@@ -607,12 +607,6 @@ class DTSweep {
     ot = t.neighborAcross(p);
     op = ot.oppositePoint(t, p);
 
-    if (ot == null) {
-      // If we want to integrate the fillEdgeEvent do it here
-      // With current implementation we should never get here
-      throw new RuntimeException("[BUG:FIXME] FLIP failed due to missing triangle");
-    }
-
     if (t.getConstrainedEdgeAcross(p)) {
       throw new RuntimeException("Intersecting Constraints");
     }
@@ -759,12 +753,6 @@ class DTSweep {
 
     ot = t.neighborAcross(p);
     op = ot.oppositePoint(t, p);
-
-    if (ot == null) {
-      // If we want to integrate the fillEdgeEvent do it here
-      // With current implementation we should never get here
-      throw new RuntimeException("[BUG:FIXME] FLIP failed due to missing triangle");
-    }
 
     if (tcx.isDebugEnabled()) {
       System.out.println("[FLIP:SCAN] - scan next point"); // TODO: remove
