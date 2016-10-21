@@ -26,9 +26,10 @@
  * The views and conclusions contained in the software and documentation are those of the
  * authors and should not be interpreted as representing official policies, either expressed
  * or implied, of Michael Hoffer <info@michaelhoffer.de>.
- */ 
+ */
 
 package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
+
 /* Poly2Tri
  * Copyright (c) 2009-2010, Poly2Tri Contributors
  * http://code.google.com/p/poly2tri/
@@ -61,20 +62,21 @@ package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
  */
 import java.util.List;
 
+interface Triangulatable {
+  /**
+   * Preparations needed before triangulation start should be handled here
+   */
+  public void prepareTriangulation(TriangulationContext<?> tcx);
 
-interface Triangulatable
-{
-    /**
-     * Preparations needed before triangulation start should be handled here
-     * @param tcx
-     */
-    public void prepareTriangulation( TriangulationContext<?> tcx );
-    
-    public List<DelaunayTriangle> getTriangles();
-    public List<TriangulationPoint> getPoints();
-    public void addTriangle( DelaunayTriangle t );
-    public void addTriangles( List<DelaunayTriangle> list );
-    public void clearTriangulation();
-    
-    public TriangulationMode getTriangulationMode();
+  public List<DelaunayTriangle> getTriangles();
+
+  public List<TriangulationPoint> getPoints();
+
+  public void addTriangle(DelaunayTriangle t);
+
+  public void addTriangles(List<DelaunayTriangle> list);
+
+  public void clearTriangulation();
+
+  public TriangulationMode getTriangulationMode();
 }

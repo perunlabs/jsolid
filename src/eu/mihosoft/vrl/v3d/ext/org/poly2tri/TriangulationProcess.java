@@ -101,8 +101,6 @@ class TriangulationProcess implements Runnable {
 
   /**
    * Notify all listeners of this new event
-   *
-   * @param event
    */
   private void sendEvent(TriangulationProcessEvent event) {
     for (TriangulationProcessListener l : _listeners) {
@@ -124,8 +122,6 @@ class TriangulationProcess implements Runnable {
 
   /**
    * Uses SweepLine algorithm by default
-   *
-   * @param algorithm
    */
   public TriangulationProcess() {
     this(TriangulationAlgorithm.DTSweep);
@@ -148,8 +144,6 @@ class TriangulationProcess implements Runnable {
 
   /**
    * Triangulate a PointSet with eventual constraints
-   *
-   * @param cps
    */
   public void triangulate(PointSet ps) {
     _triangulations.clear();
@@ -159,8 +153,6 @@ class TriangulationProcess implements Runnable {
 
   /**
    * Triangulate a PointSet with eventual constraints
-   *
-   * @param cps
    */
   public void triangulate(ConstrainedPointSet cps) {
     _triangulations.clear();
@@ -170,8 +162,6 @@ class TriangulationProcess implements Runnable {
 
   /**
    * Triangulate a PolygonSet
-   *
-   * @param ps
    */
   public void triangulate(PolygonSet ps) {
     _triangulations.clear();
@@ -181,8 +171,6 @@ class TriangulationProcess implements Runnable {
 
   /**
    * Triangulate a Polygon
-   *
-   * @param ps
    */
   public void triangulate(Polygon polygon) {
     _triangulations.clear();
@@ -192,8 +180,6 @@ class TriangulationProcess implements Runnable {
 
   /**
    * Triangulate a List of Triangulatables
-   *
-   * @param ps
    */
   public void triangulate(List<Triangulatable> list) {
     _triangulations.clear();

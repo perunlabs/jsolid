@@ -190,10 +190,9 @@ class DelaunayTriangle {
 
   /**
    * @param t
-   *          - opposite triangle
+   *          opposite triangle
    * @param p
-   *          - the point in t that isn't shared between the triangles
-   * @return
+   *          the point in t that isn't shared between the triangles
    */
   public TriangulationPoint oppositePoint(DelaunayTriangle t, TriangulationPoint p) {
     assert t != this : "self-pointer error";
@@ -389,7 +388,6 @@ class DelaunayTriangle {
   /**
    * Get the neighbor that share this edge
    *
-   * @param constrainedEdge
    * @return index of the shared edge or -1 if edge isn't shared
    */
   public int edgeIndex(TriangulationPoint p1, TriangulationPoint p2) {

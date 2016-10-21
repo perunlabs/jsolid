@@ -74,11 +74,7 @@ class Polygon implements Triangulatable {
   protected PolygonPoint _last;
 
   /**
-   * To create a polygon we need atleast 3 separate points
-   *
-   * @param p1
-   * @param p2
-   * @param p3
+   * To create a polygon we need at least 3 separate points
    */
   public Polygon(PolygonPoint p1, PolygonPoint p2, PolygonPoint p3) {
     p1._next = p2;
@@ -111,9 +107,7 @@ class Polygon implements Triangulatable {
   }
 
   /**
-   * Requires atleast 3 points
-   *
-   * @param points
+   * Requires at least 3 points
    */
   public Polygon(PolygonPoint[] points) {
     this(Arrays.asList(points));
@@ -169,10 +163,6 @@ class Polygon implements Triangulatable {
 
   /**
    * Will insert a point in the polygon after given point
-   *
-   * @param a
-   * @param b
-   * @param p
    */
   public void insertPointAfter(PolygonPoint a, PolygonPoint newPoint) {
     // Validate that
@@ -207,8 +197,6 @@ class Polygon implements Triangulatable {
 
   /**
    * Will add a point after the last point added
-   *
-   * @param p
    */
   public void addPoint(PolygonPoint p) {
     p.setPrevious(_last);

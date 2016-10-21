@@ -72,9 +72,6 @@ class DTSweepConstraint extends TriangulationConstraint {
   /**
    * Give two points in any order. Will always be ordered so that q.y > p.y and
    * q.x > p.x if same y value
-   *
-   * @param p1
-   * @param p2
    */
   public DTSweepConstraint(TriangulationPoint p1, TriangulationPoint p2)
   // throws DuplicatePointException

@@ -103,8 +103,6 @@ class DTSweep {
 
   /**
    * Start sweeping the Y-sorted point set from bottom to top
-   *
-   * @param tcx
    */
   private static void sweep(DTSweepContext tcx) {
     List<TriangulationPoint> points;
@@ -133,8 +131,6 @@ class DTSweep {
   /**
    * If this is a Delaunay Triangulation of a pointset we need to fill so the
    * triangle mesh gets a ConvexHull
-   *
-   * @param tcx
    */
   private static void finalizationConvexHull(DTSweepContext tcx) {
     AdvancingFrontNode n1, n2;
@@ -260,10 +256,6 @@ class DTSweep {
   /**
    * Find closes node to the left of the new point and create a new triangle. If
    * needed new holes and basins will be filled to.
-   *
-   * @param tcx
-   * @param point
-   * @return
    */
   private static AdvancingFrontNode pointEvent(DTSweepContext tcx,
       TriangulationPoint point) {
@@ -288,11 +280,6 @@ class DTSweep {
 
   /**
    * Creates a new front triangle and legalize it
-   *
-   * @param tcx
-   * @param point
-   * @param node
-   * @return
    */
   private static AdvancingFrontNode newFrontTriangle(DTSweepContext tcx,
       TriangulationPoint point,
@@ -323,13 +310,6 @@ class DTSweep {
     return newNode;
   }
 
-  /**
-   *
-   *
-   * @param tcx
-   * @param edge
-   * @param node
-   */
   private static void edgeEvent(DTSweepContext tcx,
       DTSweepConstraint edge,
       AdvancingFrontNode node) {
@@ -660,12 +640,6 @@ class DTSweep {
   /**
    * When we need to traverse from one triangle to the next we need the point in
    * current triangle that is the opposite point to the next triangle.
-   *
-   * @param ep
-   * @param eq
-   * @param ot
-   * @param op
-   * @return
    */
   private static TriangulationPoint nextFlipPoint(TriangulationPoint ep,
       TriangulationPoint eq,
@@ -689,7 +663,6 @@ class DTSweep {
    * intersecting the edge. So decide which to contiune with and legalize the
    * other
    *
-   * @param tcx
    * @param o
    *          - should be the result of an orient2d( eq, op, ep )
    * @param t
@@ -731,15 +704,12 @@ class DTSweep {
    * is inside the flip triangle scan area. When found we generate a new
    * flipEdgeEvent
    *
-   * @param tcx
    * @param ep
    *          - last point on the edge we are traversing
    * @param eq
    *          - first point on the edge we are traversing
    * @param flipTriangle
    *          - the current triangle sharing the point eq with edge
-   * @param t
-   * @param p
    */
   private static void flipScanEdgeEvent(DTSweepContext tcx,
       TriangulationPoint ep,
@@ -782,10 +752,6 @@ class DTSweep {
 
   /**
    * Fills holes in the Advancing Front
-   *
-   *
-   * @param tcx
-   * @param n
    */
   private static void fillAdvancingFront(DTSweepContext tcx, AdvancingFrontNode n) {
     AdvancingFrontNode node;
@@ -821,7 +787,6 @@ class DTSweep {
   }
 
   /**
-   * @param node
    * @return true if hole angle exceeds 90 degrees
    */
   private static boolean isLargeHole(AdvancingFrontNode node) {
@@ -895,9 +860,8 @@ class DTSweep {
    * Fills a basin that has formed on the Advancing Front to the right of given
    * node.<br>
    * First we decide a left,bottom and right node that forms the boundaries of
-   * the basin. Then we do a reqursive fill.
+   * the basin. Then we do a recursive fill.
    *
-   * @param tcx
    * @param node
    *          - starting node, this or next node will be left node
    */
@@ -939,11 +903,8 @@ class DTSweep {
   /**
    * Recursive algorithm to fill a Basin with triangles
    *
-   * @param tcx
    * @param node
    *          - bottomNode
-   * @param cnt
-   *          - counter used to alternate on even and odd numbers
    */
   private static void fillBasinReq(DTSweepContext tcx, AdvancingFrontNode node) {
     // if shallow stop filling
@@ -992,9 +953,6 @@ class DTSweep {
   }
 
   /**
-   *
-   * @param node
-   *          - middle node
    * @return the angle between p-a and p-b in range [-pi,pi]
    */
   private static double angle(TriangulationPoint p,
@@ -1029,7 +987,6 @@ class DTSweep {
   /**
    * Adds a triangle to the advancing front to fill a hole.
    *
-   * @param tcx
    * @param node
    *          - middle node, that is the bottom of the hole
    */
