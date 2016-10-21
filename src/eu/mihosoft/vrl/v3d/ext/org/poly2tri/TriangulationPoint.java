@@ -111,7 +111,7 @@ abstract class TriangulationPoint extends Point
     {
         for( DTSweepConstraint c : edges )
         {
-            if( c.p == p )
+            if( c.pointP == p )
             {
                 return c;
             }

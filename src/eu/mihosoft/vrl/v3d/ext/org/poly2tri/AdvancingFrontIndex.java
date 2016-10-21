@@ -92,11 +92,11 @@ class AdvancingFrontIndex<A>
         return null;
     }
 
-    class IndexNode<A>
+    class IndexNode<V>
     {
-        A value;
-        IndexNode<A> smaller;
-        IndexNode<A> bigger;
+        V value;
+        IndexNode<V> smaller;
+        IndexNode<V> bigger;
         double range;
     }
 }

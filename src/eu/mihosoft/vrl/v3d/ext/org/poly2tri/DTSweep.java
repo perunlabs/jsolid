@@ -315,13 +315,13 @@ class DTSweep {
       AdvancingFrontNode node) {
     try {
       tcx.edgeEvent.constrainedEdge = edge;
-      tcx.edgeEvent.right = edge.p.getX() > edge.q.getX();
+      tcx.edgeEvent.right = edge.pointP.getX() > edge.pointQ.getX();
 
       if (tcx.isDebugEnabled()) {
         tcx.getDebugContext().setPrimaryTriangle(node.triangle);
       }
 
-      if (isEdgeSideOfTriangle(node.triangle, edge.p, edge.q)) {
+      if (isEdgeSideOfTriangle(node.triangle, edge.pointP, edge.pointQ)) {
         return;
       }
 
@@ -331,7 +331,7 @@ class DTSweep {
       // fills
       fillEdgeEvent(tcx, edge, node);
 
-      edgeEvent(tcx, edge.p, edge.q, node.triangle, edge.q);
+      edgeEvent(tcx, edge.pointP, edge.pointQ, node.triangle, edge.pointQ);
     } catch (PointOnEdgeException e) {
       System.out.println("Skipping edge: {}" + e.getMessage());
     }
@@ -349,9 +349,9 @@ class DTSweep {
   private static void fillRightConcaveEdgeEvent(DTSweepContext tcx, DTSweepConstraint edge,
       AdvancingFrontNode node) {
     fill(tcx, node.next);
-    if (node.next.point != edge.p) {
+    if (node.next.point != edge.pointP) {
       // Next above or below edge?
-      if (orient2d(edge.q, node.next.point, edge.p) == Orientation.CCW) {
+      if (orient2d(edge.pointQ, node.next.point, edge.pointP) == Orientation.CCW) {
         // Below
         if (orient2d(node.point, node.next.point, node.next.next.point) == Orientation.CCW) {
           // Next is concave
@@ -373,7 +373,7 @@ class DTSweep {
     } else {
       // Convex
       // Next above or below edge?
-      if (orient2d(edge.q, node.next.next.point, edge.p) == Orientation.CCW) {
+      if (orient2d(edge.pointQ, node.next.next.point, edge.pointP) == Orientation.CCW) {
         // Below
         fillRightConvexEdgeEvent(tcx, edge, node.next);
       } else {
@@ -387,7 +387,7 @@ class DTSweep {
     if (tcx.isDebugEnabled()) {
       tcx.getDebugContext().setActiveNode(node);
     }
-    if (node.point.getX() < edge.p.getX()) // needed?
+    if (node.point.getX() < edge.pointP.getX()) // needed?
     {
       if (orient2d(node.point, node.next.point, node.next.next.point) == Orientation.CCW) {
         // Concave
@@ -404,12 +404,12 @@ class DTSweep {
 
   private static void fillRightAboveEdgeEvent(DTSweepContext tcx, DTSweepConstraint edge,
       AdvancingFrontNode node) {
-    while (node.next.point.getX() < edge.p.getX()) {
+    while (node.next.point.getX() < edge.pointP.getX()) {
       if (tcx.isDebugEnabled()) {
         tcx.getDebugContext().setActiveNode(node);
       }
       // Check if next node is below the edge
-      Orientation o1 = orient2d(edge.q, node.next.point, edge.p);
+      Orientation o1 = orient2d(edge.pointQ, node.next.point, edge.pointP);
       if (o1 == Orientation.CCW) {
         fillRightBelowEdgeEvent(tcx, edge, node);
       } else {
@@ -428,7 +428,7 @@ class DTSweep {
     } else {
       // Convex
       // Next above or below edge?
-      if (orient2d(edge.q, node.prev.prev.point, edge.p) == Orientation.CW) {
+      if (orient2d(edge.pointQ, node.prev.prev.point, edge.pointP) == Orientation.CW) {
         // Below
         fillLeftConvexEdgeEvent(tcx, edge, node.prev);
       } else {
@@ -440,9 +440,9 @@ class DTSweep {
   private static void fillLeftConcaveEdgeEvent(DTSweepContext tcx, DTSweepConstraint edge,
       AdvancingFrontNode node) {
     fill(tcx, node.prev);
-    if (node.prev.point != edge.p) {
+    if (node.prev.point != edge.pointP) {
       // Next above or below edge?
-      if (orient2d(edge.q, node.prev.point, edge.p) == Orientation.CW) {
+      if (orient2d(edge.pointQ, node.prev.point, edge.pointP) == Orientation.CW) {
         // Below
         if (orient2d(node.point, node.prev.point, node.prev.prev.point) == Orientation.CW) {
           // Next is concave
@@ -459,7 +459,7 @@ class DTSweep {
     if (tcx.isDebugEnabled()) {
       tcx.getDebugContext().setActiveNode(node);
     }
-    if (node.point.getX() > edge.p.getX()) {
+    if (node.point.getX() > edge.pointP.getX()) {
       if (orient2d(node.point, node.prev.point, node.prev.prev.point) == Orientation.CW) {
         // Concave
         fillLeftConcaveEdgeEvent(tcx, edge, node);
@@ -475,12 +475,12 @@ class DTSweep {
 
   private static void fillLeftAboveEdgeEvent(DTSweepContext tcx, DTSweepConstraint edge,
       AdvancingFrontNode node) {
-    while (node.prev.point.getX() > edge.p.getX()) {
+    while (node.prev.point.getX() > edge.pointP.getX()) {
       if (tcx.isDebugEnabled()) {
         tcx.getDebugContext().setActiveNode(node);
       }
       // Check if next node is below the edge
-      Orientation o1 = orient2d(edge.q, node.prev.point, edge.p);
+      Orientation o1 = orient2d(edge.pointQ, node.prev.point, edge.pointP);
       if (o1 == Orientation.CW) {
         fillLeftBelowEdgeEvent(tcx, edge, node);
       } else {
@@ -528,7 +528,7 @@ class DTSweep {
         // We are modifying the constraint maybe it would be better to
         // not change the given constraint and just keep a variable for the new
         // constraint
-        tcx.edgeEvent.constrainedEdge.q = p1;
+        tcx.edgeEvent.constrainedEdge.pointQ = p1;
         triangle = triangle.neighborAcross(point);
         edgeEvent(tcx, ep, p1, triangle, p1);
       } else {
@@ -548,7 +548,7 @@ class DTSweep {
         // We are modifying the constraint maybe it would be better to
         // not change the given constraint and just keep a variable for the new
         // constraint
-        tcx.edgeEvent.constrainedEdge.q = p2;
+        tcx.edgeEvent.constrainedEdge.pointQ = p2;
         triangle = triangle.neighborAcross(point);
         edgeEvent(tcx, ep, p2, triangle, p2);
       } else {
@@ -607,8 +607,8 @@ class DTSweep {
       tcx.mapTriangleToNodes(ot);
 
       if (p == eq && op == ep) {
-        if (eq == tcx.edgeEvent.constrainedEdge.q
-            && ep == tcx.edgeEvent.constrainedEdge.p) {
+        if (eq == tcx.edgeEvent.constrainedEdge.pointQ
+            && ep == tcx.edgeEvent.constrainedEdge.pointP) {
           if (tcx.isDebugEnabled()) {
             System.out.println("[FLIP] - constrained edge done");
           } // TODO: remove

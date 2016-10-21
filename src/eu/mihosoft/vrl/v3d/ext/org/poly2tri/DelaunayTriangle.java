@@ -120,7 +120,7 @@ class DelaunayTriangle {
   }
 
   public boolean contains(DTSweepConstraint e) {
-    return (contains(e.p) && contains(e.q));
+    return (contains(e.pointP) && contains(e.pointQ));
   }
 
   public boolean contains(TriangulationPoint p, TriangulationPoint q) {
@@ -348,15 +348,15 @@ class DelaunayTriangle {
   }
 
   public void markConstrainedEdge(DTSweepConstraint edge) {
-    markConstrainedEdge(edge.p, edge.q);
-    if ((edge.q == points[0] && edge.p == points[1])
-        || (edge.q == points[1] && edge.p == points[0])) {
+    markConstrainedEdge(edge.pointP, edge.pointQ);
+    if ((edge.pointQ == points[0] && edge.pointP == points[1])
+        || (edge.pointQ == points[1] && edge.pointP == points[0])) {
       cEdge[2] = true;
-    } else if ((edge.q == points[0] && edge.p == points[2])
-        || (edge.q == points[2] && edge.p == points[0])) {
+    } else if ((edge.pointQ == points[0] && edge.pointP == points[2])
+        || (edge.pointQ == points[2] && edge.pointP == points[0])) {
       cEdge[1] = true;
-    } else if ((edge.q == points[1] && edge.p == points[2])
-        || (edge.q == points[2] && edge.p == points[1])) {
+    } else if ((edge.pointQ == points[1] && edge.pointP == points[2])
+        || (edge.pointQ == points[2] && edge.pointP == points[1])) {
       cEdge[0] = true;
     }
   }

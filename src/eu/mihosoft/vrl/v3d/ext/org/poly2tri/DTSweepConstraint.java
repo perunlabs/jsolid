@@ -66,8 +66,8 @@ package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
  *
  */
 class DTSweepConstraint extends TriangulationConstraint {
-  public TriangulationPoint p;
-  public TriangulationPoint q;
+  public TriangulationPoint pointP;
+  public TriangulationPoint pointQ;
 
   /**
    * Give two points in any order. Will always be ordered so that q.y > p.y and
@@ -76,22 +76,22 @@ class DTSweepConstraint extends TriangulationConstraint {
   public DTSweepConstraint(TriangulationPoint p1, TriangulationPoint p2)
   // throws DuplicatePointException
   {
-    p = p1;
-    q = p2;
+    pointP = p1;
+    pointQ = p2;
     if (p1.getY() > p2.getY()) {
-      q = p1;
-      p = p2;
+      pointQ = p1;
+      pointP = p2;
     } else if (p1.getY() == p2.getY()) {
       if (p1.getX() > p2.getX()) {
-        q = p1;
-        p = p2;
+        pointQ = p1;
+        pointP = p2;
       } else if (p1.getX() == p2.getX()) {
         System.out.println("Failed to create constraint " + p1 + "=" + p2);
         // throw new DuplicatePointException( p1 + "=" + p2 );
         // return;
       }
     }
-    q.addEdge(this);
+    pointQ.addEdge(this);
   }
 
   // public TPoint intersect( TPoint a, TPoint b )
@@ -109,11 +109,11 @@ class DTSweepConstraint extends TriangulationConstraint {
 
   @Override
   public TriangulationPoint getP() {
-    return p;
+    return pointP;
   }
 
   @Override
   public TriangulationPoint getQ() {
-    return q;
+    return pointQ;
   }
 }
