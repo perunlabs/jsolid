@@ -26,7 +26,7 @@
  * The views and conclusions contained in the software and documentation are those of the
  * authors and should not be interpreted as representing official policies, either expressed
  * or implied, of Michael Hoffer <info@michaelhoffer.de>.
- */ 
+ */
 
 package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
 /* Poly2Tri
@@ -60,87 +60,70 @@ package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+class Poly2Tri {
+  private static final TriangulationAlgorithm _defaultAlgorithm = TriangulationAlgorithm.DTSweep;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-class Poly2Tri
-{
-    private final static Logger logger = LoggerFactory.getLogger( Poly2Tri.class );
-
-    private static final TriangulationAlgorithm _defaultAlgorithm = TriangulationAlgorithm.DTSweep;
-    
-    public static void triangulate( PolygonSet ps )
-    {
-        TriangulationContext<?> tcx = createContext( _defaultAlgorithm );
-        for( Polygon p : ps.getPolygons() )
-        {
-            tcx.prepareTriangulation( p );
-            triangulate( tcx );            
-            tcx.clear();
-        }
+  public static void triangulate(PolygonSet ps) {
+    TriangulationContext<?> tcx = createContext(_defaultAlgorithm);
+    for (Polygon p : ps.getPolygons()) {
+      tcx.prepareTriangulation(p);
+      triangulate(tcx);
+      tcx.clear();
     }
+  }
 
-    public static void triangulate( Polygon p )
-    {
-        triangulate( _defaultAlgorithm, p );            
-    }
+  public static void triangulate(Polygon p) {
+    triangulate(_defaultAlgorithm, p);
+  }
 
-    public static void triangulate( ConstrainedPointSet cps )
-    {
-        triangulate( _defaultAlgorithm, cps );        
-    }
+  public static void triangulate(ConstrainedPointSet cps) {
+    triangulate(_defaultAlgorithm, cps);
+  }
 
-    public static void triangulate( PointSet ps )
-    {
-        triangulate( _defaultAlgorithm, ps );                
-    }
+  public static void triangulate(PointSet ps) {
+    triangulate(_defaultAlgorithm, ps);
+  }
 
-    public static TriangulationContext<?> createContext( TriangulationAlgorithm algorithm )
-    {
-        switch( algorithm )
-        {
-            case DTSweep:
-            default:
-                return new DTSweepContext();
-        }
+  public static TriangulationContext<?> createContext(TriangulationAlgorithm algorithm) {
+    switch (algorithm) {
+      case DTSweep:
+      default:
+        return new DTSweepContext();
     }
+  }
 
-    public static void triangulate( TriangulationAlgorithm algorithm,
-                                    Triangulatable t )
-    {
-        TriangulationContext<?> tcx;
-        
-//        long time = System.nanoTime();
-        tcx = createContext( algorithm );
-        tcx.prepareTriangulation( t );
-        triangulate( tcx );
-//        logger.info( "Triangulation of {} points [{}ms]", tcx.getPoints().size(), ( System.nanoTime() - time ) / 1e6 );
+  public static void triangulate(TriangulationAlgorithm algorithm,
+      Triangulatable t) {
+    TriangulationContext<?> tcx;
+
+    // long time = System.nanoTime();
+    tcx = createContext(algorithm);
+    tcx.prepareTriangulation(t);
+    triangulate(tcx);
+    // logger.info( "Triangulation of {} points [{}ms]", tcx.getPoints().size(),
+    // ( System.nanoTime() - time ) / 1e6 );
+  }
+
+  public static void triangulate(TriangulationContext<?> tcx) {
+    switch (tcx.algorithm()) {
+      case DTSweep:
+      default:
+        DTSweep.triangulate((DTSweepContext) tcx);
     }
-    
-    public static void triangulate( TriangulationContext<?> tcx )
-    {
-        switch( tcx.algorithm() )
-        {
-            case DTSweep:
-            default:
-               DTSweep.triangulate( (DTSweepContext)tcx );
-        }        
-    }
-    
-    /**
-     * Will do a warmup run to let the JVM optimize the triangulation code 
+  }
+
+  /**
+   * Will do a warmup run to let the JVM optimize the triangulation code
+   */
+  public static void warmup() {
+    /*
+     * After a method is run 10000 times, the Hotspot compiler will compile it
+     * into native code. Periodically, the Hotspot compiler may recompile the
+     * method. After an unspecified amount of time, then the compilation system
+     * should become quiet.
      */
-    public static void warmup()
-    {        
-        /*
-         * After a method is run 10000 times, the Hotspot compiler will compile
-         * it into native code. Periodically, the Hotspot compiler may recompile
-         * the method. After an unspecified amount of time, then the compilation
-         * system should become quiet.
-         */
-        Polygon poly = PolygonGenerator.RandomCircleSweep2( 50, 50000 );
-        TriangulationProcess process = new TriangulationProcess();
-        process.triangulate( poly );
-    }
+    Polygon poly = PolygonGenerator.RandomCircleSweep2(50, 50000);
+    TriangulationProcess process = new TriangulationProcess();
+    process.triangulate(poly);
+  }
 }

@@ -26,7 +26,7 @@
  * The views and conclusions contained in the software and documentation are those of the
  * authors and should not be interpreted as representing official policies, either expressed
  * or implied, of Michael Hoffer <info@michaelhoffer.de>.
- */ 
+ */
 
 package eu.mihosoft.vrl.v3d;
 
@@ -39,28 +39,22 @@ import java.util.List;
  */
 public interface Primitive {
 
-    /**
-     * Returns the polygons that define this primitive.
-     *
-     * <b>Note:</b> this method computes the polygons each time this method is
-     * called. The polygons can be cached inside a {@link CSG} object.
-     *
-     * @return al list of polygons that define this primitive
-     */
-    public List<Polygon> toPolygons();
+  /**
+   * Returns the polygons that define this primitive.
+   *
+   * <b>Note:</b> this method computes the polygons each time this method is
+   * called. The polygons can be cached inside a {@link CSG} object.
+   *
+   * @return al list of polygons that define this primitive
+   */
+  public List<Polygon> toPolygons();
 
-    /**
-     * Returns this primitive as {@link CSG}.
-     *
-     * @return this primitive as {@link CSG}
-     */
-    public default CSG toCSG() {
-        return CSG.fromPolygons(getProperties(),toPolygons());
-    }
-    
-    /**
-     * Returns the property storage of this primitive.
-     * @return the property storage of this primitive
-     */
-    public PropertyStorage getProperties();
+  /**
+   * Returns this primitive as {@link CSG}.
+   *
+   * @return this primitive as {@link CSG}
+   */
+  public default CSG toCSG() {
+    return CSG.fromPolygons(toPolygons());
+  }
 }

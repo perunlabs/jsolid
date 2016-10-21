@@ -44,145 +44,145 @@ import java.util.List;
  */
 public class Cube implements Primitive {
 
-    /**
-     * Center of this cube.
-     */
-    private Vector3d center;
-    /**
-     * Cube dimensions.
-     */
-    private Vector3d dimensions;
+  /**
+   * Center of this cube.
+   */
+  private Vector3d center;
+  /**
+   * Cube dimensions.
+   */
+  private Vector3d dimensions;
 
-    private boolean centered = true;
+  private boolean centered = true;
 
-    private final PropertyStorage properties = new PropertyStorage();
+  /**
+   * Constructor. Creates a new cube with center {@code [0,0,0]} and dimensions
+   * {@code [1,1,1]}.
+   */
+  public Cube() {
+    center = new Vector3d(0, 0, 0);
+    dimensions = new Vector3d(1, 1, 1);
+  }
 
-    /**
-     * Constructor. Creates a new cube with center {@code [0,0,0]} and
-     * dimensions {@code [1,1,1]}.
-     */
-    public Cube() {
-        center = new Vector3d(0, 0, 0);
-        dimensions = new Vector3d(1, 1, 1);
+  /**
+   * Constructor. Creates a new cube with center {@code [0,0,0]} and dimensions
+   * {@code [size,size,size]}.
+   *
+   * @param size
+   *          size
+   */
+  public Cube(double size) {
+    center = new Vector3d(0, 0, 0);
+    dimensions = new Vector3d(size, size, size);
+  }
+
+  /**
+   * Constructor. Creates a new cuboid with the specified center and dimensions.
+   *
+   * @param center
+   *          center of the cuboid
+   * @param dimensions
+   *          cube dimensions
+   */
+  public Cube(Vector3d center, Vector3d dimensions) {
+    this.center = center;
+    this.dimensions = dimensions;
+  }
+
+  /**
+   * Constructor. Creates a new cuboid with center {@code [0,0,0]} and with the
+   * specified dimensions.
+   *
+   * @param w
+   *          width
+   * @param h
+   *          height
+   * @param d
+   *          depth
+   */
+  public Cube(double w, double h, double d) {
+    this(Vector3d.ZERO, new Vector3d(w, h, d));
+  }
+
+  @Override
+  public List<Polygon> toPolygons() {
+
+    int[][][] a = {
+        // position // normal
+        { { 0, 4, 6, 2 }, { -1, 0, 0 } },
+        { { 1, 3, 7, 5 }, { +1, 0, 0 } },
+        { { 0, 1, 5, 4 }, { 0, -1, 0 } },
+        { { 2, 6, 7, 3 }, { 0, +1, 0 } },
+        { { 0, 2, 3, 1 }, { 0, 0, -1 } },
+        { { 4, 5, 7, 6 }, { 0, 0, +1 } }
+    };
+    List<Polygon> polygons = new ArrayList<>();
+    for (int[][] info : a) {
+      List<Vertex> vertices = new ArrayList<>();
+      for (int i : info[0]) {
+        Vector3d pos = new Vector3d(
+            center.x + dimensions.x * (1 * Math.min(1, i & 1) - 0.5),
+            center.y + dimensions.y * (1 * Math.min(1, i & 2) - 0.5),
+            center.z + dimensions.z * (1 * Math.min(1, i & 4) - 0.5));
+        vertices.add(new Vertex(pos, new Vector3d(
+            info[1][0],
+            info[1][1],
+            info[1][2])));
+      }
+      polygons.add(new Polygon(vertices));
     }
 
-    /**
-     * Constructor. Creates a new cube with center {@code [0,0,0]} and
-     * dimensions {@code [size,size,size]}.
-     *
-     * @param size size
-     */
-    public Cube(double size) {
-        center = new Vector3d(0, 0, 0);
-        dimensions = new Vector3d(size, size, size);
+    if (!centered) {
+
+      Transform centerTransform = Transform.unity().translate(dimensions.x / 2.0, dimensions.y
+          / 2.0, dimensions.z / 2.0);
+
+      for (Polygon p : polygons) {
+        p.transform(centerTransform);
+      }
     }
 
-    /**
-     * Constructor. Creates a new cuboid with the specified center and
-     * dimensions.
-     *
-     * @param center center of the cuboid
-     * @param dimensions cube dimensions
-     */
-    public Cube(Vector3d center, Vector3d dimensions) {
-        this.center = center;
-        this.dimensions = dimensions;
-    }
+    return polygons;
+  }
 
-    /**
-     * Constructor. Creates a new cuboid with center {@code [0,0,0]} and with
-     * the specified dimensions.
-     *
-     * @param w width
-     * @param h height
-     * @param d depth
-     */
-    public Cube(double w, double h, double d) {
-        this(Vector3d.ZERO, new Vector3d(w, h, d));
-    }
+  /**
+   * @return the center
+   */
+  public Vector3d getCenter() {
+    return center;
+  }
 
-    @Override
-    public List<Polygon> toPolygons() {
+  /**
+   * @param center
+   *          the center to set
+   */
+  public void setCenter(Vector3d center) {
+    this.center = center;
+  }
 
-        int[][][] a = {
-            // position     // normal
-            {{0, 4, 6, 2}, {-1, 0, 0}},
-            {{1, 3, 7, 5}, {+1, 0, 0}},
-            {{0, 1, 5, 4}, {0, -1, 0}},
-            {{2, 6, 7, 3}, {0, +1, 0}},
-            {{0, 2, 3, 1}, {0, 0, -1}},
-            {{4, 5, 7, 6}, {0, 0, +1}}
-        };
-        List<Polygon> polygons = new ArrayList<>();
-        for (int[][] info : a) {
-            List<Vertex> vertices = new ArrayList<>();
-            for (int i : info[0]) {
-                Vector3d pos = new Vector3d(
-                        center.x + dimensions.x * (1 * Math.min(1, i & 1) - 0.5),
-                        center.y + dimensions.y * (1 * Math.min(1, i & 2) - 0.5),
-                        center.z + dimensions.z * (1 * Math.min(1, i & 4) - 0.5)
-                );
-                vertices.add(new Vertex(pos, new Vector3d(
-                        (double) info[1][0],
-                        (double) info[1][1],
-                        (double) info[1][2]
-                )));
-            }
-            polygons.add(new Polygon(vertices, properties));
-        }
+  /**
+   * @return the dimensions
+   */
+  public Vector3d getDimensions() {
+    return dimensions;
+  }
 
-        if (!centered) {
+  /**
+   * @param dimensions
+   *          the dimensions to set
+   */
+  public void setDimensions(Vector3d dimensions) {
+    this.dimensions = dimensions;
+  }
 
-            Transform centerTransform = Transform.unity().translate(dimensions.x / 2.0, dimensions.y / 2.0, dimensions.z / 2.0);
-
-            for (Polygon p : polygons) {
-                p.transform(centerTransform);
-            }
-        }
-
-        return polygons;
-    }
-
-    /**
-     * @return the center
-     */
-    public Vector3d getCenter() {
-        return center;
-    }
-
-    /**
-     * @param center the center to set
-     */
-    public void setCenter(Vector3d center) {
-        this.center = center;
-    }
-
-    /**
-     * @return the dimensions
-     */
-    public Vector3d getDimensions() {
-        return dimensions;
-    }
-
-    /**
-     * @param dimensions the dimensions to set
-     */
-    public void setDimensions(Vector3d dimensions) {
-        this.dimensions = dimensions;
-    }
-
-    @Override
-    public PropertyStorage getProperties() {
-        return properties;
-    }
-
-    /**
-     * Defines that this cube will not be centered.
-     * @return this cube
-     */
-    public Cube noCenter() {
-        centered = false;
-        return this;
-    }
+  /**
+   * Defines that this cube will not be centered.
+   *
+   * @return this cube
+   */
+  public Cube noCenter() {
+    centered = false;
+    return this;
+  }
 
 }

@@ -35,9 +35,7 @@ package eu.mihosoft.vrl.v3d;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -101,11 +99,8 @@ public class CSG {
   private List<Polygon> polygons;
   private static OptType defaultOptType = OptType.NONE;
   private OptType optType = null;
-  private PropertyStorage storage;
 
-  private CSG() {
-    storage = new PropertyStorage();
-  }
+  private CSG() {}
 
   /**
    * Constructs a CSG from a list of {@link Polygon} instances.
@@ -115,10 +110,8 @@ public class CSG {
    * @return a CSG instance
    */
   public static CSG fromPolygons(List<Polygon> polygons) {
-
     CSG csg = new CSG();
     csg.polygons = polygons;
-
     return csg;
   }
 
@@ -131,42 +124,6 @@ public class CSG {
    */
   public static CSG fromPolygons(Polygon... polygons) {
     return fromPolygons(Arrays.asList(polygons));
-  }
-
-  /**
-   * Constructs a CSG from a list of {@link Polygon} instances.
-   *
-   * @param storage
-   *          shared storage
-   * @param polygons
-   *          polygons
-   * @return a CSG instance
-   */
-  public static CSG fromPolygons(PropertyStorage storage, List<Polygon> polygons) {
-
-    CSG csg = new CSG();
-    csg.polygons = polygons;
-
-    csg.storage = storage;
-
-    for (Polygon polygon : polygons) {
-      polygon.setStorage(storage);
-    }
-
-    return csg;
-  }
-
-  /**
-   * Constructs a CSG from the specified {@link Polygon} instances.
-   *
-   * @param storage
-   *          shared storage
-   * @param polygons
-   *          polygons
-   * @return a CSG instance
-   */
-  public static CSG fromPolygons(PropertyStorage storage, Polygon... polygons) {
-    return fromPolygons(storage, Arrays.asList(polygons));
   }
 
   @Override
@@ -359,8 +316,7 @@ public class CSG {
    * @return the convex hull of this csg
    */
   public CSG hull() {
-
-    return HullUtil.hull(this, storage);
+    return HullUtil.hull(this);
   }
 
   /**
@@ -371,9 +327,7 @@ public class CSG {
    * @return the convex hull of this csg and the specified csgs
    */
   public CSG hull(List<CSG> csgs) {
-
     CSG csgsUnion = new CSG();
-    csgsUnion.storage = storage;
     csgsUnion.optType = optType;
     csgsUnion.polygons = this.clone().polygons;
 
@@ -381,16 +335,7 @@ public class CSG {
       csgsUnion.polygons.addAll(csg.clone().polygons);
     });
 
-    csgsUnion.polygons.forEach(p -> p.setStorage(storage));
     return csgsUnion.hull();
-
-    // CSG csgsUnion = this;
-    //
-    // for (CSG csg : csgs) {
-    // csgsUnion = csgsUnion.union(csg);
-    // }
-    //
-    // return csgsUnion.hull();
   }
 
   /**
@@ -805,15 +750,10 @@ public class CSG {
     objSb.append("g v3d.csg\n");
 
     class PolygonStruct {
-
-      PropertyStorage storage;
       List<Integer> indices;
-      String materialName;
 
-      public PolygonStruct(PropertyStorage storage, List<Integer> indices, String materialName) {
-        this.storage = storage;
+      public PolygonStruct(List<Integer> indices) {
         this.indices = indices;
-        this.materialName = materialName;
       }
     }
 
@@ -821,10 +761,6 @@ public class CSG {
     List<PolygonStruct> indices = new ArrayList<>();
 
     objSb.append("\n# Vertices\n");
-
-    Map<PropertyStorage, Integer> materialNames = new HashMap<>();
-
-    int materialIndex = 0;
 
     for (Polygon p : polygons) {
       List<Integer> polyIndices = new ArrayList<>();
@@ -839,25 +775,12 @@ public class CSG {
         }
       });
 
-      if (!materialNames.containsKey(p.getStorage())) {
-        materialIndex++;
-        materialNames.put(p.getStorage(), materialIndex);
-        p.getStorage().set("material:name", materialIndex);
-      }
-
-      indices.add(new PolygonStruct(
-          p.getStorage(), polyIndices,
-          "material-" + materialNames.get(p.getStorage())));
+      indices.add(new PolygonStruct(polyIndices));
     }
 
     objSb.append("\n# Faces").append("\n");
 
     for (PolygonStruct ps : indices) {
-
-      // add mtl info
-      ps.storage.getValue("material:color").ifPresent(
-          (v) -> objSb.append("usemtl ").append(ps.materialName).append("\n"));
-
       // we triangulate the polygon to ensure
       // compatibility with 3d printer software
       List<Integer> pVerts = ps.indices;
@@ -872,16 +795,7 @@ public class CSG {
     }
 
     objSb.append("\n# End Group v3d.csg").append("\n");
-
     StringBuilder mtlSb = new StringBuilder();
-
-    materialNames.keySet().forEach(s -> {
-      if (s.contains("material:color")) {
-        mtlSb.append("newmtl material-").append(s.getValue("material:name").get()).append("\n");
-        mtlSb.append("Kd ").append(s.getValue("material:color").get()).append("\n");
-      }
-    });
-
     return new ObjFile(objSb.toString(), mtlSb.toString());
   }
 
@@ -897,15 +811,10 @@ public class CSG {
     sb.append("g v3d.csg\n");
 
     class PolygonStruct {
-
-      PropertyStorage storage;
       List<Integer> indices;
-      String materialName;
 
-      public PolygonStruct(PropertyStorage storage, List<Integer> indices, String materialName) {
-        this.storage = storage;
+      public PolygonStruct(List<Integer> indices) {
         this.indices = indices;
-        this.materialName = materialName;
       }
     }
 
@@ -982,8 +891,6 @@ public class CSG {
         p -> p.transformed(transform)).collect(Collectors.toList());
 
     CSG result = CSG.fromPolygons(newpolygons).optimization(getOptType());
-
-    result.storage = storage;
 
     return result;
   }

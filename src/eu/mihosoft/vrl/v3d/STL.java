@@ -27,42 +27,47 @@
  * The views and conclusions contained in the software and documentation are those of the
  * authors and should not be interpreted as representing official policies, either expressed
  * or implied, of Michael Hoffer <info@michaelhoffer.de>.
- */ 
+ */
 
 package eu.mihosoft.vrl.v3d;
 
-import eu.mihosoft.vrl.v3d.ext.imagej.STLLoader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.vecmath.Point3f;
+
+import eu.mihosoft.vrl.v3d.ext.imagej.STLLoader;
 
 /**
  * Loads a CSG from stl.
- * 
+ *
  * @author Michael Hoffer &lt;info@michaelhoffer.de&gt;
  */
 public class STL {
-    /**
-     * Loads a CSG from stl.
-     * @param path file path
-     * @return CSG
-     * @throws IOException if loading failed
-     */
-    public static CSG file(Path path) throws IOException {
-        STLLoader loader = new STLLoader();
-        
-        List<Polygon> polygons = new ArrayList<>();
-        List<Vector3d> vertices = new ArrayList<>();
-        for(Point3f p :loader.parse(path.toFile())) {
-            vertices.add(new Vector3d(p.x, p.y, p.z));
-            if (vertices.size()==3) {
-                polygons.add(Polygon.fromPoints(vertices));
-                vertices = new ArrayList<>();
-            }
-        }
-        
-        return CSG.fromPolygons(new PropertyStorage(),polygons);
+  /**
+   * Loads a CSG from stl.
+   * 
+   * @param path
+   *          file path
+   * @return CSG
+   * @throws IOException
+   *           if loading failed
+   */
+  public static CSG file(Path path) throws IOException {
+    STLLoader loader = new STLLoader();
+
+    List<Polygon> polygons = new ArrayList<>();
+    List<Vector3d> vertices = new ArrayList<>();
+    for (Point3f p : loader.parse(path.toFile())) {
+      vertices.add(new Vector3d(p.x, p.y, p.z));
+      if (vertices.size() == 3) {
+        polygons.add(Polygon.fromPoints(vertices));
+        vertices = new ArrayList<>();
+      }
     }
+
+    return CSG.fromPolygons(polygons);
+  }
 }

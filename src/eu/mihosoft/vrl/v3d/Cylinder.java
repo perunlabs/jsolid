@@ -46,225 +46,231 @@ import java.util.List;
  */
 public class Cylinder implements Primitive {
 
-    private Vector3d start;
-    private Vector3d end;
-    private double startRadius;
-    private double endRadius;
-    private int numSlices;
+  private Vector3d start;
+  private Vector3d end;
+  private double startRadius;
+  private double endRadius;
+  private int numSlices;
 
-    private final PropertyStorage properties = new PropertyStorage();
+  /**
+   * Constructor. Creates a new cylinder with center {@code [0,0,0]} and ranging
+   * from {@code [0,-0.5,0]} to {@code [0,0.5,0]}, i.e. {@code size = 1}.
+   */
+  public Cylinder() {
+    this.start = new Vector3d(0, -0.5, 0);
+    this.end = new Vector3d(0, 0.5, 0);
+    this.startRadius = 1;
+    this.endRadius = 1;
+    this.numSlices = 16;
+  }
 
-    /**
-     * Constructor. Creates a new cylinder with center {@code [0,0,0]} and
-     * ranging from {@code [0,-0.5,0]} to {@code [0,0.5,0]}, i.e.
-     * {@code size = 1}.
-     */
-    public Cylinder() {
-        this.start = new Vector3d(0, -0.5, 0);
-        this.end = new Vector3d(0, 0.5, 0);
-        this.startRadius = 1;
-        this.endRadius = 1;
-        this.numSlices = 16;
+  /**
+   * Constructor. Creates a cylinder ranging from {@code start} to {@code end}
+   * with the specified {@code radius}. The resolution of the tessellation can
+   * be controlled with {@code numSlices}.
+   *
+   * @param start
+   *          cylinder start
+   * @param end
+   *          cylinder end
+   * @param radius
+   *          cylinder radius
+   * @param numSlices
+   *          number of slices (used for tessellation)
+   */
+  public Cylinder(Vector3d start, Vector3d end, double radius, int numSlices) {
+    this.start = start;
+    this.end = end;
+    this.startRadius = radius;
+    this.endRadius = radius;
+    this.numSlices = numSlices;
+  }
+
+  /**
+   * Constructor. Creates a cylinder ranging from {@code start} to {@code end}
+   * with the specified {@code radius}. The resolution of the tessellation can
+   * be controlled with {@code numSlices}.
+   *
+   * @param start
+   *          cylinder start
+   * @param end
+   *          cylinder end
+   * @param startRadius
+   *          cylinder start radius
+   * @param endRadius
+   *          cylinder end radius
+   * @param numSlices
+   *          number of slices (used for tessellation)
+   */
+  public Cylinder(Vector3d start, Vector3d end, double startRadius, double endRadius,
+      int numSlices) {
+    this.start = start;
+    this.end = end;
+    this.startRadius = startRadius;
+    this.endRadius = endRadius;
+    this.numSlices = numSlices;
+  }
+
+  /**
+   * Constructor. Creates a cylinder ranging from {@code [0,0,0]} to
+   * {@code [0,0,height]} with the specified {@code radius} and {@code height}.
+   * The resolution of the tessellation can be controlled with
+   * {@code numSlices}.
+   *
+   * @param radius
+   *          cylinder radius
+   * @param height
+   *          cylinder height
+   * @param numSlices
+   *          number of slices (used for tessellation)
+   */
+  public Cylinder(double radius, double height, int numSlices) {
+    this.start = Vector3d.ZERO;
+    this.end = Vector3d.Z_ONE.times(height);
+    this.startRadius = radius;
+    this.endRadius = radius;
+    this.numSlices = numSlices;
+  }
+
+  /**
+   * Constructor. Creates a cylinder ranging from {@code [0,0,0]} to
+   * {@code [0,0,height]} with the specified {@code radius} and {@code height}.
+   * The resolution of the tessellation can be controlled with
+   * {@code numSlices}.
+   *
+   * @param startRadius
+   *          cylinder start radius
+   * @param endRadius
+   *          cylinder end radius
+   * @param height
+   *          cylinder height
+   * @param numSlices
+   *          number of slices (used for tessellation)
+   */
+  public Cylinder(double startRadius, double endRadius, double height, int numSlices) {
+    this.start = Vector3d.ZERO;
+    this.end = Vector3d.Z_ONE.times(height);
+    this.startRadius = startRadius;
+    this.endRadius = endRadius;
+    this.numSlices = numSlices;
+  }
+
+  @Override
+  public List<Polygon> toPolygons() {
+    final Vector3d s = getStart();
+    Vector3d e = getEnd();
+    final Vector3d ray = e.minus(s);
+    final Vector3d axisZ = ray.normalized();
+    boolean isY = (Math.abs(axisZ.y) > 0.5);
+    final Vector3d axisX = new Vector3d(isY ? 1 : 0, !isY ? 1 : 0, 0).cross(axisZ).normalized();
+    final Vector3d axisY = axisX.cross(axisZ).normalized();
+    Vertex startV = new Vertex(s, axisZ.negated());
+    Vertex endV = new Vertex(e, axisZ.normalized());
+    List<Polygon> polygons = new ArrayList<>();
+
+    for (int i = 0; i < numSlices; i++) {
+      double t0 = i / (double) numSlices, t1 = (i + 1) / (double) numSlices;
+      polygons.add(new Polygon(Arrays.asList(
+          startV,
+          cylPoint(axisX, axisY, axisZ, ray, s, startRadius, 0, t0, -1),
+          cylPoint(axisX, axisY, axisZ, ray, s, startRadius, 0, t1, -1))));
+      polygons.add(new Polygon(Arrays.asList(
+          cylPoint(axisX, axisY, axisZ, ray, s, startRadius, 0, t1, 0),
+          cylPoint(axisX, axisY, axisZ, ray, s, startRadius, 0, t0, 0),
+          cylPoint(axisX, axisY, axisZ, ray, s, endRadius, 1, t0, 0),
+          cylPoint(axisX, axisY, axisZ, ray, s, endRadius, 1, t1, 0))));
+      polygons.add(new Polygon(
+          Arrays.asList(
+              endV,
+              cylPoint(axisX, axisY, axisZ, ray, s, endRadius, 1, t1, 1),
+              cylPoint(axisX, axisY, axisZ, ray, s, endRadius, 1, t0, 1))));
     }
 
-    /**
-     * Constructor. Creates a cylinder ranging from {@code start} to {@code end}
-     * with the specified {@code radius}. The resolution of the tessellation can
-     * be controlled with {@code numSlices}.
-     *
-     * @param start cylinder start
-     * @param end cylinder end
-     * @param radius cylinder radius
-     * @param numSlices number of slices (used for tessellation)
-     */
-    public Cylinder(Vector3d start, Vector3d end, double radius, int numSlices) {
-        this.start = start;
-        this.end = end;
-        this.startRadius = radius;
-        this.endRadius = radius;
-        this.numSlices = numSlices;
-    }
+    return polygons;
+  }
 
-    /**
-     * Constructor. Creates a cylinder ranging from {@code start} to {@code end}
-     * with the specified {@code radius}. The resolution of the tessellation can
-     * be controlled with {@code numSlices}.
-     *
-     * @param start cylinder start
-     * @param end cylinder end
-     * @param startRadius cylinder start radius
-     * @param endRadius cylinder end radius
-     * @param numSlices number of slices (used for tessellation)
-     */
-    public Cylinder(Vector3d start, Vector3d end, double startRadius, double endRadius, int numSlices) {
-        this.start = start;
-        this.end = end;
-        this.startRadius = startRadius;
-        this.endRadius = endRadius;
-        this.numSlices = numSlices;
-    }
+  private Vertex cylPoint(
+      Vector3d axisX, Vector3d axisY, Vector3d axisZ, Vector3d ray, Vector3d s,
+      double r, double stack, double slice, double normalBlend) {
+    double angle = slice * Math.PI * 2;
+    Vector3d out = axisX.times(Math.cos(angle)).plus(axisY.times(Math.sin(angle)));
+    Vector3d pos = s.plus(ray.times(stack)).plus(out.times(r));
+    Vector3d normal = out.times(1.0 - Math.abs(normalBlend)).plus(axisZ.times(normalBlend));
+    return new Vertex(pos, normal);
+  }
 
-    /**
-     * Constructor. Creates a cylinder ranging from {@code [0,0,0]} to
-     * {@code [0,0,height]} with the specified {@code radius} and
-     * {@code height}. The resolution of the tessellation can be controlled with
-     * {@code numSlices}.
-     *
-     * @param radius cylinder radius
-     * @param height cylinder height
-     * @param numSlices number of slices (used for tessellation)
-     */
-    public Cylinder(double radius, double height, int numSlices) {
-        this.start = Vector3d.ZERO;
-        this.end = Vector3d.Z_ONE.times(height);
-        this.startRadius = radius;
-        this.endRadius = radius;
-        this.numSlices = numSlices;
-    }
+  /**
+   * @return the start
+   */
+  public Vector3d getStart() {
+    return start;
+  }
 
-    /**
-     * Constructor. Creates a cylinder ranging from {@code [0,0,0]} to
-     * {@code [0,0,height]} with the specified {@code radius} and
-     * {@code height}. The resolution of the tessellation can be controlled with
-     * {@code numSlices}.
-     *
-     * @param startRadius cylinder start radius
-     * @param endRadius cylinder end radius
-     * @param height cylinder height
-     * @param numSlices number of slices (used for tessellation)
-     */
-    public Cylinder(double startRadius, double endRadius, double height, int numSlices) {
-        this.start = Vector3d.ZERO;
-        this.end = Vector3d.Z_ONE.times(height);
-        this.startRadius = startRadius;
-        this.endRadius = endRadius;
-        this.numSlices = numSlices;
-    }
+  /**
+   * @param start
+   *          the start to set
+   */
+  public void setStart(Vector3d start) {
+    this.start = start;
+  }
 
-    @Override
-    public List<Polygon> toPolygons() {
-        final Vector3d s = getStart();
-        Vector3d e = getEnd();
-        final Vector3d ray = e.minus(s);
-        final Vector3d axisZ = ray.normalized();
-        boolean isY = (Math.abs(axisZ.y) > 0.5);
-        final Vector3d axisX = new Vector3d(isY ? 1 : 0, !isY ? 1 : 0, 0).
-                cross(axisZ).normalized();
-        final Vector3d axisY = axisX.cross(axisZ).normalized();
-        Vertex startV = new Vertex(s, axisZ.negated());
-        Vertex endV = new Vertex(e, axisZ.normalized());
-        List<Polygon> polygons = new ArrayList<>();
+  /**
+   * @return the end
+   */
+  public Vector3d getEnd() {
+    return end;
+  }
 
-        for (int i = 0; i < numSlices; i++) {
-            double t0 = i / (double) numSlices, t1 = (i + 1) / (double) numSlices;
-            polygons.add(new Polygon(Arrays.asList(
-                    startV,
-                    cylPoint(axisX, axisY, axisZ, ray, s, startRadius, 0, t0, -1),
-                    cylPoint(axisX, axisY, axisZ, ray, s, startRadius, 0, t1, -1)),
-                    properties
-            ));
-            polygons.add(new Polygon(Arrays.asList(
-                    cylPoint(axisX, axisY, axisZ, ray, s, startRadius, 0, t1, 0),
-                    cylPoint(axisX, axisY, axisZ, ray, s, startRadius, 0, t0, 0),
-                    cylPoint(axisX, axisY, axisZ, ray, s, endRadius, 1, t0, 0),
-                    cylPoint(axisX, axisY, axisZ, ray, s, endRadius, 1, t1, 0)),
-                    properties
-            ));
-            polygons.add(new Polygon(
-                    Arrays.asList(
-                            endV,
-                            cylPoint(axisX, axisY, axisZ, ray, s, endRadius, 1, t1, 1),
-                            cylPoint(axisX, axisY, axisZ, ray, s, endRadius, 1, t0, 1)),
-                    properties
-            ));
-        }
+  /**
+   * @param end
+   *          the end to set
+   */
+  public void setEnd(Vector3d end) {
+    this.end = end;
+  }
 
-        return polygons;
-    }
+  /**
+   * @return the radius
+   */
+  public double getStartRadius() {
+    return startRadius;
+  }
 
-    private Vertex cylPoint(
-            Vector3d axisX, Vector3d axisY, Vector3d axisZ, Vector3d ray, Vector3d s,
-            double r, double stack, double slice, double normalBlend) {
-        double angle = slice * Math.PI * 2;
-        Vector3d out = axisX.times(Math.cos(angle)).plus(axisY.times(Math.sin(angle)));
-        Vector3d pos = s.plus(ray.times(stack)).plus(out.times(r));
-        Vector3d normal = out.times(1.0 - Math.abs(normalBlend)).plus(axisZ.times(normalBlend));
-        return new Vertex(pos, normal);
-    }
+  /**
+   * @param radius
+   *          the radius to set
+   */
+  public void setStartRadius(double radius) {
+    this.startRadius = radius;
+  }
 
-    /**
-     * @return the start
-     */
-    public Vector3d getStart() {
-        return start;
-    }
+  /**
+   * @return the radius
+   */
+  public double getEndRadius() {
+    return endRadius;
+  }
 
-    /**
-     * @param start the start to set
-     */
-    public void setStart(Vector3d start) {
-        this.start = start;
-    }
+  /**
+   * @param radius
+   *          the radius to set
+   */
+  public void setEndRadius(double radius) {
+    this.endRadius = radius;
+  }
 
-    /**
-     * @return the end
-     */
-    public Vector3d getEnd() {
-        return end;
-    }
+  /**
+   * @return the number of slices
+   */
+  public int getNumSlices() {
+    return numSlices;
+  }
 
-    /**
-     * @param end the end to set
-     */
-    public void setEnd(Vector3d end) {
-        this.end = end;
-    }
-
-    /**
-     * @return the radius
-     */
-    public double getStartRadius() {
-        return startRadius;
-    }
-
-    /**
-     * @param radius the radius to set
-     */
-    public void setStartRadius(double radius) {
-        this.startRadius = radius;
-    }
-
-    /**
-     * @return the radius
-     */
-    public double getEndRadius() {
-        return endRadius;
-    }
-
-    /**
-     * @param radius the radius to set
-     */
-    public void setEndRadius(double radius) {
-        this.endRadius = radius;
-    }
-
-    /**
-     * @return the number of slices
-     */
-    public int getNumSlices() {
-        return numSlices;
-    }
-
-    /**
-     * @param numSlices the number of slices to set
-     */
-    public void setNumSlices(int numSlices) {
-        this.numSlices = numSlices;
-    }
-
-    @Override
-    public PropertyStorage getProperties() {
-        return properties;
-    }
-
+  /**
+   * @param numSlices
+   *          the number of slices to set
+   */
+  public void setNumSlices(int numSlices) {
+    this.numSlices = numSlices;
+  }
 }
