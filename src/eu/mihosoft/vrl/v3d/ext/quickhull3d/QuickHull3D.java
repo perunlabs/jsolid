@@ -417,13 +417,6 @@ class QuickHull3D {
     }
   }
 
-  private void printPoints(PrintStream ps) {
-    for (int i = 0; i < numPoints; i++) {
-      Point3d pnt = pointBuffer[i].pnt;
-      ps.println(pnt.x + ", " + pnt.y + ", " + pnt.z + ",");
-    }
-  }
-
   /**
    * Constructs the convex hull of a set of points whose coordinates are given
    * by an array of doubles.
@@ -1022,7 +1015,6 @@ class QuickHull3D {
     do {
       Face oppFace = hedge.oppositeFace();
       boolean merge = false;
-      double dist1, dist2;
 
       if (mergeType == NONCONVEX) { // then merge faces if they are definitively
                                     // non-convex
@@ -1035,7 +1027,7 @@ class QuickHull3D {
         // wrt to the larger face; otherwise, just mark
         // the face non-convex for the second pass.
         if (face.area > oppFace.area) {
-          if ((dist1 = oppFaceDistance(hedge)) > -tolerance) {
+          if ((oppFaceDistance(hedge)) > -tolerance) {
             merge = true;
           } else if (oppFaceDistance(hedge.opposite) > -tolerance) {
             convex = false;
@@ -1178,9 +1170,7 @@ class QuickHull3D {
 
     for (Face face = newFaces.first(); face != null; face = face.next) {
       if (face.mark == Face.VISIBLE) {
-        while (doAdjacentMerge(face, NONCONVEX_WRT_LARGER_FACE)) {
-          ;
-        }
+        while (doAdjacentMerge(face, NONCONVEX_WRT_LARGER_FACE)) {}
       }
     }
     // second merge pass ... merge faces which are non-convex
@@ -1188,9 +1178,7 @@ class QuickHull3D {
     for (Face face = newFaces.first(); face != null; face = face.next) {
       if (face.mark == Face.NON_CONVEX) {
         face.mark = Face.VISIBLE;
-        while (doAdjacentMerge(face, NONCONVEX)) {
-          ;
-        }
+        while (doAdjacentMerge(face, NONCONVEX)) {}
       }
     }
     resolveUnclaimedPoints(newFaces);

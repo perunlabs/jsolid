@@ -810,16 +810,7 @@ public class CSG {
     sb.append("# Group").append("\n");
     sb.append("g v3d.csg\n");
 
-    class PolygonStruct {
-      List<Integer> indices;
-
-      public PolygonStruct(List<Integer> indices) {
-        this.indices = indices;
-      }
-    }
-
     List<Vertex> vertices = new ArrayList<>();
-    List<PolygonStruct> indices = new ArrayList<>();
 
     sb.append("\n# Vertices\n");
 
@@ -835,25 +826,9 @@ public class CSG {
           polyIndices.add(vertices.indexOf(v) + 1);
         }
       });
-
     }
 
     sb.append("\n# Faces").append("\n");
-
-    for (PolygonStruct ps : indices) {
-      // we triangulate the polygon to ensure
-      // compatibility with 3d printer software
-      List<Integer> pVerts = ps.indices;
-      int index1 = pVerts.get(0);
-      for (int i = 0; i < pVerts.size() - 2; i++) {
-        int index2 = pVerts.get(i + 1);
-        int index3 = pVerts.get(i + 2);
-
-        sb.append("f ").append(index1).append(" ").append(index2).append(" ").append(index3).append(
-            "\n");
-      }
-    }
-
     sb.append("\n# End Group v3d.csg").append("\n");
 
     return sb;
