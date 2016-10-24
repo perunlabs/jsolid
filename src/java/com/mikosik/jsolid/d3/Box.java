@@ -1,8 +1,8 @@
 package com.mikosik.jsolid.d3;
 
-import static com.mikosik.jsolid.Solids.prism;
-import static com.mikosik.jsolid.Solids.range;
-import static com.mikosik.jsolid.Solids.rectangle;
+import static com.mikosik.jsolid.JSolid.prism;
+import static com.mikosik.jsolid.JSolid.range;
+import static com.mikosik.jsolid.JSolid.rectangle;
 import static java.util.Objects.requireNonNull;
 
 import com.mikosik.jsolid.d1.Range;

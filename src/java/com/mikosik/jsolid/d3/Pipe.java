@@ -1,6 +1,6 @@
 package com.mikosik.jsolid.d3;
 
-import static com.mikosik.jsolid.Solids.vz;
+import static com.mikosik.jsolid.JSolid.vz;
 import static java.lang.Math.PI;
 
 import eu.mihosoft.vrl.v3d.CSG;

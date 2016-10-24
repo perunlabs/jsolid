@@ -1,6 +1,6 @@
 package com.mikosik.jsolid.d2;
 
-import static com.mikosik.jsolid.Solids.circle;
+import static com.mikosik.jsolid.JSolid.circle;
 import static org.testory.Testory.given;
 import static org.testory.Testory.thenReturned;
 import static org.testory.Testory.when;

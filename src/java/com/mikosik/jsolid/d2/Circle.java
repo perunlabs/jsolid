@@ -1,6 +1,6 @@
 package com.mikosik.jsolid.d2;
 
-import static com.mikosik.jsolid.Solids.v;
+import static com.mikosik.jsolid.JSolid.v;
 import static java.lang.Math.acos;
 
 import java.util.ArrayList;

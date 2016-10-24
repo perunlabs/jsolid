@@ -1,7 +1,7 @@
 package com.mikosik.jsolid.d3;
 
-import static com.mikosik.jsolid.Solids.range;
-import static com.mikosik.jsolid.Solids.v;
+import static com.mikosik.jsolid.JSolid.range;
+import static com.mikosik.jsolid.JSolid.v;
 
 import java.util.ArrayList;
 import java.util.List;

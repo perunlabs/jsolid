@@ -1,6 +1,6 @@
 package com.mikosik.jsolid.d2;
 
-import static com.mikosik.jsolid.Solids.v;
+import static com.mikosik.jsolid.JSolid.v;
 import static com.mikosik.jsolid.d2.Geometry.isConvexCounterClockwisePolygon;
 import static java.util.Arrays.asList;
 import static org.testory.Testory.thenReturned;

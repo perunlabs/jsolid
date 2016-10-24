@@ -21,7 +21,7 @@ import com.mikosik.jsolid.d3.Solid;
 import eu.mihosoft.vrl.v3d.CSG;
 import eu.mihosoft.vrl.v3d.Vector3d;
 
-public class Solids {
+public class JSolid {
   public static Range range() {
     return new Range();
   }

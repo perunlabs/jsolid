@@ -1,7 +1,7 @@
 package com.mikosik.jsolid.d2;
 
-import static com.mikosik.jsolid.Solids.range;
-import static com.mikosik.jsolid.Solids.v;
+import static com.mikosik.jsolid.JSolid.range;
+import static com.mikosik.jsolid.JSolid.v;
 import static java.lang.Math.PI;
 import static java.lang.Math.cos;
 import static java.lang.Math.min;

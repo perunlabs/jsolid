@@ -1,8 +1,8 @@
 package com.mikosik.jsolid.d3;
 
-import static com.mikosik.jsolid.Solids.circle;
-import static com.mikosik.jsolid.Solids.prism;
-import static com.mikosik.jsolid.Solids.range;
+import static com.mikosik.jsolid.JSolid.circle;
+import static com.mikosik.jsolid.JSolid.prism;
+import static com.mikosik.jsolid.JSolid.range;
 
 import com.mikosik.jsolid.d1.Range;
 import com.mikosik.jsolid.d2.Circle;

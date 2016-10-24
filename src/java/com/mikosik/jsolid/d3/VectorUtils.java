@@ -1,6 +1,6 @@
 package com.mikosik.jsolid.d3;
 
-import static com.mikosik.jsolid.Solids.v;
+import static com.mikosik.jsolid.JSolid.v;
 
 import eu.mihosoft.vrl.v3d.Vector3d;
 

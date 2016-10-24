@@ -1,8 +1,8 @@
 package com.mikosik.jsolid.d3;
 
-import static com.mikosik.jsolid.Solids.vx;
-import static com.mikosik.jsolid.Solids.vy;
-import static com.mikosik.jsolid.Solids.vz;
+import static com.mikosik.jsolid.JSolid.vx;
+import static com.mikosik.jsolid.JSolid.vy;
+import static com.mikosik.jsolid.JSolid.vz;
 import static com.mikosik.jsolid.d3.VectorUtils.abs;
 import static java.util.stream.Collectors.toList;
 
