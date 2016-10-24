@@ -12,7 +12,12 @@
   */
 package eu.mihosoft.vrl.v3d.ext.quickhull3d;
 
+import static org.junit.Assert.fail;
+
 import java.util.Random;
+
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Testing class for QuickHull3D. Running the command
@@ -36,13 +41,10 @@ import java.util.Random;
  *
  * @author John E. Lloyd, Fall 2004
  */
-class QuickHull3DTest {
+public class QuickHull3DTest {
   static private final double DOUBLE_PREC = 2.2204460492503131e-16;
 
   static boolean triangulate = false;
-  static boolean doTesting = true;
-  static boolean doTiming = false;
-
   static boolean debugEnable = false;
 
   static final int NO_DEGENERACY = 0;
@@ -341,9 +343,8 @@ class QuickHull3DTest {
       hull.triangulate();
     }
 
-    if (!hull.check(System.out)) {
-      (new Throwable()).printStackTrace();
-      System.exit(1);
+    if (!hull.check(null)) {
+      Assert.fail();
     }
     if (checkFaces != null) {
       explicitFaceCheck(hull, checkFaces);
@@ -397,23 +398,13 @@ class QuickHull3DTest {
     QuickHull3D xhull = new QuickHull3D();
     xhull.setDebug(debugEnable);
 
-    try {
-      xhull.build(coordsx, coordsx.length / 3);
-      if (triangulate) {
-        xhull.triangulate();
-      }
-    } catch (Exception e) {
-      for (int i = 0; i < coordsx.length / 3; i++) {
-        System.out.println(
-            coordsx[i * 3 + 0] + ", " +
-                coordsx[i * 3 + 1] + ", " +
-                coordsx[i * 3 + 2] + ", ");
-      }
+    xhull.build(coordsx, coordsx.length / 3);
+    if (triangulate) {
+      xhull.triangulate();
     }
 
-    if (!xhull.check(System.out)) {
-      (new Throwable()).printStackTrace();
-      System.exit(1);
+    if (!xhull.check(null)) {
+      fail();
     }
   }
 
@@ -445,16 +436,6 @@ class QuickHull3DTest {
     }
   }
 
-  void printCoords(double[] coords) {
-    int nump = coords.length / 3;
-    for (int i = 0; i < nump; i++) {
-      System.out.println(
-          coords[i * 3 + 0] + ", " +
-              coords[i * 3 + 1] + ", " +
-              coords[i * 3 + 2] + ", ");
-    }
-  }
-
   void testException(double[] coords, String msg) {
     QuickHull3D hull = new QuickHull3D();
     Exception ex = null;
@@ -464,18 +445,10 @@ class QuickHull3DTest {
       ex = e;
     }
     if (ex == null) {
-      System.out.println("Expected exception " + msg);
-      System.out.println("Got no exception");
-      System.out.println("Input pnts:");
-      printCoords(coords);
-      System.exit(1);
+      fail("Expected exception " + msg);
     } else if (ex.getMessage() == null ||
         !ex.getMessage().equals(msg)) {
-      System.out.println("Expected exception " + msg);
-      System.out.println("Got exception " + ex.getMessage());
-      System.out.println("Input pnts:");
-      printCoords(coords);
-      System.exit(1);
+      fail("Expected exception " + msg + " Got exception " + ex.getMessage());
     }
   }
 
@@ -501,163 +474,83 @@ class QuickHull3DTest {
     }
   }
 
-  /**
-   * Runs a set of explicit and random tests on QuickHull3D, and prints
-   * <code>Passed</code> to System.out if all is well.
-   */
-  public void explicitAndRandomTests() {
-    try {
-      double[] coords = null;
+  @Test
+  public void explicitAndRandomTests() throws Exception {
+    double[] coords = null;
 
-      System.out.println(
-          "Testing degenerate input ...");
-      for (int dimen = 0; dimen < 3; dimen++) {
-        for (int i = 0; i < 10; i++) {
-          coords = randomDegeneratePoints(10, dimen);
-          if (dimen == 0) {
-            testException(
-                coords, "Input points appear to be coincident");
-          } else if (dimen == 1) {
-            testException(
-                coords, "Input points appear to be colinear");
-          } else if (dimen == 2) {
-            testException(
-                coords, "Input points appear to be coplanar");
-          }
+    for (int dimen = 0; dimen < 3; dimen++) {
+      for (int i = 0; i < 10; i++) {
+        coords = randomDegeneratePoints(10, dimen);
+        if (dimen == 0) {
+          testException(
+              coords, "Input points appear to be coincident");
+        } else if (dimen == 1) {
+          testException(
+              coords, "Input points appear to be colinear");
+        } else if (dimen == 2) {
+          testException(
+              coords, "Input points appear to be coplanar");
         }
       }
-
-      System.out.println(
-          "Explicit tests ...");
-
-      // test cases furnished by Mariano Zelke, Berlin
-      coords = new double[] { 21, 0, 0,
-          0, 21, 0,
-          0, 0, 0,
-          18, 2, 6,
-          1, 18, 5,
-          2, 1, 3,
-          14, 3, 10,
-          4, 14, 14,
-          3, 4, 10,
-          10, 6, 12,
-          5, 10, 15,
-      };
-      test(coords, null);
-
-      coords = new double[] {
-          0.0, 0.0, 0.0,
-          21.0, 0.0, 0.0,
-          0.0, 21.0, 0.0,
-          2.0, 1.0, 2.0,
-          17.0, 2.0, 3.0,
-          1.0, 19.0, 6.0,
-          4.0, 3.0, 5.0,
-          13.0, 4.0, 5.0,
-          3.0, 15.0, 8.0,
-          6.0, 5.0, 6.0,
-          9.0, 6.0, 11.0,
-      };
-      test(coords, null);
-
-      System.out.println(
-          "Testing 20 to 200 random points ...");
-      for (int n = 20; n < 200; n += 10) { // System.out.println (n);
-        for (int i = 0; i < 10; i++) {
-          coords = randomPoints(n, 1.0);
-          test(coords, null);
-        }
-      }
-
-      System.out.println(
-          "Testing 20 to 200 random points in a sphere ...");
-      for (int n = 20; n < 200; n += 10) { // System.out.println (n);
-        for (int i = 0; i < 10; i++) {
-          coords = randomSphericalPoints(n, 1.0);
-          test(coords, null);
-        }
-      }
-
-      System.out.println(
-          "Testing 20 to 200 random points clipped to a cube ...");
-      for (int n = 20; n < 200; n += 10) { // System.out.println (n);
-        for (int i = 0; i < 10; i++) {
-          coords = randomCubedPoints(n, 1.0, 0.5);
-          test(coords, null);
-        }
-      }
-
-      System.out.println(
-          "Testing 8 to 1000 randomly shuffled points on a grid ...");
-      for (int n = 2; n <= 10; n++) { // System.out.println (n*n*n);
-        for (int i = 0; i < 10; i++) {
-          coords = randomGridPoints(n, 4.0);
-          test(coords, null);
-        }
-      }
-
-    } catch (Exception e) {
-      e.printStackTrace();
-      System.exit(1);
     }
 
-    System.out.println("\nPassed\n");
-  }
+    // test cases furnished by Mariano Zelke, Berlin
+    coords = new double[] { 21, 0, 0,
+        0, 21, 0,
+        0, 0, 0,
+        18, 2, 6,
+        1, 18, 5,
+        2, 1, 3,
+        14, 3, 10,
+        4, 14, 14,
+        3, 4, 10,
+        10, 6, 12,
+        5, 10, 15,
+    };
+    test(coords, null);
 
-  /**
-   * Runs timing tests on QuickHull3D, and prints the results to System.out.
-   */
-  public void timingTests() {
-    long t0, t1;
-    int n = 10;
-    QuickHull3D hull = new QuickHull3D();
-    System.out.println("warming up ... ");
-    for (int i = 0; i < 2; i++) {
-      double[] coords = randomSphericalPoints(10000, 1.0);
-      hull.build(coords);
-    }
-    int cnt = 10;
-    for (int i = 0; i < 4; i++) {
-      n *= 10;
-      double[] coords = randomSphericalPoints(n, 1.0);
-      t0 = System.currentTimeMillis();
-      for (int k = 0; k < cnt; k++) {
-        hull.build(coords);
-      }
-      t1 = System.currentTimeMillis();
-      System.out.println(n + " points: " + (t1 - t0) / (double) cnt +
-          " msec");
-    }
-  }
+    coords = new double[] {
+        0.0, 0.0, 0.0,
+        21.0, 0.0, 0.0,
+        0.0, 21.0, 0.0,
+        2.0, 1.0, 2.0,
+        17.0, 2.0, 3.0,
+        1.0, 19.0, 6.0,
+        4.0, 3.0, 5.0,
+        13.0, 4.0, 5.0,
+        3.0, 15.0, 8.0,
+        6.0, 5.0, 6.0,
+        9.0, 6.0, 11.0,
+    };
+    test(coords, null);
 
-  /**
-   * Runs a set of tests on the QuickHull3D class, and prints
-   * <code>Passed</code> if all is well. Otherwise, an error message and stack
-   * trace are printed.
-   *
-   * <p>
-   * If the option <code>-timing</code> is supplied, then timing information is
-   * produced instead.
-   */
-  public static void main(String[] args) {
-    QuickHull3DTest tester = new QuickHull3DTest();
-
-    for (String arg : args) {
-      if (arg.equals("-timing")) {
-        doTiming = true;
-        doTesting = false;
-      } else {
-        System.out.println(
-            "Usage: java quickhull3d.QuickHull3DTest [-timing]");
-        System.exit(1);
+    for (int n = 20; n < 200; n += 10) { // System.out.println (n);
+      for (int i = 0; i < 10; i++) {
+        coords = randomPoints(n, 1.0);
+        test(coords, null);
       }
     }
-    if (doTesting) {
-      tester.explicitAndRandomTests();
+
+    for (int n = 20; n < 200; n += 10) { // System.out.println (n);
+      for (int i = 0; i < 10; i++) {
+        coords = randomSphericalPoints(n, 1.0);
+        test(coords, null);
+      }
     }
 
-    if (doTiming) {
-      tester.timingTests();
+    for (int n = 20; n < 200; n += 10) { // System.out.println (n);
+      for (int i = 0; i < 10; i++) {
+        coords = randomCubedPoints(n, 1.0, 0.5);
+        test(coords, null);
+      }
     }
+
+    for (int n = 2; n <= 10; n++) { // System.out.println (n*n*n);
+      for (int i = 0; i < 10; i++) {
+        coords = randomGridPoints(n, 4.0);
+        test(coords, null);
+      }
+    }
+
   }
 }

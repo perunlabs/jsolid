@@ -12,11 +12,7 @@
   */
 package eu.mihosoft.vrl.v3d.ext.quickhull3d;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.io.StreamTokenizer;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -339,81 +335,6 @@ class QuickHull3D {
         he = he.next;
       } while (he != face.he0);
       faces.add(face);
-    }
-  }
-
-  private void printQhullErrors(Process proc)
-      throws IOException {
-    boolean wrote = false;
-    InputStream es = proc.getErrorStream();
-    while (es.available() > 0) {
-      System.out.write(es.read());
-      wrote = true;
-    }
-    if (wrote) {
-      System.out.println("");
-    }
-  }
-
-  protected void setFromQhull(double[] coords, int nump,
-      boolean triangulate) {
-    String commandStr = "./qhull i";
-    if (triangulate) {
-      commandStr += " -Qt";
-    }
-    try {
-      Process proc = Runtime.getRuntime().exec(commandStr);
-      PrintStream ps = new PrintStream(proc.getOutputStream());
-      StreamTokenizer stok =
-          new StreamTokenizer(
-              new InputStreamReader(proc.getInputStream()));
-
-      ps.println("3 " + nump);
-      for (int i = 0; i < nump; i++) {
-        ps.println(
-            coords[i * 3 + 0] + " " +
-                coords[i * 3 + 1] + " " +
-                coords[i * 3 + 2]);
-      }
-      ps.flush();
-      ps.close();
-      Vector<Integer> indexList = new Vector<>(3);
-      stok.eolIsSignificant(true);
-      printQhullErrors(proc);
-
-      do {
-        stok.nextToken();
-      } while (stok.sval == null ||
-          !stok.sval.startsWith("MERGEexact"));
-      for (int i = 0; i < 4; i++) {
-        stok.nextToken();
-      }
-      if (stok.ttype != StreamTokenizer.TT_NUMBER) {
-        System.out.println("Expecting number of faces");
-        System.exit(1);
-      }
-      int numf = (int) stok.nval;
-      stok.nextToken(); // clear EOL
-      int[][] faceIndices = new int[numf][];
-      for (int i = 0; i < numf; i++) {
-        indexList.clear();
-        while (stok.nextToken() != StreamTokenizer.TT_EOL) {
-          if (stok.ttype != StreamTokenizer.TT_NUMBER) {
-            System.out.println("Expecting face index");
-            System.exit(1);
-          }
-          indexList.add(0, new Integer((int) stok.nval));
-        }
-        faceIndices[i] = new int[indexList.size()];
-        int k = 0;
-        for (Integer integer : indexList) {
-          faceIndices[i][k++] = integer.intValue();
-        }
-      }
-      setHull(coords, nump, faceIndices, numf);
-    } catch (Exception e) {
-      e.printStackTrace();
-      System.exit(1);
     }
   }
 
