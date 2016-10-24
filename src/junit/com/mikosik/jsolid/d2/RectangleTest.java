@@ -9,7 +9,7 @@ import org.junit.Test;
 import com.mikosik.jsolid.d2.Geometry;
 import com.mikosik.jsolid.d2.Rectangle;
 
-public class TestRectangle {
+public class RectangleTest {
   private Rectangle rectangle;
 
   @Test

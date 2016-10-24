@@ -9,7 +9,7 @@ import static org.testory.Testory.when;
 
 import org.junit.Test;
 
-public class TestGeometry {
+public class GeometryTest {
 
   @Test
   public void is_convex_throws_exception_for_empty_vertex_list() throws Exception {

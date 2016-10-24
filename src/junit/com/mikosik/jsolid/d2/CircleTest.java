@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.mikosik.jsolid.d2.Circle;
 import com.mikosik.jsolid.d2.Geometry;
 
-public class TestCircle {
+public class CircleTest {
   private Circle circle;
 
   @Test

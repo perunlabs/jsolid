@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import com.mikosik.jsolid.d2.Vector2;
 
-public class TestVector2 {
+public class Vector2Test {
   private Vector2 vector1;
   private Vector2 vector2;
 
