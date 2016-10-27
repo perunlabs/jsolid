@@ -25,6 +25,15 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid plus(Solid solid) {
+    CSG thisCsg = toCsg();
+    if (thisCsg.getPolygons().size() == 0) {
+      return solid;
+    }
+    CSG thatCsg = solid.toCsg();
+    if (thatCsg.getPolygons().size() == 0) {
+      return this;
+    }
+
     return new CsgSolid(toCsg().union(solid.toCsg()));
   }
 

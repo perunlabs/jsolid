@@ -26,6 +26,20 @@ public class EmptyTest {
     thenReturned(empty().toStl());
   }
 
+  @Test
+  public void adding_empty_solid_does_not_change_anything() throws Exception {
+    given(solid = box(1, 2, 3));
+    when(solid.plus(empty()).toStl());
+    thenReturned(solid.toStl());
+  }
+
+  @Test
+  public void adding_to_empty_solid_returns_added_solid() throws Exception {
+    given(solid = box(1, 2, 3));
+    when(empty().plus(solid).toStl());
+    thenReturned(solid.toStl());
+  }
+
   private Solid empty() {
     return box(1, 1, 1).minus(box(9, 9, 9));
   }
