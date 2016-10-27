@@ -40,6 +40,18 @@ public class EmptyTest {
     thenReturned(solid.toStl());
   }
 
+  @Test
+  public void intersecting_with_empty_solid_returns_empty_solid() throws Exception {
+    when(box(1, 1, 1).intersect(empty()).toStl());
+    thenReturned(empty().toStl());
+  }
+
+  @Test
+  public void intersecting_empty_solid_with_anything_returns_empty_solid() throws Exception {
+    when(empty().intersect(box(1, 1, 1)).toStl());
+    thenReturned(empty().toStl());
+  }
+
   private Solid empty() {
     return box(1, 1, 1).minus(box(9, 9, 9));
   }

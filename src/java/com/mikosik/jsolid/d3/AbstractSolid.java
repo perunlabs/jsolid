@@ -62,6 +62,14 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid intersect(Solid solid) {
+    CSG thisCsg = toCsg();
+    if (thisCsg.getPolygons().size() == 0) {
+      return this;
+    }
+    CSG thatCsg = solid.toCsg();
+    if (thatCsg.getPolygons().size() == 0) {
+      return solid;
+    }
     return new CsgSolid(toCsg().intersect(solid.toCsg()));
   }
 
