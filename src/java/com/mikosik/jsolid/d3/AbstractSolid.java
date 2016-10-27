@@ -10,11 +10,13 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 
+import eu.mihosoft.vrl.v3d.CSG;
 import eu.mihosoft.vrl.v3d.Plane;
 import eu.mihosoft.vrl.v3d.Transform;
 import eu.mihosoft.vrl.v3d.Vector3d;
 
 public abstract class AbstractSolid implements Solid {
+
   public List<Vector3d> vertexes() {
     return toCsg().getPolygons().stream()
         .flatMap(x -> x.vertices.stream())
@@ -33,7 +35,15 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid minus(Solid solid) {
-    return new CsgSolid(toCsg().difference(solid.toCsg()));
+    CSG thisCsg = toCsg();
+    if (thisCsg.getPolygons().size() == 0) {
+      return this;
+    }
+    CSG thatCsg = solid.toCsg();
+    if (thatCsg.getPolygons().size() == 0) {
+      return this;
+    }
+    return new CsgSolid(thisCsg.difference(thatCsg));
   }
 
   public Solid minusTouching(Vector3d direction, Solid solid) {
