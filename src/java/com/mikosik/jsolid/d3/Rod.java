@@ -43,6 +43,6 @@ public final class Rod extends AbstractSolid {
   }
 
   public CSG toCsg() {
-    return rod.toCsg();
+    return rod.move(vz(-totalHeight / 2)).toCsg();
   }
 }
