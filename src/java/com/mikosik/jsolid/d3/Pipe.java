@@ -45,8 +45,8 @@ public final class Pipe extends AbstractSolid {
         pipe = pipe.plus(next);
       }
     }
-    this.lastRadius = radiusTo;
-    this.lastHoleRadius = holeRadiusTo;
+    lastRadius = radiusTo;
+    lastHoleRadius = holeRadiusTo;
     totalHeight += height;
     return this;
   }
