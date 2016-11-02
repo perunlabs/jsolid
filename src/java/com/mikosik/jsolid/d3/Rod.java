@@ -5,7 +5,7 @@ import static com.mikosik.jsolid.JSolid.vz;
 import eu.mihosoft.vrl.v3d.CSG;
 import eu.mihosoft.vrl.v3d.Vector3d;
 
-public class Rod extends AbstractSolid {
+public final class Rod extends AbstractSolid {
   private double lastRadius;
   private Solid rod;
   private double totalHeight;

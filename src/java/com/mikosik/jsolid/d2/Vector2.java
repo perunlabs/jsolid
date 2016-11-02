@@ -6,7 +6,7 @@ import static java.lang.String.format;
 
 import java.util.Objects;
 
-public class Vector2 {
+public final class Vector2 {
   public final double x;
   public final double y;
 

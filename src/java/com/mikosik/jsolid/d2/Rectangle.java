@@ -13,7 +13,7 @@ import java.util.List;
 
 import com.mikosik.jsolid.d1.Range;
 
-public class Rectangle implements Polygon {
+public final class Rectangle implements Polygon {
   private final Range xd;
   private final Range yd;
   private final double cornerR;

@@ -6,7 +6,7 @@ import static java.lang.Math.PI;
 import eu.mihosoft.vrl.v3d.CSG;
 import eu.mihosoft.vrl.v3d.Vector3d;
 
-public class Pipe extends AbstractSolid {
+public final class Pipe extends AbstractSolid {
   private double lastRadius;
   private double lastHoleRadius;
   private Solid pipe;

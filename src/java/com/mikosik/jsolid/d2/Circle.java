@@ -6,7 +6,7 @@ import static java.lang.Math.acos;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Circle implements Polygon {
+public final class Circle implements Polygon {
   private static final double PI_X_2 = 2 * Math.PI;
   private static double DELTA = 0.001;
   private static int MIN_VERTEX_COUNT = 8;

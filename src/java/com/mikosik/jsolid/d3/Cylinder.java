@@ -9,7 +9,7 @@ import com.mikosik.jsolid.d2.Circle;
 
 import eu.mihosoft.vrl.v3d.CSG;
 
-public class Cylinder extends AbstractSolid {
+public final class Cylinder extends AbstractSolid {
   private final Circle base;
   private final Range zd;
 

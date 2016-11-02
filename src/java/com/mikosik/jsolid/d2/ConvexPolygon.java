@@ -4,7 +4,7 @@ import static java.util.Arrays.asList;
 
 import java.util.List;
 
-public class ConvexPolygon implements Polygon {
+public final class ConvexPolygon implements Polygon {
   private final List<Vector2> vertexes;
 
   public ConvexPolygon(Vector2... vertexes) {

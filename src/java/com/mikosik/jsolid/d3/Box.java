@@ -10,7 +10,7 @@ import com.mikosik.jsolid.d2.Rectangle;
 
 import eu.mihosoft.vrl.v3d.CSG;
 
-public class Box extends AbstractSolid {
+public final class Box extends AbstractSolid {
   private final Rectangle base;
   private final Range zd;
 
