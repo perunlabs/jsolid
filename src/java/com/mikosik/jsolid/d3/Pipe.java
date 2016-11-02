@@ -61,6 +61,6 @@ public final class Pipe extends AbstractSolid {
   }
 
   public CSG toCsg() {
-    return pipe.toCsg();
+    return pipe.move(vz(-totalHeight / 2)).toCsg();
   }
 }
