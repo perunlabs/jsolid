@@ -844,10 +844,6 @@ public class CSG {
     return toObjString(sb).toString();
   }
 
-  public CSG weighted(WeightFunction f) {
-    return new Modifier(f).modified(this);
-  }
-
   /**
    * Returns a transformed copy of this CSG.
    *
