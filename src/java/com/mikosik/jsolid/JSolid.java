@@ -129,4 +129,9 @@ public class JSolid {
   public static Pipe pipe() {
     return new Pipe();
   }
+
+  public static Solid quadrupleInZPlane(Solid leg) {
+    Solid vxClone = leg.plus(leg.mirror(vx()));
+    return vxClone.plus(vxClone.mirror(vy()));
+  }
 }
