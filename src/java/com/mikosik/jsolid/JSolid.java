@@ -9,6 +9,7 @@ import com.mikosik.jsolid.d2.Circle;
 import com.mikosik.jsolid.d2.ConvexPolygon;
 import com.mikosik.jsolid.d2.Polygon;
 import com.mikosik.jsolid.d2.Rectangle;
+import com.mikosik.jsolid.d2.RegularPolygon;
 import com.mikosik.jsolid.d2.Vector2;
 import com.mikosik.jsolid.d3.Box;
 import com.mikosik.jsolid.d3.CsgSolid;
@@ -72,6 +73,10 @@ public class JSolid {
 
   public static Vector3d vz(double z) {
     return v(0, 0, z);
+  }
+
+  public static Polygon regularPolygon(double radius, int vertexCount) {
+    return new RegularPolygon(radius, vertexCount);
   }
 
   public static Circle circle(double radius) {
