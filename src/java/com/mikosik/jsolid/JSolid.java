@@ -111,8 +111,8 @@ public class JSolid {
     return new Box();
   }
 
-  public static Box box(double xd, double yd, double zd) {
-    return box().xd(xd).yd(yd).zd(zd);
+  public static Box box(double xRange, double yRange, double zRange) {
+    return box().x(range(xRange)).y(range(yRange)).z(range(zRange));
   }
 
   public static Cylinder cylinder() {
