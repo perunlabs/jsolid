@@ -87,8 +87,8 @@ public class JSolid {
     return new Rectangle();
   }
 
-  public static Rectangle rectangle(double xd, double yd) {
-    return new Rectangle().xd(xd).yd(yd);
+  public static Rectangle rectangle(double xRange, double yRange) {
+    return new Rectangle(range(xRange), range(yRange), 0);
   }
 
   public static Polygon convexPolygon(Vector2... vertexes) {

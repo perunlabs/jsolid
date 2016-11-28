@@ -25,11 +25,11 @@ public final class Box extends AbstractSolid {
   }
 
   public Box x(Range range) {
-    return new Box(base.xd(range), zRange);
+    return new Box(base.x(range), zRange);
   }
 
   public Box y(Range range) {
-    return new Box(base.yd(range), zRange);
+    return new Box(base.y(range), zRange);
   }
 
   public Box z(Range range) {

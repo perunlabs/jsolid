@@ -14,78 +14,46 @@ import java.util.List;
 import com.mikosik.jsolid.d1.Range;
 
 public final class Rectangle implements Polygon {
-  private final Range xd;
-  private final Range yd;
+  private final Range xRange;
+  private final Range yRange;
   private final double cornerR;
 
   public Rectangle() {
-    this.xd = range();
-    this.yd = range();
+    this.xRange = range();
+    this.yRange = range();
     this.cornerR = 0;
   }
 
-  public Rectangle(Range xd, Range yd, double cornerR) {
-    this.xd = xd;
-    this.yd = yd;
+  public Rectangle(Range xRange, Range yRange, double cornerR) {
+    this.xRange = xRange;
+    this.yRange = yRange;
     this.cornerR = cornerR;
   }
 
-  public Rectangle xd(double xd) {
-    return new Rectangle(this.xd.vd(xd), yd, cornerR);
+  public Rectangle x(Range range) {
+    return new Rectangle(range, yRange, cornerR);
   }
 
-  public Rectangle xd(Range xd) {
-    return new Rectangle(xd, yd, cornerR);
-  }
-
-  public Rectangle yd(double yd) {
-    return new Rectangle(xd, this.yd.vd(yd), cornerR);
-  }
-
-  public Rectangle yd(Range yd) {
-    return new Rectangle(xd, yd, cornerR);
-  }
-
-  public Rectangle x(double x1, double x2) {
-    return new Rectangle(xd.v(x1, x2), yd, cornerR);
-  }
-
-  public Rectangle y(double y1, double y2) {
-    return new Rectangle(xd, yd.v(y1, y2), cornerR);
-  }
-
-  public Rectangle x1(double x1) {
-    return new Rectangle(xd.v1(x1), yd, cornerR);
-  }
-
-  public Rectangle x2(double x2) {
-    return new Rectangle(xd.v2(x2), yd, cornerR);
-  }
-
-  public Rectangle y1(double y1) {
-    return new Rectangle(xd, yd.v1(y1), cornerR);
-  }
-
-  public Rectangle y2(double y2) {
-    return new Rectangle(xd, yd.v2(y2), cornerR);
+  public Rectangle y(Range yRange) {
+    return new Rectangle(xRange, yRange, cornerR);
   }
 
   public Rectangle cornerR(double radius) {
     if (radius < 0) {
       throw new IllegalArgumentException("cornerR should be greater than 0, but is " + radius);
     }
-    return new Rectangle(xd, yd, radius);
+    return new Rectangle(xRange, yRange, radius);
   }
 
   public Rectangle cornerRMax() {
-    return new Rectangle(xd, yd, Double.MAX_VALUE);
+    return new Rectangle(xRange, yRange, Double.MAX_VALUE);
   }
 
   public List<Vector2> vertexes() {
-    double x1 = xd.low();
-    double x2 = xd.high();
-    double y1 = yd.low();
-    double y2 = yd.high();
+    double x1 = xRange.low();
+    double x2 = xRange.high();
+    double y1 = yRange.low();
+    double y2 = yRange.high();
     if (0 < cornerR) {
       return roundedVertexes(x1, y1, x2, y2);
     } else {
@@ -94,8 +62,8 @@ public final class Rectangle implements Polygon {
   }
 
   private List<Vector2> roundedVertexes(double x1, double y1, double x2, double y2) {
-    double xLength = this.xd.length();
-    double yLength = this.yd.length();
+    double xLength = this.xRange.length();
+    double yLength = this.yRange.length();
     double maxRadius = min(xLength, yLength) / 2;
     double radius = min(maxRadius, cornerR);
     double count = Circle.vertexCount(radius, 0.5 * Math.PI);
