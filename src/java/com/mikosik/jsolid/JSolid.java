@@ -13,7 +13,6 @@ import com.mikosik.jsolid.d2.RegularPolygon;
 import com.mikosik.jsolid.d2.Vector2;
 import com.mikosik.jsolid.d3.Box;
 import com.mikosik.jsolid.d3.CsgSolid;
-import com.mikosik.jsolid.d3.Cylinder;
 import com.mikosik.jsolid.d3.Pipe;
 import com.mikosik.jsolid.d3.Prism;
 import com.mikosik.jsolid.d3.Rod;
@@ -95,6 +94,10 @@ public class JSolid {
     return new ConvexPolygon(vertexes);
   }
 
+  public static Prism cylinder(double radius, Range zRange) {
+    return prism(circle(radius), zRange);
+  }
+
   public static Prism prism(Polygon base, Range zRange) {
     return new Prism(base, zRange);
   }
@@ -109,14 +112,6 @@ public class JSolid {
 
   public static Box box(double xRange, double yRange, double zRange) {
     return box().x(range(xRange)).y(range(yRange)).z(range(zRange));
-  }
-
-  public static Cylinder cylinder() {
-    return new Cylinder();
-  }
-
-  public static Cylinder cylinder(double radius, double zd) {
-    return new Cylinder(circle(radius), range().vd(zd));
   }
 
   public static Solid convexHull(Vector3d... vertexes) {
