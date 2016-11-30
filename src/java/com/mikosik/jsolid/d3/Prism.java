@@ -1,6 +1,5 @@
 package com.mikosik.jsolid.d3;
 
-import static com.mikosik.jsolid.JSolid.range;
 import static com.mikosik.jsolid.JSolid.v;
 
 import java.util.ArrayList;
@@ -16,48 +15,19 @@ import eu.mihosoft.vrl.v3d.Vector3d;
 
 public final class Prism extends AbstractSolid {
   private final Polygon base;
-  private final Range zd;
+  private final Range zRange;
 
-  public Prism() {
-    this.base = null;
-    this.zd = range();
-  }
-
-  public Prism(Polygon base, Range zd) {
+  public Prism(Polygon base, Range zRange) {
     this.base = base;
-    this.zd = zd;
-  }
-
-  public Prism base(Polygon polygon) {
-    return new Prism(polygon, zd);
-  }
-
-  public Prism z(double z1, double z2) {
-    return new Prism(base, zd.v(z1, z2));
-  }
-
-  public Prism z1(double z1) {
-    return new Prism(base, zd.v1(z1));
-  }
-
-  public Prism z2(double z2) {
-    return new Prism(base, zd.v2(z2));
-  }
-
-  public Prism zd(double zd) {
-    return new Prism(base, this.zd.vd(zd));
-  }
-
-  public Prism zd(Range zd) {
-    return new Prism(base, zd);
+    this.zRange = zRange;
   }
 
   public CSG toCsg() {
     if (!Geometry.isConvexCounterClockwisePolygon(base.vertexes())) {
       throw new IllegalStateException("base is not convex, counter clockwise polygon.");
     }
-    double bottom = zd.low();
-    double top = zd.high();
+    double bottom = zRange.low();
+    double top = zRange.high();
     List<eu.mihosoft.vrl.v3d.Polygon> polygons = new ArrayList<>();
     List<Vector2> vertexes = base.vertexes();
     Vector2 last = vertexes.get(vertexes.size() - 1);

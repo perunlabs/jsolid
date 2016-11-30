@@ -95,12 +95,8 @@ public class JSolid {
     return new ConvexPolygon(vertexes);
   }
 
-  public static Prism prism() {
-    return new Prism();
-  }
-
-  public static Prism prism(Polygon base, Range zd) {
-    return new Prism(base, zd);
+  public static Prism prism(Polygon base, Range zRange) {
+    return new Prism(base, zRange);
   }
 
   public static Solid nothing() {
