@@ -4,9 +4,9 @@ import static java.lang.Math.acos;
 
 public final class Circle extends RegularPolygon {
   private static final double PI_X_2 = 2 * Math.PI;
-  private static double DELTA = 0.001;
-  private static int MIN_VERTEX_COUNT = 8;
-  private static double MIN_ANGLE_STEP = 2 * Math.PI / MIN_VERTEX_COUNT;
+  private static final double DELTA = 0.001;
+  private static final int MIN_VERTEX_COUNT = 8;
+  private static final double MIN_ANGLE_STEP = 2 * Math.PI / MIN_VERTEX_COUNT;
 
   public Circle(double radius) {
     super(radius, vertexCount(radius, PI_X_2));
