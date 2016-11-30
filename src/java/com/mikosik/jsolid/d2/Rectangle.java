@@ -1,6 +1,5 @@
 package com.mikosik.jsolid.d2;
 
-import static com.mikosik.jsolid.JSolid.range;
 import static com.mikosik.jsolid.JSolid.v;
 import static java.lang.Math.PI;
 import static java.lang.Math.cos;
@@ -18,24 +17,10 @@ public final class Rectangle implements Polygon {
   private final Range yRange;
   private final double cornerR;
 
-  public Rectangle() {
-    this.xRange = range();
-    this.yRange = range();
-    this.cornerR = 0;
-  }
-
   public Rectangle(Range xRange, Range yRange, double cornerR) {
     this.xRange = xRange;
     this.yRange = yRange;
     this.cornerR = cornerR;
-  }
-
-  public Rectangle x(Range range) {
-    return new Rectangle(range, yRange, cornerR);
-  }
-
-  public Rectangle y(Range yRange) {
-    return new Rectangle(xRange, yRange, cornerR);
   }
 
   public Rectangle cornerR(double radius) {

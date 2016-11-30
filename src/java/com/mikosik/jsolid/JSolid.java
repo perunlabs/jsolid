@@ -78,12 +78,12 @@ public class JSolid {
     return new Circle(radius);
   }
 
-  public static Rectangle rectangle() {
-    return new Rectangle();
+  public static Rectangle rectangle(double xRange, double yRange) {
+    return rectangle(range(xRange), range(yRange));
   }
 
-  public static Rectangle rectangle(double xRange, double yRange) {
-    return new Rectangle(range(xRange), range(yRange), 0);
+  public static Rectangle rectangle(Range xRange, Range yRange) {
+    return new Rectangle(xRange, yRange, 0);
   }
 
   public static Polygon convexPolygon(Vector2... vertexes) {
