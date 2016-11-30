@@ -26,8 +26,8 @@ public final class Prism extends AbstractSolid {
     if (!Geometry.isConvexCounterClockwisePolygon(base.vertexes())) {
       throw new IllegalStateException("base is not convex, counter clockwise polygon.");
     }
-    double bottom = zRange.low();
-    double top = zRange.high();
+    double bottom = zRange.low;
+    double top = zRange.high;
     List<eu.mihosoft.vrl.v3d.Polygon> polygons = new ArrayList<>();
     List<Vector2> vertexes = base.vertexes();
     Vector2 last = vertexes.get(vertexes.size() - 1);

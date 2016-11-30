@@ -22,16 +22,12 @@ import eu.mihosoft.vrl.v3d.CSG;
 import eu.mihosoft.vrl.v3d.Vector3d;
 
 public class JSolid {
-  public static Range range() {
-    return new Range();
+  public static Range range(double length) {
+    return new Range(length);
   }
 
   public static Range range(double v1, double v2) {
     return new Range(v1, v2);
-  }
-
-  public static Range range(double vd) {
-    return new Range().vd(vd);
   }
 
   public static Vector2 v(double x, double y) {

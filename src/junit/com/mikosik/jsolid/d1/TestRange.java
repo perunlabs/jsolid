@@ -10,57 +10,57 @@ public class TestRange {
   private Range range;
 
   @Test
-  public void v1_set_by_vd() throws Exception {
-    given(range = new Range());
-    when(range.vd(10).v1);
+  public void low_is_calculated_from_constructor_length_param() throws Exception {
+    given(range = new Range(10));
+    when(range.low);
     thenReturned(-5.0);
   }
 
   @Test
-  public void v2_set_by_vd() throws Exception {
-    given(range = new Range());
-    when(range.vd(10).v2);
+  public void high_is_calculated_from_constructor_length_param() throws Exception {
+    given(range = new Range(10));
+    when(range.high);
     thenReturned(5.0);
   }
 
   @Test
   public void low_returns_first_when_it_is_lower() throws Exception {
-    given(range = new Range().v(3, 5));
-    when(range.high());
-    thenReturned(5.0);
+    given(range = new Range(3, 5));
+    when(range.low);
+    thenReturned(3.0);
   }
 
   @Test
   public void low_returns_second_when_it_is_lower() throws Exception {
-    given(range = new Range().v(5, 3));
-    when(range.high());
-    thenReturned(5.0);
+    given(range = new Range(5, 3));
+    when(range.low);
+    thenReturned(3.0);
   }
 
   @Test
   public void high_returns_first_when_it_is_higher() throws Exception {
-    given(range = new Range().v(5, 3));
-    when(range.high());
+    given(range = new Range(5, 3));
+    when(range.high);
     thenReturned(5.0);
   }
 
   @Test
   public void high_returns_second_when_it_is_higher() throws Exception {
-    given(range = new Range().v(3, 5));
-    when(range.high());
+    given(range = new Range(3, 5));
+    when(range.high);
     thenReturned(5.0);
   }
 
   @Test
-  public void size() throws Exception {
-    given(range = new Range().v(3, 7));
+  public void length() throws Exception {
+    given(range = new Range(3, 7));
     when(range.length());
     thenReturned(4.0);
   }
 
   @Test
-  public void size_for_v2_lower_than_v1() throws Exception {
-    given(range = new Range().v(7, 3));
+  public void length_for_v2_lower_than_v1() throws Exception {
+    given(range = new Range(7, 3));
     when(range.length());
     thenReturned(4.0);
   }
