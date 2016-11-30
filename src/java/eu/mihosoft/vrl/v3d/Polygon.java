@@ -42,11 +42,6 @@ import eu.mihosoft.vrl.v3d.ext.org.poly2tri.PolygonUtil;
 
 /**
  * Represents a convex polygon.
- *
- * Each convex polygon has a {@code shared} property, which is shared between
- * all polygons that are clones of each other or where split from the same
- * polygon. This can be used to define per-polygon properties (such as surface
- * color).
  */
 public final class Polygon {
 
