@@ -102,12 +102,12 @@ public class JSolid {
     return new CsgSolid(CSG.fromPolygons());
   }
 
-  public static Box box() {
-    return new Box();
+  public static Box box(double xRange, double yRange, double zRange) {
+    return box(range(xRange), range(yRange), range(zRange));
   }
 
-  public static Box box(double xRange, double yRange, double zRange) {
-    return box().x(range(xRange)).y(range(yRange)).z(range(zRange));
+  public static Box box(Range xRange, Range yRange, Range zRange) {
+    return new Box(xRange, yRange, zRange);
   }
 
   public static Solid convexHull(Vector3d... vertexes) {

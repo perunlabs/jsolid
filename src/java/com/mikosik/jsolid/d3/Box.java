@@ -1,9 +1,7 @@
 package com.mikosik.jsolid.d3;
 
 import static com.mikosik.jsolid.JSolid.prism;
-import static com.mikosik.jsolid.JSolid.range;
 import static com.mikosik.jsolid.JSolid.rectangle;
-import static java.util.Objects.requireNonNull;
 
 import com.mikosik.jsolid.d1.Range;
 import com.mikosik.jsolid.d2.Rectangle;
@@ -14,26 +12,13 @@ public final class Box extends AbstractSolid {
   private final Rectangle base;
   private final Range zRange;
 
-  public Box() {
-    this.base = rectangle();
-    this.zRange = range();
+  public Box(Range xRange, Range yRange, Range zRange) {
+    this(rectangle(xRange, yRange), zRange);
   }
 
-  private Box(Rectangle base, Range zRange) {
-    this.base = requireNonNull(base);
+  private Box(Rectangle rectangle, Range zRange) {
+    this.base = rectangle;
     this.zRange = zRange;
-  }
-
-  public Box x(Range range) {
-    return new Box(base.x(range), zRange);
-  }
-
-  public Box y(Range range) {
-    return new Box(base.y(range), zRange);
-  }
-
-  public Box z(Range range) {
-    return new Box(base, range);
   }
 
   public Box zCornerR(double radius) {
