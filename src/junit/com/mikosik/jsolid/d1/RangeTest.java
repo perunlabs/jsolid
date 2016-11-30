@@ -6,7 +6,7 @@ import static org.testory.Testory.when;
 
 import org.junit.Test;
 
-public class TestRange {
+public class RangeTest {
   private Range range;
 
   @Test
