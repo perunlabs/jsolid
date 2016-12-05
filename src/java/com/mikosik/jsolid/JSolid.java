@@ -90,6 +90,9 @@ public class JSolid {
     return new ConvexPolygon(vertexes);
   }
 
+  public static Prism cylinder(double radius, double length) {
+    return prism(circle(radius), range(length));
+  }
   public static Prism cylinder(double radius, Range zRange) {
     return prism(circle(radius), zRange);
   }
