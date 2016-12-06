@@ -37,6 +37,10 @@ public abstract class AbstractSolid implements Solid {
     return new CsgSolid(toCsg().union(solid.toCsg()));
   }
 
+  public Solid plus(Solid solid, Alignment<?> alignment) {
+    return plus(alignment.align(this, solid));
+  }
+
   public Solid plusTouching(Vector3d direction, Solid solid) {
     double touchPoint = aabbEdge(direction);
     Solid moved = solid.moveAabbEdgeTo(direction.negated(), touchPoint);
@@ -53,6 +57,10 @@ public abstract class AbstractSolid implements Solid {
       return this;
     }
     return new CsgSolid(thisCsg.difference(thatCsg));
+  }
+
+  public Solid minus(Solid solid, Alignment<?> alignment) {
+    return minus(alignment.align(this, solid));
   }
 
   public Solid minusTouching(Vector3d direction, Solid solid) {

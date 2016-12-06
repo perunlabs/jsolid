@@ -11,6 +11,8 @@ import com.mikosik.jsolid.d2.Polygon;
 import com.mikosik.jsolid.d2.Rectangle;
 import com.mikosik.jsolid.d2.RegularPolygon;
 import com.mikosik.jsolid.d2.Vector2;
+import com.mikosik.jsolid.d3.Alignment;
+import com.mikosik.jsolid.d3.Anchor;
 import com.mikosik.jsolid.d3.Axis;
 import com.mikosik.jsolid.d3.Axis.XAxis;
 import com.mikosik.jsolid.d3.Axis.YAxis;
@@ -87,6 +89,26 @@ public class JSolid {
 
   public static Vector3d vz(double z) {
     return v(0, 0, z);
+  }
+
+  public static <A extends Axis<A>> Alignment<A> touchingMin(A axis) {
+    return align(axis.minAnchor(), axis.maxAnchor());
+  }
+
+  public static <A extends Axis<A>> Alignment<A> touchingMax(A axis) {
+    return align(axis.maxAnchor(), axis.minAnchor());
+  }
+
+  public static <A extends Axis<A>> Alignment<A> touchingInternallyMin(A axis) {
+    return align(axis.minAnchor(), axis.minAnchor());
+  }
+
+  public static <A extends Axis<A>> Alignment<A> touchingInternallyMax(A axis) {
+    return align(axis.maxAnchor(), axis.maxAnchor());
+  }
+
+  public static <A extends Axis<A>> Alignment<A> align(Anchor<A> anchor1, Anchor<A> anchor2) {
+    return new Alignment<>(anchor1, anchor2);
   }
 
   public static Polygon regularPolygon(double radius, int vertexCount) {
