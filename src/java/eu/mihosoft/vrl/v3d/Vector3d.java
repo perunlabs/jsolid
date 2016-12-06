@@ -366,7 +366,7 @@ public class Vector3d {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Vector3d)) {
             return false;
         }
         final Vector3d other = (Vector3d) obj;
