@@ -11,6 +11,10 @@ import com.mikosik.jsolid.d2.Polygon;
 import com.mikosik.jsolid.d2.Rectangle;
 import com.mikosik.jsolid.d2.RegularPolygon;
 import com.mikosik.jsolid.d2.Vector2;
+import com.mikosik.jsolid.d3.Axis;
+import com.mikosik.jsolid.d3.Axis.XAxis;
+import com.mikosik.jsolid.d3.Axis.YAxis;
+import com.mikosik.jsolid.d3.Axis.ZAxis;
 import com.mikosik.jsolid.d3.Box;
 import com.mikosik.jsolid.d3.CsgSolid;
 import com.mikosik.jsolid.d3.Pipe;
@@ -46,24 +50,39 @@ public class JSolid {
     return v(0, 0, 0);
   }
 
+  public static XAxis x() {
+    return Axis.X;
+  }
+
+  @Deprecated
   public static Vector3d vx() {
-    return vx(1);
+    return x();
   }
 
   public static Vector3d vx(double x) {
     return v(x, 0, 0);
   }
 
+  public static YAxis y() {
+    return Axis.Y;
+  }
+
+  @Deprecated
   public static Vector3d vy() {
-    return vy(1);
+    return y();
   }
 
   public static Vector3d vy(double y) {
     return v(0, y, 0);
   }
 
+  public static ZAxis z() {
+    return Axis.Z;
+  }
+
+  @Deprecated
   public static Vector3d vz() {
-    return vz(1);
+    return z();
   }
 
   public static Vector3d vz(double z) {
@@ -93,6 +112,7 @@ public class JSolid {
   public static Prism cylinder(double radius, double length) {
     return prism(circle(radius), range(length));
   }
+
   public static Prism cylinder(double radius, Range zRange) {
     return prism(circle(radius), zRange);
   }
@@ -126,7 +146,7 @@ public class JSolid {
   }
 
   public static Solid quadrupleInZPlane(Solid leg) {
-    Solid vxClone = leg.plus(leg.mirror(vx()));
-    return vxClone.plus(vxClone.mirror(vy()));
+    Solid vxClone = leg.plus(leg.mirror(x()));
+    return vxClone.plus(vxClone.mirror(y()));
   }
 }
