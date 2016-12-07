@@ -77,19 +77,19 @@ public class JSolid {
   }
 
   public static <A extends Axis<A>> Alignment<A> touchingMin(A axis) {
-    return align(axis.minAnchor(), axis.maxAnchor());
+    return align(axis.min(), axis.max());
   }
 
   public static <A extends Axis<A>> Alignment<A> touchingMax(A axis) {
-    return align(axis.maxAnchor(), axis.minAnchor());
+    return align(axis.max(), axis.min());
   }
 
   public static <A extends Axis<A>> Alignment<A> touchingInternallyMin(A axis) {
-    return align(axis.minAnchor(), axis.minAnchor());
+    return align(axis.min(), axis.min());
   }
 
   public static <A extends Axis<A>> Alignment<A> touchingInternallyMax(A axis) {
-    return align(axis.maxAnchor(), axis.maxAnchor());
+    return align(axis.max(), axis.max());
   }
 
   public static <A extends Axis<A>> Alignment<A> align(Anchor<A> anchor1, Anchor<A> anchor2) {

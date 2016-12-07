@@ -14,7 +14,7 @@ public class AlignmentTest {
 
   @Test
   public void alignment() throws Exception {
-    given(alignment = new Alignment<>(x().maxAnchor(), x().minAnchor()));
+    given(alignment = new Alignment<>(x().max(), x().min()));
     when(alignment.alignShiftFor(box(3, 7, 11), box(5, 13, 17)));
     thenReturned(vx(4));
   }

@@ -25,19 +25,19 @@ public abstract class Axis<A extends Axis<A>> extends Vector3d {
 
   public abstract Vector3d v(double coordinate);
 
-  public Anchor<A> minAnchor() {
+  public Anchor<A> min() {
     return new EdgeAnchor<>(this, minReduce(), MAX_VALUE);
   }
 
-  public Anchor<A> maxAnchor() {
+  public Anchor<A> max() {
     return new EdgeAnchor<>(this, maxReduce(), MIN_VALUE);
   }
 
-  public Anchor<A> centerAnchor() {
-    return new CenterAnchor<>(this, minAnchor(), maxAnchor());
+  public Anchor<A> center() {
+    return new CenterAnchor<>(this, min(), max());
   }
 
-  public Anchor<A> zeroAnchor() {
+  public Anchor<A> zero() {
     return new ZeroAnchor<>(this);
   }
 

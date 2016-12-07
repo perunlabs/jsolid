@@ -67,84 +67,84 @@ public class AxisTest {
   @Test
   public void minX() throws Exception {
     given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.X.minAnchor().positionIn(box));
+    when(Axis.X.min().positionIn(box));
     thenReturned(1.0);
   }
 
   @Test
   public void centerX() {
     given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.X.centerAnchor().positionIn(box));
+    when(Axis.X.center().positionIn(box));
     thenReturned(1.5);
   }
 
   @Test
   public void zeroX() {
     given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.X.zeroAnchor().positionIn(box));
+    when(Axis.X.zero().positionIn(box));
     thenReturned(0.0);
   }
 
   @Test
   public void maxX() throws Exception {
     given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.X.maxAnchor().positionIn(box));
+    when(Axis.X.max().positionIn(box));
     thenReturned(2.0);
   }
 
   @Test
   public void minY() throws Exception {
     given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Y.minAnchor().positionIn(box));
+    when(Axis.Y.min().positionIn(box));
     thenReturned(3.0);
   }
 
   @Test
   public void centerY() {
     given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Y.centerAnchor().positionIn(box));
+    when(Axis.Y.center().positionIn(box));
     thenReturned(3.5);
   }
 
   @Test
   public void zeroY() {
     given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Y.zeroAnchor().positionIn(box));
+    when(Axis.Y.zero().positionIn(box));
     thenReturned(0.0);
   }
 
   @Test
   public void maxY() throws Exception {
     given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Y.maxAnchor().positionIn(box));
+    when(Axis.Y.max().positionIn(box));
     thenReturned(4.0);
   }
 
   @Test
   public void minZ() throws Exception {
     given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Z.minAnchor().positionIn(box));
+    when(Axis.Z.min().positionIn(box));
     thenReturned(5.0);
   }
 
   @Test
   public void centerZ() {
     given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Z.centerAnchor().positionIn(box));
+    when(Axis.Z.center().positionIn(box));
     thenReturned(5.5);
   }
 
   @Test
   public void zeroZ() {
     given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Z.zeroAnchor().positionIn(box));
+    when(Axis.Z.zero().positionIn(box));
     thenReturned(0.0);
   }
 
   @Test
   public void maxZ() throws Exception {
     given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Z.maxAnchor().positionIn(box));
+    when(Axis.Z.max().positionIn(box));
     thenReturned(6.0);
   }
 }
