@@ -76,19 +76,39 @@ public class JSolid {
     return v(0, 0, z);
   }
 
+  @Deprecated
   public static <A extends Axis<A>> Alignment<A> touchingMin(A axis) {
+    return alignOutsideMin(axis);
+  }
+
+  @Deprecated
+  public static <A extends Axis<A>> Alignment<A> touchingMax(A axis) {
+    return alignOutsideMax(axis);
+  }
+
+  @Deprecated
+  public static <A extends Axis<A>> Alignment<A> touchingInternallyMin(A axis) {
+    return alignInsideMin(axis);
+  }
+
+  @Deprecated
+  public static <A extends Axis<A>> Alignment<A> touchingInternallyMax(A axis) {
+    return alignInsideMax(axis);
+  }
+
+  public static <A extends Axis<A>> Alignment<A> alignOutsideMin(A axis) {
     return align(axis.min(), axis.max());
   }
 
-  public static <A extends Axis<A>> Alignment<A> touchingMax(A axis) {
+  public static <A extends Axis<A>> Alignment<A> alignOutsideMax(A axis) {
     return align(axis.max(), axis.min());
   }
 
-  public static <A extends Axis<A>> Alignment<A> touchingInternallyMin(A axis) {
+  public static <A extends Axis<A>> Alignment<A> alignInsideMin(A axis) {
     return align(axis.min(), axis.min());
   }
 
-  public static <A extends Axis<A>> Alignment<A> touchingInternallyMax(A axis) {
+  public static <A extends Axis<A>> Alignment<A> alignInsideMax(A axis) {
     return align(axis.max(), axis.max());
   }
 
