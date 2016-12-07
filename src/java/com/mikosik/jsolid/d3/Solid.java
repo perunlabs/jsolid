@@ -12,15 +12,9 @@ public interface Solid {
 
   public Solid plus(Solid solid, Alignment<?> alignment);
 
-  @Deprecated
-  public Solid plusTouching(Vector3d direction, Solid solid);
-
   public Solid minus(Solid solid);
 
   public Solid minus(Solid solid, Alignment<?> alignment);
-
-  @Deprecated
-  public Solid minusTouching(Vector3d direction, Solid solid);
 
   public Solid intersect(Solid solid);
 

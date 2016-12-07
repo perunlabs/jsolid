@@ -56,11 +56,6 @@ public class JSolid {
     return Axis.X;
   }
 
-  @Deprecated
-  public static Vector3d vx() {
-    return x();
-  }
-
   public static Vector3d vx(double x) {
     return v(x, 0, 0);
   }
@@ -69,22 +64,12 @@ public class JSolid {
     return Axis.Y;
   }
 
-  @Deprecated
-  public static Vector3d vy() {
-    return y();
-  }
-
   public static Vector3d vy(double y) {
     return v(0, y, 0);
   }
 
   public static ZAxis z() {
     return Axis.Z;
-  }
-
-  @Deprecated
-  public static Vector3d vz() {
-    return z();
   }
 
   public static Vector3d vz(double z) {

@@ -41,12 +41,6 @@ public abstract class AbstractSolid implements Solid {
     return plus(alignment.align(this, solid));
   }
 
-  public Solid plusTouching(Vector3d direction, Solid solid) {
-    double touchPoint = aabbEdge(direction);
-    Solid moved = solid.moveAabbEdgeTo(direction.negated(), touchPoint);
-    return plus(moved);
-  }
-
   public Solid minus(Solid solid) {
     CSG thisCsg = toCsg();
     if (thisCsg.getPolygons().size() == 0) {
@@ -61,12 +55,6 @@ public abstract class AbstractSolid implements Solid {
 
   public Solid minus(Solid solid, Alignment<?> alignment) {
     return minus(alignment.align(this, solid));
-  }
-
-  public Solid minusTouching(Vector3d direction, Solid solid) {
-    double touchPoint = aabbEdge(direction);
-    Solid moved = solid.moveAabbEdgeTo(direction, touchPoint);
-    return minus(moved);
   }
 
   public Solid intersect(Solid solid) {
