@@ -22,17 +22,11 @@ public interface Solid {
 
   public Solid move(Anchor<?> anchor, double value);
 
-  @Deprecated
-  public Solid moveAabbEdgeTo(Vector3d direction, double position);
-
   public Solid rotate(Vector3d direction, double angle);
 
   public Solid mirror(Vector3d planNormal);
 
   public Solid scale(Vector3d factor);
-
-  @Deprecated
-  public double aabbEdge(Vector3d direction);
 
   public Solid convexHull();
 

@@ -3,12 +3,9 @@ package com.mikosik.jsolid.d3;
 import static com.mikosik.jsolid.JSolid.vx;
 import static com.mikosik.jsolid.JSolid.vy;
 import static com.mikosik.jsolid.JSolid.vz;
-import static com.mikosik.jsolid.d3.VectorUtils.abs;
 import static java.util.stream.Collectors.toList;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.function.Function;
 
 import eu.mihosoft.vrl.v3d.CSG;
 import eu.mihosoft.vrl.v3d.Plane;
@@ -81,11 +78,6 @@ public abstract class AbstractSolid implements Solid {
     return new CsgSolid(toCsg().transformed(Transform.unity().translate(vector)));
   }
 
-  @Deprecated
-  public Solid moveAabbEdgeTo(Vector3d direction, double position) {
-    return move(abs(direction).times(position - aabbEdge(direction)));
-  }
-
   public Solid rotate(Vector3d direction, double angle) {
     return new CsgSolid(toCsg().transformed(rotationTransform(direction, angle)));
   }
@@ -120,42 +112,6 @@ public abstract class AbstractSolid implements Solid {
 
   public Solid scale(Vector3d factor) {
     return new CsgSolid(toCsg().transformed(Transform.unity().scale(factor)));
-  }
-
-  @Deprecated
-  public double aabbEdge(Vector3d direction) {
-    if (direction.equals(vx(-1))) {
-      return min(v -> v.x);
-    } else if (direction.equals(vx(1))) {
-      return max(v -> v.x);
-    } else if (direction.equals(vy(-1))) {
-      return min(v -> v.y);
-    } else if (direction.equals(vy(1))) {
-      return max(v -> v.y);
-    } else if (direction.equals(vz(-1))) {
-      return min(v -> v.z);
-    } else if (direction.equals(vz(1))) {
-      return max(v -> v.z);
-    } else {
-      throw new IllegalArgumentException(
-          "axle must be one of vx(-1), vx(1), vy(-1), vy(1), vz(-1), vz(1).");
-    }
-  }
-
-  private double max(Function<? super Vector3d, ? extends Double> componentGetter) {
-    return maxValue(componentGetter, Double::compareTo);
-  }
-
-  private double min(Function<? super Vector3d, ? extends Double> componentGetter) {
-    return maxValue(componentGetter, (a, b) -> b.compareTo(a));
-  }
-
-  private double maxValue(Function<? super Vector3d, ? extends Double> componentGetter,
-      Comparator<Double> comparator) {
-    return vertexes().stream()
-        .map(componentGetter)
-        .max(comparator)
-        .orElseThrow(() -> new RuntimeException("Solid has no vertexes."));
   }
 
   public Solid convexHull() {
