@@ -147,4 +147,11 @@ public class AxisTest {
     when(Axis.Z.max().valueIn(box));
     thenReturned(6.0);
   }
+
+  @Test
+  public void vectorIn() throws Exception {
+    given(box = box(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Z.max().vectorIn(box));
+    thenReturned(v(0, 0, 6));
+  }
 }
