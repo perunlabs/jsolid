@@ -70,9 +70,18 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid move(Vector3d vector) {
+    return translate(vector);
+  }
+
+  public Solid move(Anchor<?> anchor, double value) {
+    return move(anchor.axis.v(value).minus(anchor.vectorIn(this)));
+  }
+
+  private CsgSolid translate(Vector3d vector) {
     return new CsgSolid(toCsg().transformed(Transform.unity().translate(vector)));
   }
 
+  @Deprecated
   public Solid moveAabbEdgeTo(Vector3d direction, double position) {
     return move(abs(direction).times(position - aabbEdge(direction)));
   }
@@ -113,6 +122,7 @@ public abstract class AbstractSolid implements Solid {
     return new CsgSolid(toCsg().transformed(Transform.unity().scale(factor)));
   }
 
+  @Deprecated
   public double aabbEdge(Vector3d direction) {
     if (direction.equals(vx(-1))) {
       return min(v -> v.x);
