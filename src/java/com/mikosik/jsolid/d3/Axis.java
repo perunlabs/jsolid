@@ -41,6 +41,10 @@ public abstract class Axis<A extends Axis<A>> extends Vector3d {
     return new ZeroAnchor<>(this);
   }
 
+  public double size(Solid solid) {
+    return max().valueIn(solid) - min().valueIn(solid);
+  }
+
   public static class XAxis extends Axis<XAxis> {
     public XAxis() {
       super(1, 0, 0);

@@ -93,6 +93,13 @@ public class AxisTest {
   }
 
   @Test
+  public void sizeX() throws Exception {
+    given(box = box(range(1, 2), range(1, 3), range(1, 4)));
+    when(Axis.X.size(box));
+    thenReturned(1.0);
+  }
+
+  @Test
   public void minY() throws Exception {
     given(box = box(range(1, 2), range(3, 4), range(5, 6)));
     when(Axis.Y.min().valueIn(box));
@@ -121,6 +128,13 @@ public class AxisTest {
   }
 
   @Test
+  public void sizeY() throws Exception {
+    given(box = box(range(1, 2), range(1, 3), range(1, 4)));
+    when(Axis.Y.size(box));
+    thenReturned(2.0);
+  }
+
+  @Test
   public void minZ() throws Exception {
     given(box = box(range(1, 2), range(3, 4), range(5, 6)));
     when(Axis.Z.min().valueIn(box));
@@ -146,6 +160,13 @@ public class AxisTest {
     given(box = box(range(1, 2), range(3, 4), range(5, 6)));
     when(Axis.Z.max().valueIn(box));
     thenReturned(6.0);
+  }
+
+  @Test
+  public void sizeZ() throws Exception {
+    given(box = box(range(1, 2), range(1, 3), range(1, 4)));
+    when(Axis.Z.size(box));
+    thenReturned(3.0);
   }
 
   @Test
