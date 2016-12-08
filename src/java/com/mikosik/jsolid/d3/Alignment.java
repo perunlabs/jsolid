@@ -20,6 +20,6 @@ public class Alignment<A extends Axis<A>> {
   }
 
   private double shiftDeltaFor(Solid solid1, Solid solid2) {
-    return anchor1.positionIn(solid1) - anchor2.positionIn(solid2);
+    return anchor1.valueIn(solid1) - anchor2.valueIn(solid2);
   }
 }

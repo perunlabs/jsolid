@@ -9,7 +9,7 @@ public abstract class Anchor<A extends Axis<A>> {
     this.axis = axis;
   }
 
-  public abstract double positionIn(Solid solid);
+  public abstract double valueIn(Solid solid);
 
   public static class EdgeAnchor<A extends Axis<A>> extends Anchor<A> {
     private final BinaryOperator<Double> reduceOperation;
@@ -21,7 +21,7 @@ public abstract class Anchor<A extends Axis<A>> {
       this.reduceIdentity = reduceIdentity;
     }
 
-    public double positionIn(Solid solid) {
+    public double valueIn(Solid solid) {
       return solid.vertexes().stream()
           .map(v -> axis.coordinate(v))
           .reduce(reduceIdentity, reduceOperation);
@@ -38,8 +38,8 @@ public abstract class Anchor<A extends Axis<A>> {
       this.maxAnchor = maxAnchor;
     }
 
-    public double positionIn(Solid solid) {
-      return (minAnchor.positionIn(solid) + maxAnchor.positionIn(solid)) / 2;
+    public double valueIn(Solid solid) {
+      return (minAnchor.valueIn(solid) + maxAnchor.valueIn(solid)) / 2;
     }
   }
 
@@ -48,7 +48,7 @@ public abstract class Anchor<A extends Axis<A>> {
       super(axis);
     }
 
-    public double positionIn(Solid solid) {
+    public double valueIn(Solid solid) {
       return 0;
     }
   }
