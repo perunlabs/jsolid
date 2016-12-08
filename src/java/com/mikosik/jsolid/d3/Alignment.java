@@ -16,10 +16,6 @@ public class Alignment<A extends Axis<A>> {
   }
 
   public Vector3d alignShiftFor(Solid solid1, Solid solid2) {
-    return anchor1.axis.v(shiftDeltaFor(solid1, solid2));
-  }
-
-  private double shiftDeltaFor(Solid solid1, Solid solid2) {
-    return anchor1.valueIn(solid1) - anchor2.valueIn(solid2);
+    return anchor1.vectorIn(solid1).minus(anchor2.vectorIn(solid2));
   }
 }
