@@ -69,8 +69,8 @@ public abstract class AbstractSolid implements Solid {
     return new CsgSolid(toCsg().intersect(solid.toCsg()));
   }
 
-  public Solid move(Vector3d vector) {
-    return translate(vector);
+  public Solid move(Vector3d position) {
+    return translate(position);
   }
 
   public Solid move(Anchor<?> anchor, double value) {

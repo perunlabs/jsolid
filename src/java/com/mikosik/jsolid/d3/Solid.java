@@ -18,7 +18,7 @@ public interface Solid {
 
   public Solid intersect(Solid solid);
 
-  public Solid move(Vector3d vector);
+  public Solid move(Vector3d position);
 
   public Solid move(Anchor<?> anchor, double value);
 
