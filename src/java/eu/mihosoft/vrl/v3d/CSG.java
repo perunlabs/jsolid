@@ -97,7 +97,7 @@ import eu.mihosoft.vrl.v3d.ext.quickhull3d.HullUtil;
 public class CSG {
 
   private List<Polygon> polygons;
-  private static OptType defaultOptType = OptType.POLYGON_BOUND;
+  private static OptType defaultOptType = OptType.CSG_BOUND;
   private OptType optType = null;
 
   private CSG() {}
