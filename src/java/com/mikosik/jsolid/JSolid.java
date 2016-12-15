@@ -124,6 +124,10 @@ public class JSolid {
     return prism(circle(radius), zRange);
   }
 
+  public static Prism prism(Polygon base, double zRange) {
+    return new Prism(base, range(zRange));
+  }
+
   public static Prism prism(Polygon base, Range zRange) {
     return new Prism(base, zRange);
   }
