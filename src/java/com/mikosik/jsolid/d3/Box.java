@@ -25,6 +25,10 @@ public final class Box extends AbstractSolid {
     return new Box(base.cornerR(radius), zRange);
   }
 
+  public Box zCornerRMax() {
+    return new Box(base.cornerRMax(), zRange);
+  }
+
   public CSG toCsg() {
     return prism(base, zRange).toCsg();
   }
