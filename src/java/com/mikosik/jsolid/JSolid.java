@@ -120,10 +120,6 @@ public class JSolid {
     return prism(circle(radius), range(length));
   }
 
-  public static Prism cylinder(double radius, Range zRange) {
-    return prism(circle(radius), zRange);
-  }
-
   public static Prism prism(Polygon base, double zRange) {
     return new Prism(base, range(zRange));
   }
