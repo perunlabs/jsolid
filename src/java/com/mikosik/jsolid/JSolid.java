@@ -136,6 +136,30 @@ public class JSolid {
     return box(range(xRange), range(yRange), range(zRange));
   }
 
+  public static Box box(Range xRange, double yRange, double zRange) {
+    return box(xRange, range(yRange), range(zRange));
+  }
+
+  public static Box box(double xRange, Range yRange, double zRange) {
+    return box(range(xRange), yRange, range(zRange));
+  }
+
+  public static Box box(double xRange, double yRange, Range zRange) {
+    return box(range(xRange), range(yRange), zRange);
+  }
+
+  public static Box box(double xRange, Range yRange, Range zRange) {
+    return new Box(range(xRange), yRange, zRange);
+  }
+
+  public static Box box(Range xRange, double yRange, Range zRange) {
+    return new Box(xRange, range(yRange), zRange);
+  }
+
+  public static Box box(Range xRange, Range yRange, double zRange) {
+    return new Box(xRange, yRange, range(zRange));
+  }
+
   public static Box box(Range xRange, Range yRange, Range zRange) {
     return new Box(xRange, yRange, zRange);
   }
