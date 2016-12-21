@@ -1,6 +1,7 @@
 package com.mikosik.jsolid.d3;
 
 import static com.mikosik.jsolid.JSolid.v;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +19,8 @@ public final class Prism extends AbstractSolid {
   private final Range zRange;
 
   public Prism(Polygon base, Range zRange) {
-    this.base = base;
-    this.zRange = zRange;
+    this.base = requireNonNull(base);
+    this.zRange = requireNonNull(zRange);
   }
 
   public CSG toCsg() {

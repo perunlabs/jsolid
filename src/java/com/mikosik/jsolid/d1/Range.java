@@ -1,10 +1,13 @@
 package com.mikosik.jsolid.d1;
 
+import com.mikosik.jsolid.util.Check;
+
 public final class Range {
   public final double low;
   public final double high;
 
   public Range(double length) {
+    Check.positive(length);
     this.low = -length / 2;
     this.high = length / 2;
   }

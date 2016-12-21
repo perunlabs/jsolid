@@ -2,6 +2,8 @@ package com.mikosik.jsolid.d3;
 
 import static com.mikosik.jsolid.JSolid.vz;
 
+import com.mikosik.jsolid.util.Check;
+
 import eu.mihosoft.vrl.v3d.CSG;
 import eu.mihosoft.vrl.v3d.Vector3d;
 
@@ -25,6 +27,9 @@ public final class Rod extends AbstractSolid {
   }
 
   private Rod add(double height, double radiusFrom, double radiusTo) {
+    Check.notNegative(height);
+    Check.positive(radiusFrom);
+    Check.positive(radiusTo);
     if (height != 0) {
       Vector3d bottomCenter = vz(totalHeight);
       Vector3d top = bottomCenter.plus(vz(height));

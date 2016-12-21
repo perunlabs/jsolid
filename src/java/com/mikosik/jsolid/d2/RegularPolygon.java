@@ -5,11 +5,13 @@ import static com.mikosik.jsolid.JSolid.v;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mikosik.jsolid.util.Check;
+
 public class RegularPolygon implements Polygon {
   private final List<Vector2> vertexes;
 
   public RegularPolygon(double radius, int vertexCount) {
-    this.vertexes = generateVertexes(radius, vertexCount);
+    this.vertexes = generateVertexes(Check.positive(radius), Check.positive(vertexCount));
   }
 
   private static List<Vector2> generateVertexes(double radius, int vertexCount) {
