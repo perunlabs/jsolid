@@ -19,7 +19,6 @@ import com.mikosik.jsolid.d3.Axis.YAxis;
 import com.mikosik.jsolid.d3.Axis.ZAxis;
 import com.mikosik.jsolid.d3.Box;
 import com.mikosik.jsolid.d3.CsgSolid;
-import com.mikosik.jsolid.d3.Pipe;
 import com.mikosik.jsolid.d3.Prism;
 import com.mikosik.jsolid.d3.Rod;
 import com.mikosik.jsolid.d3.Solid;
@@ -170,10 +169,6 @@ public class JSolid {
 
   public static Rod rod() {
     return new Rod();
-  }
-
-  public static Pipe pipe() {
-    return new Pipe();
   }
 
   public static Solid quadrupleInZPlane(Solid leg) {

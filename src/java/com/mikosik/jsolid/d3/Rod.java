@@ -1,6 +1,7 @@
 package com.mikosik.jsolid.d3;
 
 import static com.mikosik.jsolid.JSolid.vz;
+import static java.lang.Math.PI;
 
 import com.mikosik.jsolid.util.Check;
 
@@ -34,7 +35,7 @@ public final class Rod extends AbstractSolid {
       Vector3d bottomCenter = vz(totalHeight);
       Vector3d top = bottomCenter.plus(vz(height));
       CSG cylinder = new eu.mihosoft.vrl.v3d.Cylinder(
-          bottomCenter, top, radiusFrom, radiusTo, Pipe.slices(radiusFrom, radiusTo)).toCSG();
+          bottomCenter, top, radiusFrom, radiusTo, requiredSlices(radiusFrom, radiusTo)).toCSG();
       Solid next = new CsgSolid(cylinder);
       if (rod == null) {
         rod = next;
@@ -45,6 +46,15 @@ public final class Rod extends AbstractSolid {
     lastRadius = radiusTo;
     totalHeight += height;
     return this;
+  }
+
+  public static int requiredSlices(double radius1, double radius2) {
+    return requiredSlices(Math.max(radius1, radius2));
+  }
+
+  public static int requiredSlices(double radius) {
+    int slices = (int) (4 * 2 * PI * radius);
+    return Math.max(10, slices);
   }
 
   public CSG toCsg() {
