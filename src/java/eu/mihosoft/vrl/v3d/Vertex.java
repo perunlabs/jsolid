@@ -36,30 +36,24 @@ package eu.mihosoft.vrl.v3d;
 import java.util.Objects;
 
 /**
- * Represents a vertex of a polygon. This class provides {@link #normal} so
- * primitives like {@link Cube} can return a smooth vertex normal, but
- * {@link #normal} is not used anywhere else.
+ * Represents a vertex of a polygon.
  */
 public class Vertex {
   public Vector3d position;
-  public Vector3d normal;
 
-  public Vertex(Vector3d pos, Vector3d normal) {
+  public Vertex(Vector3d pos) {
     this.position = pos;
-    this.normal = normal;
   }
 
   @Override
   public Vertex clone() {
-    return new Vertex(position.clone(), normal.clone());
+    return new Vertex(position.clone());
   }
 
   /**
    * Inverts all orientation-specific data. (e.g. vertex normal).
    */
-  public void flip() {
-    normal = normal.negated();
-  }
+  public void flip() {}
 
   /**
    * Create a new vertex between this vertex and the specified vertex by
@@ -72,8 +66,7 @@ public class Vertex {
    * @return a new vertex between this and the specified vertex
    */
   public Vertex interpolate(Vertex other, double t) {
-    return new Vertex(position.lerp(other.position, t),
-        normal.lerp(other.normal, t));
+    return new Vertex(position.lerp(other.position, t));
   }
 
   /**

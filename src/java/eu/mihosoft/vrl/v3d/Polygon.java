@@ -293,17 +293,12 @@ public final class Polygon {
    */
   private static Polygon fromPoints(
       List<Vector3d> points, Plane plane) {
-
-    Vector3d normal = (plane != null) ? plane.normal.clone() : new Vector3d(0, 0, 0);
-
     List<Vertex> vertices = new ArrayList<>();
-
     for (Vector3d p : points) {
       Vector3d vec = p.clone();
-      Vertex vertex = new Vertex(vec, normal);
+      Vertex vertex = new Vertex(vec);
       vertices.add(vertex);
     }
-
     return new Polygon(vertices);
   }
 

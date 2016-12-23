@@ -79,8 +79,6 @@ public class PolygonUtil {
 
     List<eu.mihosoft.vrl.v3d.Polygon> result = new ArrayList<>();
 
-    Vector3d normal = concave.vertices.get(0).normal.clone();
-
     boolean cw = !Extrude.isCCW(concave);
 
     eu.mihosoft.vrl.v3d.ext.org.poly2tri.Polygon p = fromCSGPolygon(concave);
@@ -95,11 +93,7 @@ public class PolygonUtil {
 
       int counter = 0;
       for (TriangulationPoint tp : t.points) {
-
-        triPoints.add(new Vertex(
-            new Vector3d(tp.getX(), tp.getY(), tp.getZ()),
-            normal));
-
+        triPoints.add(new Vertex(new Vector3d(tp.getX(), tp.getY(), tp.getZ())));
         if (counter == 2) {
           if (!cw) {
             Collections.reverse(triPoints);
