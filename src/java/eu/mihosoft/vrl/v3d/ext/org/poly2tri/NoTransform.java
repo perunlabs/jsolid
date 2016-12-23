@@ -26,9 +26,10 @@
  * The views and conclusions contained in the software and documentation are those of the
  * authors and should not be interpreted as representing official policies, either expressed
  * or implied, of Michael Hoffer <info@michaelhoffer.de>.
- */ 
+ */
 
 package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
+
 /* Poly2Tri
  * Copyright (c) 2009-2010, Poly2Tri Contributors
  * http://code.google.com/p/poly2tri/
@@ -61,19 +62,12 @@ package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
  */
 import java.util.List;
 
+class NoTransform implements CoordinateTransform {
+  public void transform(Point p, Point store) {
+    store.set(p.getX(), p.getY(), p.getZ());
+  }
 
-class NoTransform implements CoordinateTransform
-{
-    public void transform( Point p, Point store )
-    {
-        store.set( p.getX(), p.getY(), p.getZ() );
-    }
+  public void transform(Point p) {}
 
-    public void transform( Point p )
-    {
-    }
-
-    public void transform( List<? extends Point> list )
-    {
-    }
+  public void transform(List<? extends Point> list) {}
 }

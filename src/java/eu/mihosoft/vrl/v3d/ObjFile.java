@@ -18,66 +18,66 @@ import java.nio.file.Paths;
  */
 public final class ObjFile {
 
-    private String obj;
-    private final String mtl;
-    private InputStream objStream;
-    private InputStream mtlStream;
+  private String obj;
+  private final String mtl;
+  private InputStream objStream;
+  private InputStream mtlStream;
 
-    static final String MTL_NAME = "$JCSG_MTL_NAME$";
+  static final String MTL_NAME = "$JCSG_MTL_NAME$";
 
-    ObjFile(String obj, String mtl) {
-        this.obj = obj;
-        this.mtl = mtl;
+  ObjFile(String obj, String mtl) {
+    this.obj = obj;
+    this.mtl = mtl;
+  }
+
+  public void toFiles(Path p) throws IOException {
+
+    Path parent = p.getParent();
+
+    String fileName = p.getFileName().toString();
+
+    if (fileName.toLowerCase().endsWith(".obj")
+        || fileName.toLowerCase().endsWith(".mtl")) {
+      fileName = fileName.substring(0, fileName.length() - 4);
     }
 
-    public void toFiles(Path p) throws IOException {
+    String objName = fileName + ".obj";
+    String mtlName = fileName + ".mtl";
 
-        Path parent = p.getParent();
+    obj = obj.replace(MTL_NAME, mtlName);
+    objStream = null;
 
-        String fileName = p.getFileName().toString();
-
-        if (fileName.toLowerCase().endsWith(".obj")
-                || fileName.toLowerCase().endsWith(".mtl")) {
-            fileName = fileName.substring(0, fileName.length() - 4);
-        }
-
-        String objName = fileName + ".obj";
-        String mtlName = fileName + ".mtl";
-
-        obj = obj.replace(MTL_NAME, mtlName);
-        objStream = null;
-
-        if (parent == null) {
-            FileUtil.write(Paths.get(objName), obj);
-            FileUtil.write(Paths.get(mtlName), mtl);
-        } else {
-            FileUtil.write(Paths.get(parent.toString(), objName), obj);
-            FileUtil.write(Paths.get(parent.toString(), mtlName), mtl);
-        }
-
+    if (parent == null) {
+      FileUtil.write(Paths.get(objName), obj);
+      FileUtil.write(Paths.get(mtlName), mtl);
+    } else {
+      FileUtil.write(Paths.get(parent.toString(), objName), obj);
+      FileUtil.write(Paths.get(parent.toString(), mtlName), mtl);
     }
 
-    public String getObj() {
-        return this.obj;
+  }
+
+  public String getObj() {
+    return this.obj;
+  }
+
+  public String getMtl() {
+    return this.mtl;
+  }
+
+  public InputStream getObjStream() {
+    if (objStream == null) {
+      objStream = new ByteArrayInputStream(obj.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String getMtl() {
-        return this.mtl;
+    return objStream;
+  }
+
+  public InputStream getMtlStream() {
+    if (mtlStream == null) {
+      mtlStream = new ByteArrayInputStream(mtl.getBytes(StandardCharsets.UTF_8));
     }
-    
-    public InputStream getObjStream() {
-        if (objStream == null) {
-           objStream = new ByteArrayInputStream(obj.getBytes(StandardCharsets.UTF_8));
-        }
-        
-        return objStream;
-    }
-    
-    public InputStream getMtlStream() {
-        if (mtlStream == null) {
-           mtlStream = new ByteArrayInputStream(mtl.getBytes(StandardCharsets.UTF_8));
-        }
-        
-        return mtlStream;
-    }
+
+    return mtlStream;
+  }
 }

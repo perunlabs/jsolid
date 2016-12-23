@@ -26,9 +26,10 @@
  * The views and conclusions contained in the software and documentation are those of the
  * authors and should not be interpreted as representing official policies, either expressed
  * or implied, of Michael Hoffer <info@michaelhoffer.de>.
- */ 
+ */
 
 package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
+
 /* Poly2Tri
  * Copyright (c) 2009-2010, Poly2Tri Contributors
  * http://code.google.com/p/poly2tri/
@@ -62,34 +63,27 @@ package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
 import java.util.ArrayList;
 import java.util.List;
 
+class PointGenerator {
+  public static List<TriangulationPoint> uniformDistribution(int n, double scale) {
+    ArrayList<TriangulationPoint> points = new ArrayList<TriangulationPoint>();
+    for (int i = 0; i < n; i++) {
+      points.add(new TPoint(scale * (0.5 - Math.random()), scale * (0.5 - Math.random())));
+    }
+    return points;
+  }
 
-class PointGenerator
-{
-    public static List<TriangulationPoint> uniformDistribution( int n, double scale )
-    {
-        ArrayList<TriangulationPoint> points = new ArrayList<TriangulationPoint>();
-        for( int i=0; i<n; i++ )
-        {
-            points.add( new TPoint( scale*(0.5 - Math.random()), scale*(0.5 - Math.random()) ) );
-        }
-        return points;
+  public static List<TriangulationPoint> uniformGrid(int n, double scale) {
+    double x = 0;
+    double size = scale / n;
+    double halfScale = 0.5 * scale;
+
+    ArrayList<TriangulationPoint> points = new ArrayList<TriangulationPoint>();
+    for (int i = 0; i < n + 1; i++) {
+      x = halfScale - i * size;
+      for (int j = 0; j < n + 1; j++) {
+        points.add(new TPoint(x, halfScale - j * size));
+      }
     }
-    
-    public static List<TriangulationPoint> uniformGrid( int n, double scale )
-    {
-        double x=0;
-        double size = scale/n;
-        double halfScale = 0.5*scale;
-        
-        ArrayList<TriangulationPoint> points = new ArrayList<TriangulationPoint>();
-        for( int i=0; i<n+1; i++ )
-        {
-            x =  halfScale - i*size;
-            for( int j=0; j<n+1; j++ )
-            {
-                points.add( new TPoint( x, halfScale - j*size ) );
-            }
-        }
-        return points;        
-    }
+    return points;
+  }
 }

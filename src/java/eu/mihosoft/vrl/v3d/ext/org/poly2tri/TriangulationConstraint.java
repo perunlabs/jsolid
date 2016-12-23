@@ -26,7 +26,7 @@
  * The views and conclusions contained in the software and documentation are those of the
  * authors and should not be interpreted as representing official policies, either expressed
  * or implied, of Michael Hoffer <info@michaelhoffer.de>.
- */ 
+ */
 
 package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
 /* Poly2Tri
@@ -61,25 +61,21 @@ package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
  */
 
 /**
- * Forces a triangle edge between two points p and q
- * when triangulating. For example used to enforce
- * Polygon Edges during a polygon triangulation.
+ * Forces a triangle edge between two points p and q when triangulating. For
+ * example used to enforce Polygon Edges during a polygon triangulation.
  * 
  * @author Thomas ???, thahlen@gmail.com
  */
-class TriangulationConstraint
-{
-    protected TriangulationPoint p;
-    protected TriangulationPoint q;
+class TriangulationConstraint {
+  protected TriangulationPoint p;
+  protected TriangulationPoint q;
 
-    public TriangulationPoint getP()
-    {
-        return p;
-    }
+  public TriangulationPoint getP() {
+    return p;
+  }
 
-    public TriangulationPoint getQ()
-    {
-        return q;
-    }
+  public TriangulationPoint getQ() {
+    return q;
+  }
 
 }

@@ -26,9 +26,10 @@
  * The views and conclusions contained in the software and documentation are those of the
  * authors and should not be interpreted as representing official policies, either expressed
  * or implied, of Michael Hoffer <info@michaelhoffer.de>.
- */ 
+ */
 
 package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
+
 /* Poly2Tri
  * Copyright (c) 2009-2010, Poly2Tri Contributors
  * http://code.google.com/p/poly2tri/
@@ -63,9 +64,10 @@ import java.util.List;
 
 import eu.mihosoft.vrl.v3d.ext.org.poly2tri.Point;
 
-abstract interface CoordinateTransform
-{
-    public abstract void transform( Point p, Point store );
-    public abstract void transform( Point p );
-    public abstract void transform( List<? extends Point> list );
+abstract interface CoordinateTransform {
+  public abstract void transform(Point p, Point store);
+
+  public abstract void transform(Point p);
+
+  public abstract void transform(List<? extends Point> list);
 }

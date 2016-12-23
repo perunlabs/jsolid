@@ -26,7 +26,7 @@
  * The views and conclusions contained in the software and documentation are those of the
  * authors and should not be interpreted as representing official policies, either expressed
  * or implied, of Michael Hoffer <info@michaelhoffer.de>.
- */ 
+ */
 
 package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
 /* Poly2Tri
@@ -60,38 +60,31 @@ package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-class PolygonPoint extends TPoint
-{
-    protected PolygonPoint _next;
-    protected PolygonPoint _previous;
-    
-    public PolygonPoint( double x, double y )
-    {
-        super( x, y );
-    }
+class PolygonPoint extends TPoint {
+  protected PolygonPoint _next;
+  protected PolygonPoint _previous;
 
-    public PolygonPoint( double x, double y, double z )
-    {
-        super( x, y, z );
-    }
+  public PolygonPoint(double x, double y) {
+    super(x, y);
+  }
 
-    public void setPrevious( PolygonPoint p )
-    {
-        _previous = p;
-    }
+  public PolygonPoint(double x, double y, double z) {
+    super(x, y, z);
+  }
 
-    public void setNext( PolygonPoint p )
-    {
-        _next = p;
-    }
+  public void setPrevious(PolygonPoint p) {
+    _previous = p;
+  }
 
-    public PolygonPoint getNext()
-    {
-        return _next;
-    }
+  public void setNext(PolygonPoint p) {
+    _next = p;
+  }
 
-    public PolygonPoint getPrevious()
-    {
-        return _previous;
-    }
+  public PolygonPoint getNext() {
+    return _next;
+  }
+
+  public PolygonPoint getPrevious() {
+    return _previous;
+  }
 }

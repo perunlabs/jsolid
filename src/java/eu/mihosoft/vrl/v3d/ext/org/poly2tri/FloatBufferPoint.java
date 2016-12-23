@@ -26,9 +26,10 @@
  * The views and conclusions contained in the software and documentation are those of the
  * authors and should not be interpreted as representing official policies, either expressed
  * or implied, of Michael Hoffer <info@michaelhoffer.de>.
- */ 
+ */
 
 package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
+
 /* Poly2Tri
  * Copyright (c) 2009-2010, Poly2Tri Contributors
  * http://code.google.com/p/poly2tri/
@@ -61,62 +62,53 @@ package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
  */
 import java.nio.FloatBuffer;
 
+class FloatBufferPoint extends TriangulationPoint {
+  private final FloatBuffer _fb;
+  private final int _ix, _iy, _iz;
 
+  public FloatBufferPoint(FloatBuffer fb, int index) {
+    _fb = fb;
+    _ix = index;
+    _iy = index + 1;
+    _iz = index + 2;
+  }
 
-class FloatBufferPoint extends TriangulationPoint
-{
-    private final FloatBuffer _fb;
-    private final int _ix,_iy,_iz;
-    
-    public FloatBufferPoint( FloatBuffer fb, int index )
-    {
-        _fb = fb;
-        _ix = index;
-        _iy = index+1;
-        _iz = index+2;
-    }
-    
-    public final double getX()
-    {
-        return _fb.get( _ix );
-    }
-    public final double getY()
-    {
-        return _fb.get( _iy );
-    }
-    public final double getZ()
-    {
-        return _fb.get( _iz );
-    }
-    
-    public final float getXf()
-    {
-        return _fb.get( _ix );
-    }
-    public final float getYf()
-    {
-        return _fb.get( _iy );
-    }
-    public final float getZf()
-    {
-        return _fb.get( _iz );
-    }
+  public final double getX() {
+    return _fb.get(_ix);
+  }
 
-    @Override
-    public void set( double x, double y, double z )
-    {
-        _fb.put( _ix, (float)x );
-        _fb.put( _iy, (float)y );
-        _fb.put( _iz, (float)z );
+  public final double getY() {
+    return _fb.get(_iy);
+  }
+
+  public final double getZ() {
+    return _fb.get(_iz);
+  }
+
+  public final float getXf() {
+    return _fb.get(_ix);
+  }
+
+  public final float getYf() {
+    return _fb.get(_iy);
+  }
+
+  public final float getZf() {
+    return _fb.get(_iz);
+  }
+
+  @Override
+  public void set(double x, double y, double z) {
+    _fb.put(_ix, (float) x);
+    _fb.put(_iy, (float) y);
+    _fb.put(_iz, (float) z);
+  }
+
+  public static TriangulationPoint[] toPoints(FloatBuffer fb) {
+    FloatBufferPoint[] points = new FloatBufferPoint[fb.limit() / 3];
+    for (int i = 0, j = 0; i < points.length; i++, j += 3) {
+      points[i] = new FloatBufferPoint(fb, j);
     }
-    
-    public static TriangulationPoint[] toPoints( FloatBuffer fb )
-    {
-        FloatBufferPoint[] points = new FloatBufferPoint[fb.limit()/3];
-        for( int i=0,j=0; i<points.length; i++, j+=3 )
-        {
-            points[i] = new FloatBufferPoint(fb, j);
-        }        
-        return points;
-    }
+    return points;
+  }
 }
