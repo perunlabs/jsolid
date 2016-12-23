@@ -95,10 +95,7 @@ import eu.mihosoft.vrl.v3d.ext.quickhull3d.HullUtil;
  * ~(~A | ~B)} where {@code ~} is the complement operator.
  */
 public class CSG {
-
   private List<Polygon> polygons;
-  private static OptType defaultOptType = OptType.NONE;
-  private OptType optType = null;
 
   private CSG() {}
 
@@ -129,16 +126,7 @@ public class CSG {
   @Override
   public CSG clone() {
     CSG csg = new CSG();
-
-    csg.setOptType(this.getOptType());
-
-    // sequential code
-    // csg.polygons = new ArrayList<>();
-    // polygons.forEach((polygon) -> {
-    // csg.polygons.add(polygon.clone());
-    // });
     Stream<Polygon> polygonStream;
-
     if (polygons.size() > 200) {
       polygonStream = polygons.parallelStream();
     } else {
@@ -146,7 +134,6 @@ public class CSG {
     }
 
     csg.polygons = polygonStream.map((Polygon p) -> p.clone()).collect(Collectors.toList());
-
     return csg;
   }
 
@@ -156,18 +143,6 @@ public class CSG {
    */
   public List<Polygon> getPolygons() {
     return polygons;
-  }
-
-  /**
-   * Defines the CSg optimization type.
-   *
-   * @param type
-   *          optimization type
-   * @return this CSG
-   */
-  public CSG optimization(OptType type) {
-    this.setOptType(type);
-    return this;
   }
 
   /**
@@ -200,16 +175,15 @@ public class CSG {
    * @return union of this csg and the specified csg
    */
   public CSG union(CSG csg) {
-
-    switch (getOptType()) {
-      case CSG_BOUND:
-        return _unionCSGBoundsOpt(csg);
-      case POLYGON_BOUND:
-        return _unionPolygonBoundsOpt(csg);
-      default:
-        // return _unionIntersectOpt(csg);
-        return _unionNoOpt(csg);
-    }
+    Node a = new Node(this.clone().polygons);
+    Node b = new Node(csg.clone().polygons);
+    a.clipTo(b);
+    b.clipTo(a);
+    b.invert();
+    b.clipTo(a);
+    b.invert();
+    a.build(b.allPolygons());
+    return CSG.fromPolygons(a.allPolygons());
   }
 
   /**
@@ -228,12 +202,9 @@ public class CSG {
    * @return a csg consisting of the polygons of this csg and the specified csg
    */
   public CSG dumbUnion(CSG csg) {
-
     CSG result = this.clone();
     CSG other = csg.clone();
-
     result.polygons.addAll(other.polygons);
-
     return result;
   }
 
@@ -255,7 +226,6 @@ public class CSG {
    */
   public CSG hull(List<CSG> csgs) {
     CSG csgsUnion = new CSG();
-    csgsUnion.optType = optType;
     csgsUnion.polygons = this.clone().polygons;
 
     csgs.stream().forEach((csg) -> {
@@ -273,88 +243,7 @@ public class CSG {
    * @return the convex hull of this csg and the specified csgs
    */
   public CSG hull(CSG... csgs) {
-
     return hull(Arrays.asList(csgs));
-  }
-
-  private CSG _unionCSGBoundsOpt(CSG csg) {
-    System.err.println("WARNING: using " + CSG.OptType.NONE
-        + " since other optimization types missing for union operation.");
-    return _unionIntersectOpt(csg);
-  }
-
-  private CSG _unionPolygonBoundsOpt(CSG csg) {
-    List<Polygon> inner = new ArrayList<>();
-    List<Polygon> outer = new ArrayList<>();
-
-    Bounds bounds = csg.getBounds();
-
-    this.polygons.stream().forEach((p) -> {
-      if (bounds.intersects(p.getBounds())) {
-        inner.add(p);
-      } else {
-        outer.add(p);
-      }
-    });
-
-    List<Polygon> allPolygons = new ArrayList<>();
-
-    if (!inner.isEmpty()) {
-      CSG innerCSG = CSG.fromPolygons(inner);
-
-      allPolygons.addAll(outer);
-      allPolygons.addAll(innerCSG._unionNoOpt(csg).polygons);
-    } else {
-      allPolygons.addAll(this.polygons);
-      allPolygons.addAll(csg.polygons);
-    }
-
-    return CSG.fromPolygons(allPolygons).optimization(getOptType());
-  }
-
-  /**
-   * Optimizes for intersection. If csgs do not intersect create a new csg that
-   * consists of the polygon lists of this csg and the specified csg. In this
-   * case no further space partitioning is performed.
-   *
-   * @param csg
-   *          csg
-   * @return the union of this csg and the specified csg
-   */
-  private CSG _unionIntersectOpt(CSG csg) {
-    boolean intersects = false;
-
-    Bounds bounds = csg.getBounds();
-
-    for (Polygon p : polygons) {
-      if (bounds.intersects(p.getBounds())) {
-        intersects = true;
-        break;
-      }
-    }
-
-    List<Polygon> allPolygons = new ArrayList<>();
-
-    if (intersects) {
-      return _unionNoOpt(csg);
-    } else {
-      allPolygons.addAll(this.polygons);
-      allPolygons.addAll(csg.polygons);
-    }
-
-    return CSG.fromPolygons(allPolygons).optimization(getOptType());
-  }
-
-  private CSG _unionNoOpt(CSG csg) {
-    Node a = new Node(this.clone().polygons);
-    Node b = new Node(csg.clone().polygons);
-    a.clipTo(b);
-    b.clipTo(a);
-    b.invert();
-    b.clipTo(a);
-    b.invert();
-    a.build(b.allPolygons());
-    return CSG.fromPolygons(a.allPolygons()).optimization(getOptType());
   }
 
   /**
@@ -459,54 +348,8 @@ public class CSG {
    * @return difference of this csg and the specified csg
    */
   public CSG difference(CSG csg) {
-
-    switch (getOptType()) {
-      case CSG_BOUND:
-        return _differenceCSGBoundsOpt(csg);
-      case POLYGON_BOUND:
-        return _differencePolygonBoundsOpt(csg);
-      default:
-        return _differenceNoOpt(csg);
-    }
-  }
-
-  private CSG _differenceCSGBoundsOpt(CSG csg) {
-    CSG b = csg;
-
-    CSG a1 = this._differenceNoOpt(csg.getBounds().toCSG());
-    CSG a2 = this.intersect(csg.getBounds().toCSG());
-
-    return a2._differenceNoOpt(b)._unionIntersectOpt(a1).optimization(getOptType());
-  }
-
-  private CSG _differencePolygonBoundsOpt(CSG csg) {
-    List<Polygon> inner = new ArrayList<>();
-    List<Polygon> outer = new ArrayList<>();
-
-    Bounds bounds = csg.getBounds();
-
-    this.polygons.stream().forEach((p) -> {
-      if (bounds.intersects(p.getBounds())) {
-        inner.add(p);
-      } else {
-        outer.add(p);
-      }
-    });
-
-    CSG innerCSG = CSG.fromPolygons(inner);
-
-    List<Polygon> allPolygons = new ArrayList<>();
-    allPolygons.addAll(outer);
-    allPolygons.addAll(innerCSG._differenceNoOpt(csg).polygons);
-
-    return CSG.fromPolygons(allPolygons).optimization(getOptType());
-  }
-
-  private CSG _differenceNoOpt(CSG csg) {
-
     Node a = new Node(this.clone().polygons);
     Node b = new Node(csg.clone().polygons);
-
     a.invert();
     a.clipTo(b);
     b.clipTo(a);
@@ -515,9 +358,7 @@ public class CSG {
     b.invert();
     a.build(b.allPolygons());
     a.invert();
-
-    CSG csgA = CSG.fromPolygons(a.allPolygons()).optimization(getOptType());
-    return csgA;
+    return CSG.fromPolygons(a.allPolygons());
   }
 
   /**
@@ -549,7 +390,6 @@ public class CSG {
    * @return intersection of this csg and the specified csg
    */
   public CSG intersect(CSG csg) {
-
     Node a = new Node(this.clone().polygons);
     Node b = new Node(csg.clone().polygons);
     a.invert();
@@ -559,7 +399,7 @@ public class CSG {
     b.clipTo(a);
     a.build(b.allPolygons());
     a.invert();
-    return CSG.fromPolygons(a.allPolygons()).optimization(getOptType());
+    return CSG.fromPolygons(a.allPolygons());
   }
 
   /**
@@ -780,101 +620,12 @@ public class CSG {
    * @return a transformed copy of this CSG
    */
   public CSG transformed(Transform transform) {
-
     if (polygons.isEmpty()) {
       return clone();
     }
 
     List<Polygon> newpolygons = this.polygons.stream().map(
         p -> p.transformed(transform)).collect(Collectors.toList());
-
-    CSG result = CSG.fromPolygons(newpolygons).optimization(getOptType());
-
-    return result;
+    return CSG.fromPolygons(newpolygons);
   }
-
-  /**
-   * Returns the bounds of this csg.
-   *
-   * @return bouds of this csg
-   */
-  public Bounds getBounds() {
-
-    if (polygons.isEmpty()) {
-      return new Bounds(Vector3d.ZERO, Vector3d.ZERO);
-    }
-
-    double minX = Double.POSITIVE_INFINITY;
-    double minY = Double.POSITIVE_INFINITY;
-    double minZ = Double.POSITIVE_INFINITY;
-
-    double maxX = Double.NEGATIVE_INFINITY;
-    double maxY = Double.NEGATIVE_INFINITY;
-    double maxZ = Double.NEGATIVE_INFINITY;
-
-    for (Polygon p : getPolygons()) {
-
-      for (int i = 0; i < p.vertices.size(); i++) {
-
-        Vertex vert = p.vertices.get(i);
-
-        if (vert.pos.x < minX) {
-          minX = vert.pos.x;
-        }
-        if (vert.pos.y < minY) {
-          minY = vert.pos.y;
-        }
-        if (vert.pos.z < minZ) {
-          minZ = vert.pos.z;
-        }
-
-        if (vert.pos.x > maxX) {
-          maxX = vert.pos.x;
-        }
-        if (vert.pos.y > maxY) {
-          maxY = vert.pos.y;
-        }
-        if (vert.pos.z > maxZ) {
-          maxZ = vert.pos.z;
-        }
-
-      } // end for vertices
-
-    } // end for polygon
-
-    return new Bounds(
-        new Vector3d(minX, minY, minZ),
-        new Vector3d(maxX, maxY, maxZ));
-  }
-
-  /**
-   * @return the optType
-   */
-  private OptType getOptType() {
-    return optType != null ? optType : defaultOptType;
-  }
-
-  /**
-   * @param optType
-   *          the optType to set
-   */
-  public static void setDefaultOptType(OptType optType) {
-    defaultOptType = optType;
-  }
-
-  /**
-   * @param optType
-   *          the optType to set
-   */
-  public void setOptType(OptType optType) {
-    this.optType = optType;
-  }
-
-  public static enum OptType {
-
-    CSG_BOUND,
-    POLYGON_BOUND,
-    NONE
-  }
-
 }

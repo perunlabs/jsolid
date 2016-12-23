@@ -320,51 +320,6 @@ public final class Polygon {
     return new Polygon(vertices);
   }
 
-  /**
-   * Returns the bounds of this polygon.
-   *
-   * @return bouds of this polygon
-   */
-  public Bounds getBounds() {
-    double minX = Double.POSITIVE_INFINITY;
-    double minY = Double.POSITIVE_INFINITY;
-    double minZ = Double.POSITIVE_INFINITY;
-
-    double maxX = Double.NEGATIVE_INFINITY;
-    double maxY = Double.NEGATIVE_INFINITY;
-    double maxZ = Double.NEGATIVE_INFINITY;
-
-    for (int i = 0; i < vertices.size(); i++) {
-
-      Vertex vert = vertices.get(i);
-
-      if (vert.pos.x < minX) {
-        minX = vert.pos.x;
-      }
-      if (vert.pos.y < minY) {
-        minY = vert.pos.y;
-      }
-      if (vert.pos.z < minZ) {
-        minZ = vert.pos.z;
-      }
-
-      if (vert.pos.x > maxX) {
-        maxX = vert.pos.x;
-      }
-      if (vert.pos.y > maxY) {
-        maxY = vert.pos.y;
-      }
-      if (vert.pos.z > maxZ) {
-        maxZ = vert.pos.z;
-      }
-
-    } // end for vertices
-
-    return new Bounds(
-        new Vector3d(minX, minY, minZ),
-        new Vector3d(maxX, maxY, maxZ));
-  }
-
   public boolean contains(Vector3d p) {
     // taken from http://www.java-gaming.org/index.php?topic=26013.0
     // and
