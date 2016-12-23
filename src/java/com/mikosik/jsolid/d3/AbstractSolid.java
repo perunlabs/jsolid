@@ -17,7 +17,7 @@ public abstract class AbstractSolid implements Solid {
   public List<Vector3d> vertexes() {
     return toCsg().getPolygons().stream()
         .flatMap(x -> x.vertices.stream())
-        .map(x -> x.pos)
+        .map(x -> x.position)
         .collect(toList());
   }
 

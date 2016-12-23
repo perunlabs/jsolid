@@ -86,9 +86,9 @@ public final class Polygon {
   public Polygon(List<Vertex> vertices) {
     this.vertices = vertices;
     this.plane = Plane.createFromPoints(
-        vertices.get(0).pos,
-        vertices.get(1).pos,
-        vertices.get(2).pos);
+        vertices.get(0).position,
+        vertices.get(1).position,
+        vertices.get(2).position);
   }
 
   /**
@@ -187,12 +187,12 @@ public final class Polygon {
    */
   public Polygon translate(Vector3d v) {
     vertices.forEach((vertex) -> {
-      vertex.pos = vertex.pos.plus(v);
+      vertex.position = vertex.position.plus(v);
     });
 
-    Vector3d a = this.vertices.get(0).pos;
-    Vector3d b = this.vertices.get(1).pos;
-    Vector3d c = this.vertices.get(2).pos;
+    Vector3d a = this.vertices.get(0).position;
+    Vector3d b = this.vertices.get(1).position;
+    Vector3d c = this.vertices.get(2).position;
 
     this.plane.normal = b.minus(a).cross(c.minus(a));
 
@@ -230,9 +230,9 @@ public final class Polygon {
           v.transform(transform);
         });
 
-    Vector3d a = this.vertices.get(0).pos;
-    Vector3d b = this.vertices.get(1).pos;
-    Vector3d c = this.vertices.get(2).pos;
+    Vector3d a = this.vertices.get(0).position;
+    Vector3d b = this.vertices.get(1).position;
+    Vector3d c = this.vertices.get(2).position;
 
     this.plane.normal = b.minus(a).cross(c.minus(a)).normalized();
     this.plane.dist = this.plane.normal.dot(a);
@@ -314,12 +314,12 @@ public final class Polygon {
     double px = p.x;
     double py = p.y;
     boolean oddNodes = false;
-    double x2 = vertices.get(vertices.size() - 1).pos.x;
-    double y2 = vertices.get(vertices.size() - 1).pos.y;
+    double x2 = vertices.get(vertices.size() - 1).position.x;
+    double y2 = vertices.get(vertices.size() - 1).position.y;
     double x1, y1;
     for (int i = 0; i < vertices.size(); x2 = x1, y2 = y1, ++i) {
-      x1 = vertices.get(i).pos.x;
-      y1 = vertices.get(i).pos.y;
+      x1 = vertices.get(i).position.x;
+      y1 = vertices.get(i).position.y;
       if (((y1 < py) && (y2 >= py))
           || (y1 >= py) && (y2 < py)) {
         if ((py - y1) / (y2 - y1)
@@ -333,7 +333,7 @@ public final class Polygon {
 
   public boolean contains(Polygon p) {
     for (Vertex v : p.vertices) {
-      if (!contains(v.pos)) {
+      if (!contains(v.position)) {
         return false;
       }
     }

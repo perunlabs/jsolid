@@ -100,10 +100,10 @@ public class Extrude {
 
       int nexti = (i + 1) % numvertices;
 
-      Vector3d bottomV1 = polygon1.vertices.get(i).pos;
-      Vector3d topV1 = polygon2.vertices.get(i).pos;
-      Vector3d bottomV2 = polygon1.vertices.get(nexti).pos;
-      Vector3d topV2 = polygon2.vertices.get(nexti).pos;
+      Vector3d bottomV1 = polygon1.vertices.get(i).position;
+      Vector3d topV1 = polygon2.vertices.get(i).position;
+      Vector3d bottomV2 = polygon1.vertices.get(nexti).position;
+      Vector3d topV2 = polygon2.vertices.get(nexti).position;
 
       List<Vector3d> pPoints = Arrays.asList(bottomV2, topV2, topV1, bottomV1);
 
@@ -154,11 +154,11 @@ public class Extrude {
     for (int i = 0; i < polygon.vertices.size(); i++) {
       Vertex v = polygon.vertices.get(i);
 
-      if (v.pos.y > highestLeftVertex.pos.y) {
+      if (v.position.y > highestLeftVertex.position.y) {
         highestLeftVertex = v;
         highestLeftVertexIndex = i;
-      } else if (v.pos.y == highestLeftVertex.pos.y
-          && v.pos.x < highestLeftVertex.pos.x) {
+      } else if (v.position.y == highestLeftVertex.position.y
+          && v.position.x < highestLeftVertex.position.x) {
         highestLeftVertex = v;
         highestLeftVertexIndex = i;
       }
@@ -174,10 +174,10 @@ public class Extrude {
     Vertex prevVertex = polygon.vertices.get(prevVertexIndex);
 
     // edge 1
-    double a1 = normalizedX(highestLeftVertex.pos, nextVertex.pos);
+    double a1 = normalizedX(highestLeftVertex.position, nextVertex.position);
 
     // edge 2
-    double a2 = normalizedX(highestLeftVertex.pos, prevVertex.pos);
+    double a2 = normalizedX(highestLeftVertex.position, prevVertex.position);
 
     // select vertex with lowest x value
     int selectedVIndex;

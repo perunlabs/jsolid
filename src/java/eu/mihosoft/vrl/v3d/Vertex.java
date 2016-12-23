@@ -45,7 +45,7 @@ public class Vertex {
   /**
    * Vertex position.
    */
-  public Vector3d pos;
+  public Vector3d position;
 
   /**
    * Normal.
@@ -63,7 +63,7 @@ public class Vertex {
    *          normal
    */
   public Vertex(Vector3d pos, Vector3d normal) {
-    this.pos = pos;
+    this.position = pos;
     this.normal = normal;
   }
 
@@ -78,14 +78,14 @@ public class Vertex {
    *          weight
    */
   private Vertex(Vector3d pos, Vector3d normal, double weight) {
-    this.pos = pos;
+    this.position = pos;
     this.normal = normal;
     this.weight = weight;
   }
 
   @Override
   public Vertex clone() {
-    return new Vertex(pos.clone(), normal.clone(), weight);
+    return new Vertex(position.clone(), normal.clone(), weight);
   }
 
   /**
@@ -106,7 +106,7 @@ public class Vertex {
    * @return a new vertex between this and the specified vertex
    */
   public Vertex interpolate(Vertex other, double t) {
-    return new Vertex(pos.lerp(other.pos, t),
+    return new Vertex(position.lerp(other.position, t),
         normal.lerp(other.normal, t));
   }
 
@@ -116,7 +116,7 @@ public class Vertex {
    * @return this vertex in STL string format
    */
   public String toStlString() {
-    return "vertex " + this.pos.toStlString();
+    return "vertex " + this.position.toStlString();
   }
 
   /**
@@ -128,7 +128,7 @@ public class Vertex {
    */
   public StringBuilder toStlString(StringBuilder sb) {
     sb.append("vertex ");
-    return this.pos.toStlString(sb);
+    return this.position.toStlString(sb);
   }
 
   /**
@@ -140,7 +140,7 @@ public class Vertex {
    */
   public StringBuilder toObjString(StringBuilder sb) {
     sb.append("v ");
-    return this.pos.toObjString(sb).append("\n");
+    return this.position.toObjString(sb).append("\n");
   }
 
   /**
@@ -160,7 +160,7 @@ public class Vertex {
    * @return this vertex
    */
   public Vertex transform(Transform transform) {
-    pos = pos.transform(transform, weight);
+    position = position.transform(transform, weight);
     return this;
   }
 
@@ -193,7 +193,7 @@ public class Vertex {
   @Override
   public int hashCode() {
     int hash = 7;
-    hash = 53 * hash + Objects.hashCode(this.pos);
+    hash = 53 * hash + Objects.hashCode(this.position);
     return hash;
   }
 
@@ -206,7 +206,7 @@ public class Vertex {
       return false;
     }
     final Vertex other = (Vertex) obj;
-    if (!Objects.equals(this.pos, other.pos)) {
+    if (!Objects.equals(this.position, other.position)) {
       return false;
     }
     return true;
@@ -214,7 +214,7 @@ public class Vertex {
 
   @Override
   public String toString() {
-    return pos.toString();
+    return position.toString();
   }
 
 }

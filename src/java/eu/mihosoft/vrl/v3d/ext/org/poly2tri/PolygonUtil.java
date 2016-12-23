@@ -64,7 +64,7 @@ public class PolygonUtil {
     // convert polygon
     List<PolygonPoint> points = new ArrayList<>();
     for (Vertex v : polygon.vertices) {
-      PolygonPoint vp = new PolygonPoint(v.pos.x, v.pos.y, v.pos.z);
+      PolygonPoint vp = new PolygonPoint(v.position.x, v.position.y, v.position.z);
       points.add(vp);
     }
 

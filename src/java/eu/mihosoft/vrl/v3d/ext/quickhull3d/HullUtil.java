@@ -54,7 +54,7 @@ public class HullUtil {
 
     List<eu.mihosoft.vrl.v3d.Vector3d> points = new ArrayList<>(csg.getPolygons().size() * 3);
 
-    csg.getPolygons().forEach((p) -> p.vertices.forEach((v) -> points.add(v.pos)));
+    csg.getPolygons().forEach((p) -> p.vertices.forEach((v) -> points.add(v.position)));
 
     return hull(points);
   }

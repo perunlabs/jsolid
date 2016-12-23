@@ -151,7 +151,7 @@ public class Plane {
     int polygonType = 0;
     List<Integer> types = new ArrayList<>();
     for (int i = 0; i < polygon.vertices.size(); i++) {
-      double t = this.normal.dot(polygon.vertices.get(i).pos) - this.dist;
+      double t = this.normal.dot(polygon.vertices.get(i).position) - this.dist;
       int type = (t < -Plane.EPSILON) ? BACK : (t > Plane.EPSILON) ? FRONT : COPLANAR;
       polygonType |= type;
       types.add(type);
@@ -190,8 +190,8 @@ public class Plane {
             b.add(ti != BACK ? vi.clone() : vi);
           }
           if ((ti | tj) == SPANNING) {
-            double t = (this.dist - this.normal.dot(vi.pos)) / this.normal.dot(vj.pos.minus(
-                vi.pos));
+            double t = (this.dist - this.normal.dot(vi.position)) / this.normal.dot(vj.position.minus(
+                vi.position));
             Vertex v = vi.interpolate(vj, t);
             f.add(v);
             b.add(v.clone());
