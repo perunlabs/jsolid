@@ -34,11 +34,6 @@
 package eu.mihosoft.vrl.v3d;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.acos;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-
-import java.util.Random;
 
 /**
  * 3D Vector3d.
@@ -86,32 +81,6 @@ public class Vector3d {
     this.x = x;
     this.y = y;
     this.z = 0;
-  }
-
-  /**
-   * Creates a new vector with specified {@code x}, {@code y} and {@code z = 0}.
-   *
-   * @param x
-   *          x value
-   * @param y
-   *          y value
-   */
-  public static Vector3d xy(double x, double y) {
-    return new Vector3d(x, y);
-  }
-
-  /**
-   * Creates a new vector with specified {@code x}, {@code y} and {@code z}.
-   *
-   * @param x
-   *          x value
-   * @param y
-   *          y value
-   * @param z
-   *          z value
-   */
-  public static Vector3d xyz(double x, double y, double z) {
-    return new Vector3d(x, y, z);
   }
 
   @Override
@@ -244,17 +213,6 @@ public class Vector3d {
   }
 
   /**
-   * Returns the squared magnitude of this vector (<code>this.dot(this)</code>).
-   *
-   * <b>Note:</b> this vector is not modified.
-   *
-   * @return the squared magnitude of this vector
-   */
-  double magnitudeSq() {
-    return this.dot(this);
-  }
-
-  /**
    * Returns a normalized copy of this vector with length {@code 1}.
    *
    * <b>Note:</b> this vector is not modified.
@@ -305,15 +263,6 @@ public class Vector3d {
   /**
    * Returns this vector in OBJ string format.
    *
-   * @return this vector in OBJ string format
-   */
-  public String toObjString() {
-    return toObjString(new StringBuilder()).toString();
-  }
-
-  /**
-   * Returns this vector in OBJ string format.
-   *
    * @param sb
    *          string builder
    * @return the specified string builder
@@ -332,20 +281,6 @@ public class Vector3d {
    */
   public Vector3d transform(Transform transform) {
     return transform.transform(this);
-  }
-
-  /**
-   * Returns a transformed copy of this vector.
-   *
-   * @param transform
-   *          the transform to apply
-   *
-   *          <b>Note:</b> this vector is not modified.
-   *
-   * @return a transformed copy of this vector
-   */
-  public Vector3d transformed(Transform transform) {
-    return clone().transform(transform);
   }
 
   @Override
@@ -374,18 +309,6 @@ public class Vector3d {
     return true;
   }
 
-  /**
-   * Returns the angle between this and the specified vector.
-   *
-   * @param v
-   *          vector
-   * @return angle in radians
-   */
-  public double angle(Vector3d v) {
-    double val = this.dot(v) / (this.magnitude() * v.magnitude());
-    return acos(max(min(val, 1), -1)); // compensate rounding errors
-  }
-
   @Override
   public int hashCode() {
     int hash = 5;
@@ -397,201 +320,4 @@ public class Vector3d {
         this.z) >>> 32));
     return hash;
   }
-
-  // @Override
-  // public boolean equals(Object obj) {
-  // if (obj == null) {
-  // return false;
-  // }
-  // if (getClass() != obj.getClass()) {
-  // return false;
-  // }
-  // final Vector3d other = (Vector3d) obj;
-  // if (Double.doubleToLongBits(this.x) != Double.doubleToLongBits(other.x)) {
-  // return false;
-  // }
-  // if (Double.doubleToLongBits(this.y) != Double.doubleToLongBits(other.y)) {
-  // return false;
-  // }
-  // if (Double.doubleToLongBits(this.z) != Double.doubleToLongBits(other.z)) {
-  // return false;
-  // }
-  // return true;
-  // }
-  /**
-   * Creates a new vector with specified {@code x}
-   *
-   * @param x
-   *          x value
-   * @return a new vector {@code [x,0,0]}
-   *
-   */
-  public static Vector3d x(double x) {
-    return new Vector3d(x, 0, 0);
-  }
-
-  /**
-   * Creates a new vector with specified {@code y}
-   *
-   * @param y
-   *          y value
-   * @return a new vector {@code [0,y,0]}
-   *
-   */
-  public static Vector3d y(double y) {
-    return new Vector3d(0, y, 0);
-  }
-
-  /**
-   * Creates a new vector with specified {@code z}
-   *
-   * @param z
-   *          z value
-   * @return a new vector {@code [0,0,z]}
-   *
-   */
-  public static Vector3d z(double z) {
-    return new Vector3d(0, 0, z);
-  }
-
-  /**
-   * Creates a new vector which is orthogonal to this.
-   *
-   * this_i , this_j , this_k => i,j,k € {1,2,3} permutation
-   *
-   * looking for orthogonal vector o to vector this: this_i * o_i + this_j * o_j
-   * + this_k * o_k = 0
-   *
-   * @return a new vector which is orthogonal to this
-   */
-  public Vector3d orthogonal() {
-
-    // if ((this.x == Double.NaN) || (this.y == Double.NaN) || (this.z ==
-    // Double.NaN)) {
-    // throw new IllegalStateException("NaN is not a valid entry for a
-    // vector.");
-    // }
-    double o1 = 0.0;
-    double o2 = 0.0;
-    double o3 = 0.0;
-
-    Random r = new Random();
-
-    int numberOfZeroEntries = 0;
-
-    if (this.x == 0) {
-      numberOfZeroEntries++;
-      o1 = r.nextDouble();
-    }
-
-    if (this.y == 0) {
-      numberOfZeroEntries++;
-      o2 = r.nextDouble();
-    }
-
-    if (this.z == 0) {
-      numberOfZeroEntries++;
-      o3 = r.nextDouble();
-    }
-
-    switch (numberOfZeroEntries) {
-
-      case 0:
-        // all this_i != 0
-        //
-        // we do not want o3 to be zero
-        while (o3 == 0) {
-          o3 = r.nextDouble();
-        }
-
-        // we do not want o2 to be zero
-        while (o2 == 0) {
-          o2 = r.nextDouble();
-        }
-        // calculate or choose randomly ??
-        // o2 = -this.z * o3 / this.y;
-
-        o1 = (-this.y * o2 - this.z * o3) / this.x;
-
-        break;
-
-      case 1:
-        // this_i = 0 , i € {1,2,3}
-        // this_j != 0 != this_k , j,k € {1,2,3}\{i}
-        //
-        // choose one none zero randomly and calculate the other one
-
-        if (this.x == 0) {
-          // we do not want o3 to be zero
-          while (o3 == 0) {
-            o3 = r.nextDouble();
-          }
-
-          o2 = -this.z * o3 / this.y;
-
-        } else if (this.y == 0) {
-
-          // we do not want o3 to be zero
-          while (o3 == 0) {
-            o3 = r.nextDouble();
-          }
-
-          o1 = -this.z * o3 / this.x;
-
-        } else if (this.z == 0) {
-
-          // we do not want o1 to be zero
-          while (o1 == 0) {
-            o1 = r.nextDouble();
-          }
-
-          o2 = -this.z * o1 / this.y;
-        }
-
-        break;
-
-      case 2:
-        // if two parts of this are 0 we can achieve orthogonality
-        // via setting the corressponding part of the orthogonal vector
-        // to zero this is ALREADY DONE in the init (o_i = 0.0)
-        // NO CODE NEEDED
-        // if (this.x == 0) {
-        // o1 = 0;
-        // } else if (this.y == 0) {
-        // o2 = 0;
-        // } else if (this.z == 0) {
-        // o3 = 0;
-        // }
-        break;
-
-      case 3:
-        System.err.println("This vector is equal to (0,0,0). ");
-
-      default:
-        System.err.println("The orthogonal one is set randomly.");
-
-        o1 = r.nextDouble();
-        o2 = r.nextDouble();
-        o3 = r.nextDouble();
-    }
-
-    Vector3d result = new Vector3d(o1, o2, o3);
-
-    // if ((this.x ==Double.NaN) || (this.y == Double.NaN) || (this.z ==
-    // Double.NaN)) {
-    // throw new IllegalStateException("NaN is not a valid entry for a
-    // vector.");
-    // }
-    // System.out.println(" this : "+ this);
-    // System.out.println(" result : "+ result);
-    // check if the created vector is really orthogonal to this
-    // if not try one more time
-    while (this.dot(result) != 0.0) {
-      result = this.orthogonal();
-    }
-
-    return result;
-
-  }
-
 }
