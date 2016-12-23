@@ -46,10 +46,9 @@ import java.util.Random;
  * @author Michael Hoffer &lt;info@michaelhoffer.de&gt;
  */
 public class Vector3d {
-
-  public double x;
-  public double y;
-  public double z;
+  public final double x;
+  public final double y;
+  public final double z;
 
   public static final Vector3d ZERO = new Vector3d(0, 0, 0);
   public static final Vector3d UNITY = new Vector3d(1, 1, 1);

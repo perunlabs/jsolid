@@ -417,23 +417,11 @@ public class Transform {
     return this;
   }
 
-  /**
-   * Applies this transform to the specified vector.
-   *
-   * @param vec
-   *          vector to transform
-   *
-   * @return the specified vector
-   */
   public Vector3d transform(Vector3d vec) {
-    double x, y;
-    x = m.m00 * vec.x + m.m01 * vec.y + m.m02 * vec.z + m.m03;
-    y = m.m10 * vec.x + m.m11 * vec.y + m.m12 * vec.z + m.m13;
-    vec.z = m.m20 * vec.x + m.m21 * vec.y + m.m22 * vec.z + m.m23;
-    vec.x = x;
-    vec.y = y;
-
-    return vec;
+    double x = m.m00 * vec.x + m.m01 * vec.y + m.m02 * vec.z + m.m03;
+    double y = m.m10 * vec.x + m.m11 * vec.y + m.m12 * vec.z + m.m13;
+    double z = m.m20 * vec.x + m.m21 * vec.y + m.m22 * vec.z + m.m23;
+    return new Vector3d(x, y, z);
   }
 
   // // Multiply a CSG.Vector3D (interpreted as 3 column, 1 row) by this matrix
