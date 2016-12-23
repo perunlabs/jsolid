@@ -51,11 +51,6 @@ public class Vertex {
   }
 
   /**
-   * Inverts all orientation-specific data. (e.g. vertex normal).
-   */
-  public void flip() {}
-
-  /**
    * Create a new vertex between this vertex and the specified vertex by
    * linearly interpolating all properties using a parameter t.
    *

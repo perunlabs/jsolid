@@ -120,9 +120,6 @@ public final class Polygon {
    * @return this polygon
    */
   public Polygon flip() {
-    vertices.forEach((vertex) -> {
-      vertex.flip();
-    });
     Collections.reverse(vertices);
     plane.flip();
     return this;
