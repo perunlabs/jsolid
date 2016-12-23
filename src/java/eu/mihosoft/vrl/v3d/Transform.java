@@ -46,59 +46,61 @@ public class Transform {
     matrix.m33 = 1;
   }
 
+  public Transform(double elements[]) {
+    this.matrix = new Matrix4d(elements);
+  }
+
   public static Transform unity() {
     return new Transform();
   }
 
-  public Transform rotateX(double degrees) {
+  public static Transform rotateX(double degrees) {
     double radians = degrees * Math.PI * (1.0 / 180.0);
     double cos = Math.cos(radians);
     double sin = Math.sin(radians);
     double elemenents[] = {
         1, 0, 0, 0, 0, cos, sin, 0, 0, -sin, cos, 0, 0, 0, 0, 1
     };
-    matrix.mul(new Matrix4d(elemenents));
-    return this;
+    return new Transform(elemenents);
   }
 
-  public Transform rotateY(double degrees) {
+  public static Transform rotateY(double degrees) {
     double radians = degrees * Math.PI * (1.0 / 180.0);
     double cos = Math.cos(radians);
     double sin = Math.sin(radians);
     double elemenents[] = {
         cos, 0, -sin, 0, 0, 1, 0, 0, sin, 0, cos, 0, 0, 0, 0, 1
     };
-    matrix.mul(new Matrix4d(elemenents));
-    return this;
+    return new Transform(elemenents);
   }
 
-  public Transform rotateZ(double degrees) {
+  public static Transform rotateZ(double degrees) {
     double radians = degrees * Math.PI * (1.0 / 180.0);
     double cos = Math.cos(radians);
     double sin = Math.sin(radians);
     double elemenents[] = {
         cos, sin, 0, 0, -sin, cos, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1
     };
-    matrix.mul(new Matrix4d(elemenents));
-    return this;
+    return new Transform(elemenents);
   }
 
-  public Transform rotate(Vector3d vec) {
-    return rotateX(vec.x).rotateY(vec.y).rotateZ(vec.z);
+  public static Transform rotate(Vector3d vec) {
+    rotateX(vec.x);
+    Transform.rotateY(vec.y);
+    return Transform.rotateZ(vec.z);
   }
 
-  public Transform translate(Vector3d vec) {
+  public static Transform translate(Vector3d vec) {
     double elemenents[] = {
         1, 0, 0, vec.x,
         0, 1, 0, vec.y,
         0, 0, 1, vec.z,
         0, 0, 0, 1
     };
-    matrix.mul(new Matrix4d(elemenents));
-    return this;
+    return new Transform(elemenents);
   }
 
-  public Transform mirror(Plane plane) {
+  public static Transform mirror(Plane plane) {
     System.err.println(
         "WARNING: I'm too dumb to implement the mirror() operation correctly. Please fix me!");
 
@@ -112,17 +114,15 @@ public class Transform {
         (-2.0 * nx * nz), (-2.0 * ny * nz), (1.0 - 2.0 * nz * nz), 0,
         (-2.0 * nx * w), (-2.0 * ny * w), (-2.0 * nz * w), 1
     };
-    matrix.mul(new Matrix4d(elemenents));
-    return this;
+    return new Transform(elemenents);
   }
 
-  public Transform scale(Vector3d vec) {
+  public static Transform scale(Vector3d vec) {
     if (vec.x == 0 || vec.y == 0 || vec.z == 0) {
       throw new IllegalArgumentException("scale by 0 not allowed!");
     }
     double elemenents[] = { vec.x, 0, 0, 0, 0, vec.y, 0, 0, 0, 0, vec.z, 0, 0, 0, 0, 1 };
-    matrix.mul(new Matrix4d(elemenents));
-    return this;
+    return new Transform(elemenents);
   }
 
   public Vector3d transform(Vector3d vec) {

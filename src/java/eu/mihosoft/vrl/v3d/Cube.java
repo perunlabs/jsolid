@@ -132,10 +132,8 @@ public class Cube implements Primitive {
     }
 
     if (!centered) {
-
-      Transform centerTransform = Transform.unity().translate(
+      Transform centerTransform = Transform.translate(
           v(dimensions.x / 2.0, dimensions.y / 2.0, dimensions.z / 2.0));
-
       for (Polygon p : polygons) {
         p.transform(centerTransform);
       }

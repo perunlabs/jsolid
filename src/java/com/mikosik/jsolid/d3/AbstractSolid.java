@@ -71,7 +71,7 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid move(Vector3d position) {
-    return transform(Transform.unity().translate(position));
+    return transform(Transform.translate(position));
   }
 
   public Solid move(Anchor<?> anchor, double value) {
@@ -84,18 +84,18 @@ public abstract class AbstractSolid implements Solid {
 
   private static Transform rotationTransform(Vector3d axis, double angle) {
     if (axis.equals(vx(1))) {
-      return Transform.unity().rotateX(angle);
+      return Transform.rotateX(angle);
     } else if (axis.equals(vy(1))) {
-      return Transform.unity().rotateY(angle);
+      return Transform.rotateY(angle);
     } else if (axis.equals(vz(1))) {
-      return Transform.unity().rotateZ(angle);
+      return Transform.rotateZ(angle);
     } else {
       throw new IllegalArgumentException("Axis must be one of vx(1), vy(1), vz(1).");
     }
   }
 
   public Solid mirror(Vector3d planeNormal) {
-    return transform(Transform.unity().mirror(plane(planeNormal)));
+    return transform(Transform.mirror(plane(planeNormal)));
   }
 
   private Plane plane(Vector3d planeNormal) {
@@ -111,7 +111,7 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid scale(Vector3d factor) {
-    return transform(Transform.unity().scale(factor));
+    return transform(Transform.scale(factor));
   }
 
   public Solid convexHull() {
