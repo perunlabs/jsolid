@@ -47,12 +47,12 @@ import javax.vecmath.Matrix4d;
  * <b>Example:</b>
  *
  * <blockquote>
- * 
+ *
  * <pre>
  * // t applies rotation and translation
  * Transform t = Transform.unity().rotX(45).translate(2, 1, 0);
  * </pre>
- * 
+ *
  * </blockquote>
  *
  * <b>TODO:</b> use quaternions for rotations.
@@ -432,40 +432,6 @@ public class Transform {
     vec.z = m.m20 * vec.x + m.m21 * vec.y + m.m22 * vec.z + m.m23;
     vec.x = x;
     vec.y = y;
-
-    return vec;
-  }
-
-  /**
-   * Applies this transform to the specified vector.
-   *
-   * @param vec
-   *          vector to transform
-   * @param amount
-   *          transform amount (0 = 0 %, 1 = 100%)
-   *
-   * @return the specified vector
-   */
-  public Vector3d transform(Vector3d vec, double amount) {
-
-    double prevX = vec.x;
-    double prevY = vec.y;
-    double prevZ = vec.z;
-
-    final double x, y;
-    x = m.m00 * vec.x + m.m01 * vec.y + m.m02 * vec.z + m.m03;
-    y = m.m10 * vec.x + m.m11 * vec.y + m.m12 * vec.z + m.m13;
-    vec.z = m.m20 * vec.x + m.m21 * vec.y + m.m22 * vec.z + m.m23;
-    vec.x = x;
-    vec.y = y;
-
-    double diffX = vec.x - prevX;
-    double diffY = vec.y - prevY;
-    double diffZ = vec.z - prevZ;
-
-    vec.x = prevX + (diffX) * amount;
-    vec.y = prevY + (diffY) * amount;
-    vec.z = prevZ + (diffZ) * amount;
 
     return vec;
   }

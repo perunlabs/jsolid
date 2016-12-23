@@ -149,8 +149,6 @@ public class CSG {
    * Return a new CSG solid representing the union of this csg and the specified
    * csg.
    *
-   * <b>Note:</b> Neither this csg nor the specified csg are weighted.
-   *
    * <blockquote>
    *
    * <pre>
@@ -250,8 +248,6 @@ public class CSG {
    * Return a new CSG solid representing the difference of this csg and the
    * specified csgs.
    *
-   * <b>Note:</b> Neither this csg nor the specified csgs are weighted.
-   *
    * <blockquote>
    *
    * <pre>
@@ -292,8 +288,6 @@ public class CSG {
    * Return a new CSG solid representing the difference of this csg and the
    * specified csgs.
    *
-   * <b>Note:</b> Neither this csg nor the specified csgs are weighted.
-   *
    * <blockquote>
    *
    * <pre>
@@ -323,8 +317,6 @@ public class CSG {
   /**
    * Return a new CSG solid representing the difference of this csg and the
    * specified csg.
-   *
-   * <b>Note:</b> Neither this csg nor the specified csg are weighted.
    *
    * <blockquote>
    *
@@ -365,8 +357,6 @@ public class CSG {
    * Return a new CSG solid representing the intersection of this csg and the
    * specified csg.
    *
-   * <b>Note:</b> Neither this csg nor the specified csg are weighted.
-   *
    * <blockquote>
    *
    * <pre>
@@ -405,8 +395,6 @@ public class CSG {
   /**
    * Return a new CSG solid representing the intersection of this csg and the
    * specified csgs.
-   *
-   * <b>Note:</b> Neither this csg nor the specified csgs are weighted.
    *
    * <blockquote>
    *
@@ -448,8 +436,6 @@ public class CSG {
   /**
    * Return a new CSG solid representing the intersection of this csg and the
    * specified csgs.
-   *
-   * <b>Note:</b> Neither this csg nor the specified csgs are weighted.
    *
    * <blockquote>
    *
