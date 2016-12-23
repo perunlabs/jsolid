@@ -21,6 +21,10 @@ public abstract class AbstractSolid implements Solid {
         .collect(toList());
   }
 
+  public Solid transform(Transform transform) {
+    return new CsgSolid(toCsg().transformed(transform));
+  }
+
   public Solid plus(Solid solid) {
     CSG thisCsg = toCsg();
     if (thisCsg.getPolygons().size() == 0) {
@@ -67,22 +71,18 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid move(Vector3d position) {
-    return translate(position);
+    return transform(Transform.unity().translate(position));
   }
 
   public Solid move(Anchor<?> anchor, double value) {
     return move(anchor.axis.v(value).minus(anchor.vectorIn(this)));
   }
 
-  private CsgSolid translate(Vector3d vector) {
-    return new CsgSolid(toCsg().transformed(Transform.unity().translate(vector)));
-  }
-
   public Solid rotate(Vector3d direction, double angle) {
-    return new CsgSolid(toCsg().transformed(rotationTransform(direction, angle)));
+    return transform(rotationTransform(direction, angle));
   }
 
-  private Transform rotationTransform(Vector3d axis, double angle) {
+  private static Transform rotationTransform(Vector3d axis, double angle) {
     if (axis.equals(vx(1))) {
       return Transform.unity().rotX(angle);
     } else if (axis.equals(vy(1))) {
@@ -95,7 +95,7 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid mirror(Vector3d planeNormal) {
-    return new CsgSolid(toCsg().transformed(Transform.unity().mirror(plane(planeNormal))));
+    return transform(Transform.unity().mirror(plane(planeNormal)));
   }
 
   private Plane plane(Vector3d planeNormal) {
@@ -111,7 +111,7 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid scale(Vector3d factor) {
-    return new CsgSolid(toCsg().transformed(Transform.unity().scale(factor)));
+    return transform(Transform.unity().scale(factor));
   }
 
   public Solid convexHull() {
