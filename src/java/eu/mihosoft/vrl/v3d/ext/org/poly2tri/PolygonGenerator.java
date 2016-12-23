@@ -26,7 +26,7 @@
  * The views and conclusions contained in the software and documentation are those of the
  * authors and should not be interpreted as representing official policies, either expressed
  * or implied, of Michael Hoffer <info@michaelhoffer.de>.
- */ 
+ */
 
 package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
 /* Poly2Tri
@@ -60,62 +60,50 @@ package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-class PolygonGenerator
-{
-    private static final double PI_2 = 2.0*Math.PI;
-    
-    public static Polygon RandomCircleSweep( double scale, int vertexCount )
-    {
-        PolygonPoint point;
-        PolygonPoint[] points;
-        double radius = scale/4;
+class PolygonGenerator {
+  private static final double PI_2 = 2.0 * Math.PI;
 
-        points = new PolygonPoint[vertexCount];
-        for(int i=0; i<vertexCount; i++)
-        {
-            do
-            {
-                if( i%250 == 0 )
-                {
-                    radius += scale/2*(0.5 - Math.random());
-                }
-                else if( i%50 == 0 )
-                {
-                    radius += scale/5*(0.5 - Math.random());
-                }
-                else
-                {
-                    radius += 25*scale/vertexCount*(0.5 - Math.random());                                        
-                }
-                radius = radius > scale/2 ? scale/2 : radius;
-                radius = radius < scale/10 ? scale/10 : radius;
-            } while( radius < scale/10 || radius > scale/2 ); 
-            point = new PolygonPoint( radius*Math.cos( (PI_2*i)/vertexCount ), 
-                                      radius*Math.sin( (PI_2*i)/vertexCount ) );
-            points[i] = point;
-        }            
-        return new Polygon( points );
+  public static Polygon RandomCircleSweep(double scale, int vertexCount) {
+    PolygonPoint point;
+    PolygonPoint[] points;
+    double radius = scale / 4;
+
+    points = new PolygonPoint[vertexCount];
+    for (int i = 0; i < vertexCount; i++) {
+      do {
+        if (i % 250 == 0) {
+          radius += scale / 2 * (0.5 - Math.random());
+        } else if (i % 50 == 0) {
+          radius += scale / 5 * (0.5 - Math.random());
+        } else {
+          radius += 25 * scale / vertexCount * (0.5 - Math.random());
+        }
+        radius = radius > scale / 2 ? scale / 2 : radius;
+        radius = radius < scale / 10 ? scale / 10 : radius;
+      } while (radius < scale / 10 || radius > scale / 2);
+      point = new PolygonPoint(radius * Math.cos((PI_2 * i) / vertexCount),
+          radius * Math.sin((PI_2 * i) / vertexCount));
+      points[i] = point;
     }
+    return new Polygon(points);
+  }
 
-    public static Polygon RandomCircleSweep2( double scale, int vertexCount )
-    {
-        PolygonPoint point;
-        PolygonPoint[] points;
-        double radius = scale/4;
+  public static Polygon RandomCircleSweep2(double scale, int vertexCount) {
+    PolygonPoint point;
+    PolygonPoint[] points;
+    double radius = scale / 4;
 
-        points = new PolygonPoint[vertexCount];
-        for(int i=0; i<vertexCount; i++)
-        {
-            do
-            {
-                radius += scale/5*(0.5 - Math.random());                                        
-                radius = radius > scale/2 ? scale/2 : radius;
-                radius = radius < scale/10 ? scale/10 : radius;
-            } while( radius < scale/10 || radius > scale/2 ); 
-            point = new PolygonPoint( radius*Math.cos( (PI_2*i)/vertexCount ), 
-                                      radius*Math.sin( (PI_2*i)/vertexCount ) );
-            points[i] = point;
-        }            
-        return new Polygon( points );
+    points = new PolygonPoint[vertexCount];
+    for (int i = 0; i < vertexCount; i++) {
+      do {
+        radius += scale / 5 * (0.5 - Math.random());
+        radius = radius > scale / 2 ? scale / 2 : radius;
+        radius = radius < scale / 10 ? scale / 10 : radius;
+      } while (radius < scale / 10 || radius > scale / 2);
+      point = new PolygonPoint(radius * Math.cos((PI_2 * i) / vertexCount),
+          radius * Math.sin((PI_2 * i) / vertexCount));
+      points[i] = point;
     }
+    return new Polygon(points);
+  }
 }

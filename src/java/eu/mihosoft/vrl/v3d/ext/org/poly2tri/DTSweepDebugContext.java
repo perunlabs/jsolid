@@ -26,7 +26,7 @@
  * The views and conclusions contained in the software and documentation are those of the
  * authors and should not be interpreted as representing official policies, either expressed
  * or implied, of Michael Hoffer <info@michaelhoffer.de>.
- */ 
+ */
 
 package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
 /* Poly2Tri
@@ -60,101 +60,89 @@ package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-class DTSweepDebugContext extends TriangulationDebugContext
-{
-    /*
-     * Fields used for visual representation of current triangulation
-     */
-    protected DelaunayTriangle _primaryTriangle;
-    protected DelaunayTriangle _secondaryTriangle;
-    protected TriangulationPoint _activePoint;
-    protected AdvancingFrontNode _activeNode;
-    protected DTSweepConstraint _activeConstraint;   
-        
-    public DTSweepDebugContext( DTSweepContext tcx )
-    {
-        super( tcx );
-    }
-    
-    public boolean isDebugContext()
-    {
-        return true;
-    }
+class DTSweepDebugContext extends TriangulationDebugContext {
+  /*
+   * Fields used for visual representation of current triangulation
+   */
+  protected DelaunayTriangle _primaryTriangle;
+  protected DelaunayTriangle _secondaryTriangle;
+  protected TriangulationPoint _activePoint;
+  protected AdvancingFrontNode _activeNode;
+  protected DTSweepConstraint _activeConstraint;
 
-    //  private Tuple2<TPoint,Double> m_circumCircle = new Tuple2<TPoint,Double>( new TPoint(), new Double(0) );
-//  public Tuple2<TPoint,Double> getCircumCircle() { return m_circumCircle; }
-    public DelaunayTriangle getPrimaryTriangle()
-    {
-        return _primaryTriangle;
-    }
+  public DTSweepDebugContext(DTSweepContext tcx) {
+    super(tcx);
+  }
 
-    public DelaunayTriangle getSecondaryTriangle()
-    {
-        return _secondaryTriangle;
-    }
-    
-    public AdvancingFrontNode getActiveNode()
-    {
-        return _activeNode;
-    }
+  public boolean isDebugContext() {
+    return true;
+  }
 
-    public DTSweepConstraint getActiveConstraint()
-    {
-        return _activeConstraint;
-    }
+  // private Tuple2<TPoint,Double> m_circumCircle = new Tuple2<TPoint,Double>(
+  // new TPoint(), new Double(0) );
+  // public Tuple2<TPoint,Double> getCircumCircle() { return m_circumCircle; }
+  public DelaunayTriangle getPrimaryTriangle() {
+    return _primaryTriangle;
+  }
 
-    public TriangulationPoint getActivePoint()
-    {
-        return _activePoint;
-    }
+  public DelaunayTriangle getSecondaryTriangle() {
+    return _secondaryTriangle;
+  }
 
-    public void setPrimaryTriangle( DelaunayTriangle triangle )
-    {
-        _primaryTriangle = triangle;        
-        _tcx.update("setPrimaryTriangle");
-    }
+  public AdvancingFrontNode getActiveNode() {
+    return _activeNode;
+  }
 
-    public void setSecondaryTriangle( DelaunayTriangle triangle )
-    {
-        _secondaryTriangle = triangle;        
-        _tcx.update("setSecondaryTriangle");
-    }
-    
-    public void setActivePoint( TriangulationPoint point )
-    {
-        _activePoint = point;        
-    }
+  public DTSweepConstraint getActiveConstraint() {
+    return _activeConstraint;
+  }
 
-    public void setActiveConstraint( DTSweepConstraint e )
-    {
-        _activeConstraint = e;
-        _tcx.update("setWorkingSegment");
-    }
+  public TriangulationPoint getActivePoint() {
+    return _activePoint;
+  }
 
-    public void setActiveNode( AdvancingFrontNode node )
-    {
-        _activeNode = node;        
-        _tcx.update("setWorkingNode");
-    }
+  public void setPrimaryTriangle(DelaunayTriangle triangle) {
+    _primaryTriangle = triangle;
+    _tcx.update("setPrimaryTriangle");
+  }
 
-    @Override
-    public void clear()
-    {
-        _primaryTriangle = null;
-        _secondaryTriangle = null;
-        _activePoint = null;
-        _activeNode = null;
-        _activeConstraint = null;   
-    }
-        
-//  public void setWorkingCircumCircle( TPoint point, TPoint point2, TPoint point3 )
-//  {
-//          double dx,dy;
-//          
-//          CircleXY.circumCenter( point, point2, point3, m_circumCircle.a );
-//          dx = m_circumCircle.a.getX()-point.getX();
-//          dy = m_circumCircle.a.getY()-point.getY();
-//          m_circumCircle.b = Double.valueOf( Math.sqrt( dx*dx + dy*dy ) );
-//          
-//  }
+  public void setSecondaryTriangle(DelaunayTriangle triangle) {
+    _secondaryTriangle = triangle;
+    _tcx.update("setSecondaryTriangle");
+  }
+
+  public void setActivePoint(TriangulationPoint point) {
+    _activePoint = point;
+  }
+
+  public void setActiveConstraint(DTSweepConstraint e) {
+    _activeConstraint = e;
+    _tcx.update("setWorkingSegment");
+  }
+
+  public void setActiveNode(AdvancingFrontNode node) {
+    _activeNode = node;
+    _tcx.update("setWorkingNode");
+  }
+
+  @Override
+  public void clear() {
+    _primaryTriangle = null;
+    _secondaryTriangle = null;
+    _activePoint = null;
+    _activeNode = null;
+    _activeConstraint = null;
+  }
+
+  // public void setWorkingCircumCircle( TPoint point, TPoint point2, TPoint
+  // point3 )
+  // {
+  // double dx,dy;
+  //
+  // CircleXY.circumCenter( point, point2, point3, m_circumCircle.a );
+  // dx = m_circumCircle.a.getX()-point.getX();
+  // dy = m_circumCircle.a.getY()-point.getY();
+  // m_circumCircle.b = Double.valueOf( Math.sqrt( dx*dx + dy*dy ) );
+  //
+  // }
 }

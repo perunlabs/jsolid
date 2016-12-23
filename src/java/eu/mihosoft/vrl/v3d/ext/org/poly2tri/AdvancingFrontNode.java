@@ -26,9 +26,10 @@
  * The views and conclusions contained in the software and documentation are those of the
  * authors and should not be interpreted as representing official policies, either expressed
  * or implied, of Michael Hoffer <info@michaelhoffer.de>.
- */ 
+ */
 
 package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
+
 /* Poly2Tri
  * Copyright (c) 2009-2010, Poly2Tri Contributors
  * http://code.google.com/p/poly2tri/
@@ -62,52 +63,42 @@ package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
 import eu.mihosoft.vrl.v3d.ext.org.poly2tri.TriangulationPoint;
 import eu.mihosoft.vrl.v3d.ext.org.poly2tri.DelaunayTriangle;
 
+class AdvancingFrontNode {
+  protected AdvancingFrontNode next = null;
+  protected AdvancingFrontNode prev = null;
 
+  protected final Double key; // XXX: BST
+  protected final double value;
+  protected final TriangulationPoint point;
+  protected DelaunayTriangle triangle;
 
-class AdvancingFrontNode
-{
-    protected AdvancingFrontNode next = null;
-    protected AdvancingFrontNode prev = null;
+  public AdvancingFrontNode(TriangulationPoint point) {
+    this.point = point;
+    value = point.getX();
+    key = Double.valueOf(value); // XXX: BST
+  }
 
-    protected final Double key; // XXX: BST
-    protected final double value;
-    protected final TriangulationPoint point;
-    protected DelaunayTriangle triangle;
-    
-    public AdvancingFrontNode( TriangulationPoint point )
-    {
-        this.point = point;
-        value = point.getX();
-        key = Double.valueOf( value ); // XXX: BST
-    }    
+  public AdvancingFrontNode getNext() {
+    return next;
+  }
 
-    public AdvancingFrontNode getNext()
-    {
-        return next;
-    }
+  public AdvancingFrontNode getPrevious() {
+    return prev;
+  }
 
-    public AdvancingFrontNode getPrevious()
-    {
-        return prev;
-    }
+  public TriangulationPoint getPoint() {
+    return point;
+  }
 
-    public TriangulationPoint getPoint()
-    {
-        return point;
-    }
-    
-    public DelaunayTriangle getTriangle()
-    {
-        return triangle;
-    }
+  public DelaunayTriangle getTriangle() {
+    return triangle;
+  }
 
-    public boolean hasNext()
-    {
-        return next != null;
-    }
+  public boolean hasNext() {
+    return next != null;
+  }
 
-    public boolean hasPrevious()
-    {
-        return prev != null;
-    }    
+  public boolean hasPrevious() {
+    return prev != null;
+  }
 }

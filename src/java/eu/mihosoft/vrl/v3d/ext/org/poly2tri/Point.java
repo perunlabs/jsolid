@@ -26,9 +26,10 @@
  * The views and conclusions contained in the software and documentation are those of the
  * authors and should not be interpreted as representing official policies, either expressed
  * or implied, of Michael Hoffer <info@michaelhoffer.de>.
- */ 
+ */
 
 package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
+
 /* Poly2Tri
  * Copyright (c) 2009-2010, Poly2Tri Contributors
  * http://code.google.com/p/poly2tri/
@@ -59,32 +60,34 @@ package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-abstract class Point
-{
-    public abstract double getX();
-    public abstract double getY();
-    public abstract double getZ();
+abstract class Point {
+  public abstract double getX();
 
-    public abstract float getXf();
-    public abstract float getYf();
-    public abstract float getZf();
-    
-    public abstract void set( double x, double y, double z );
+  public abstract double getY();
 
-    protected static int calculateHashCode( double x, double y, double z)
-    {
-        int result = 17;
+  public abstract double getZ();
 
-        final long a = Double.doubleToLongBits(x);
-        result += 31 * result + (int) (a ^ (a >>> 32));
+  public abstract float getXf();
 
-        final long b = Double.doubleToLongBits(y);
-        result += 31 * result + (int) (b ^ (b >>> 32));
+  public abstract float getYf();
 
-        final long c = Double.doubleToLongBits(z);
-        result += 31 * result + (int) (c ^ (c >>> 32));
+  public abstract float getZf();
 
-        return result;
-        
-    }
+  public abstract void set(double x, double y, double z);
+
+  protected static int calculateHashCode(double x, double y, double z) {
+    int result = 17;
+
+    final long a = Double.doubleToLongBits(x);
+    result += 31 * result + (int) (a ^ (a >>> 32));
+
+    final long b = Double.doubleToLongBits(y);
+    result += 31 * result + (int) (b ^ (b >>> 32));
+
+    final long c = Double.doubleToLongBits(z);
+    result += 31 * result + (int) (c ^ (c >>> 32));
+
+    return result;
+
+  }
 }

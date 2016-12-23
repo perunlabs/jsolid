@@ -26,7 +26,7 @@
  * The views and conclusions contained in the software and documentation are those of the
  * authors and should not be interpreted as representing official policies, either expressed
  * or implied, of Michael Hoffer <info@michaelhoffer.de>.
- */ 
+ */
 
 package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
 /* Poly2Tri
@@ -62,33 +62,32 @@ package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
 
 import java.util.List;
 
-
 abstract class Matrix3Transform implements CoordinateTransform {
 
-    protected double m00, m01, m02, m10, m11, m12, m20, m21, m22;
+  protected double m00, m01, m02, m10, m11, m12, m20, m21, m22;
 
-    @Override
-    public void transform(Point p, Point store) {
-        final double px = p.getX();
-        final double py = p.getY();
-        final double pz = p.getZ();
-        store.set(m00 * px + m01 * py + m02 * pz,
-                m10 * px + m11 * py + m12 * pz,
-                m20 * px + m21 * py + m22 * pz);
-    }
+  @Override
+  public void transform(Point p, Point store) {
+    final double px = p.getX();
+    final double py = p.getY();
+    final double pz = p.getZ();
+    store.set(m00 * px + m01 * py + m02 * pz,
+        m10 * px + m11 * py + m12 * pz,
+        m20 * px + m21 * py + m22 * pz);
+  }
 
-    public void transform(Point p) {
-        final double px = p.getX();
-        final double py = p.getY();
-        final double pz = p.getZ();
-        p.set(m00 * px + m01 * py + m02 * pz,
-                m10 * px + m11 * py + m12 * pz,
-                m20 * px + m21 * py + m22 * pz);
-    }
+  public void transform(Point p) {
+    final double px = p.getX();
+    final double py = p.getY();
+    final double pz = p.getZ();
+    p.set(m00 * px + m01 * py + m02 * pz,
+        m10 * px + m11 * py + m12 * pz,
+        m20 * px + m21 * py + m22 * pz);
+  }
 
-    public void transform(List<? extends Point> list) {
-        for (Point p : list) {
-            transform(p);
-        }
+  public void transform(List<? extends Point> list) {
+    for (Point p : list) {
+      transform(p);
     }
+  }
 }
