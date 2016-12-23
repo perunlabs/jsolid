@@ -41,25 +41,9 @@ import java.util.Objects;
  * {@link #normal} is not used anywhere else.
  */
 public class Vertex {
-
-  /**
-   * Vertex position.
-   */
   public Vector3d position;
-
-  /**
-   * Normal.
-   */
   public Vector3d normal;
 
-  /**
-   * Constructor. Creates a vertex.
-   *
-   * @param pos
-   *          position
-   * @param normal
-   *          normal
-   */
   public Vertex(Vector3d pos, Vector3d normal) {
     this.position = pos;
     this.normal = normal;
@@ -183,5 +167,4 @@ public class Vertex {
   public String toString() {
     return position.toString();
   }
-
 }
