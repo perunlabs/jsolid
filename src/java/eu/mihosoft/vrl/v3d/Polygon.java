@@ -44,10 +44,6 @@ import eu.mihosoft.vrl.v3d.ext.org.poly2tri.PolygonUtil;
  * Represents a convex polygon.
  */
 public final class Polygon {
-
-  /**
-   * Polygon vertices
-   */
   public final List<Vertex> vertices;
   /**
    * Plane defined by this polygon.
@@ -64,9 +60,7 @@ public final class Polygon {
    * @return the decomposed concave polygon (list of convex polygons)
    */
   public static List<Polygon> fromConcavePoints(Vector3d... points) {
-    Polygon p = fromPoints(points);
-
-    return PolygonUtil.concaveToConvex(p);
+    return PolygonUtil.concaveToConvex(fromPoints(points));
   }
 
   /**
@@ -77,9 +71,7 @@ public final class Polygon {
    * @return the decomposed concave polygon (list of convex polygons)
    */
   public static List<Polygon> fromConcavePoints(List<Vector3d> points) {
-    Polygon p = fromPoints(points);
-
-    return PolygonUtil.concaveToConvex(p);
+    return PolygonUtil.concaveToConvex(fromPoints(points));
   }
 
   /**
@@ -132,9 +124,7 @@ public final class Polygon {
       vertex.flip();
     });
     Collections.reverse(vertices);
-
     plane.flip();
-
     return this;
   }
 
@@ -167,7 +157,6 @@ public final class Polygon {
    * @return the specified string builder
    */
   public StringBuilder toStlString(StringBuilder sb) {
-
     if (this.vertices.size() >= 3) {
 
       // TODO: improve the triangulation?
@@ -236,7 +225,6 @@ public final class Polygon {
    * @return this polygon
    */
   public Polygon transform(Transform transform) {
-
     this.vertices.stream().forEach(
         (v) -> {
           v.transform(transform);
@@ -252,7 +240,6 @@ public final class Polygon {
     if (transform.isMirror()) {
       // the transformation includes mirroring. flip polygon
       flip();
-
     }
     return this;
   }
@@ -345,7 +332,6 @@ public final class Polygon {
   }
 
   public boolean contains(Polygon p) {
-
     for (Vertex v : p.vertices) {
       if (!contains(v.pos)) {
         return false;
