@@ -84,11 +84,11 @@ public abstract class AbstractSolid implements Solid {
 
   private static Transform rotationTransform(Vector3d axis, double angle) {
     if (axis.equals(vx(1))) {
-      return Transform.unity().rotX(angle);
+      return Transform.unity().rotateX(angle);
     } else if (axis.equals(vy(1))) {
-      return Transform.unity().rotY(angle);
+      return Transform.unity().rotateY(angle);
     } else if (axis.equals(vz(1))) {
-      return Transform.unity().rotZ(angle);
+      return Transform.unity().rotateZ(angle);
     } else {
       throw new IllegalArgumentException("Axis must be one of vx(1), vy(1), vz(1).");
     }

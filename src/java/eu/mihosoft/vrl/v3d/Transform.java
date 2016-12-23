@@ -36,55 +36,55 @@ package eu.mihosoft.vrl.v3d;
 import javax.vecmath.Matrix4d;
 
 public class Transform {
-  private final Matrix4d m;
+  private final Matrix4d matrix;
 
   public Transform() {
-    m = new Matrix4d();
-    m.m00 = 1;
-    m.m11 = 1;
-    m.m22 = 1;
-    m.m33 = 1;
+    matrix = new Matrix4d();
+    matrix.m00 = 1;
+    matrix.m11 = 1;
+    matrix.m22 = 1;
+    matrix.m33 = 1;
   }
 
   public static Transform unity() {
     return new Transform();
   }
 
-  public Transform rotX(double degrees) {
+  public Transform rotateX(double degrees) {
     double radians = degrees * Math.PI * (1.0 / 180.0);
     double cos = Math.cos(radians);
     double sin = Math.sin(radians);
     double elemenents[] = {
         1, 0, 0, 0, 0, cos, sin, 0, 0, -sin, cos, 0, 0, 0, 0, 1
     };
-    m.mul(new Matrix4d(elemenents));
+    matrix.mul(new Matrix4d(elemenents));
     return this;
   }
 
-  public Transform rotY(double degrees) {
+  public Transform rotateY(double degrees) {
     double radians = degrees * Math.PI * (1.0 / 180.0);
     double cos = Math.cos(radians);
     double sin = Math.sin(radians);
     double elemenents[] = {
         cos, 0, -sin, 0, 0, 1, 0, 0, sin, 0, cos, 0, 0, 0, 0, 1
     };
-    m.mul(new Matrix4d(elemenents));
+    matrix.mul(new Matrix4d(elemenents));
     return this;
   }
 
-  public Transform rotZ(double degrees) {
+  public Transform rotateZ(double degrees) {
     double radians = degrees * Math.PI * (1.0 / 180.0);
     double cos = Math.cos(radians);
     double sin = Math.sin(radians);
     double elemenents[] = {
         cos, sin, 0, 0, -sin, cos, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1
     };
-    m.mul(new Matrix4d(elemenents));
+    matrix.mul(new Matrix4d(elemenents));
     return this;
   }
 
-  public Transform rot(Vector3d vec) {
-    return rotX(vec.x).rotY(vec.y).rotZ(vec.z);
+  public Transform rotate(Vector3d vec) {
+    return rotateX(vec.x).rotateY(vec.y).rotateZ(vec.z);
   }
 
   public Transform translate(Vector3d vec) {
@@ -94,7 +94,7 @@ public class Transform {
         0, 0, 1, vec.z,
         0, 0, 0, 1
     };
-    m.mul(new Matrix4d(elemenents));
+    matrix.mul(new Matrix4d(elemenents));
     return this;
   }
 
@@ -112,7 +112,7 @@ public class Transform {
         (-2.0 * nx * nz), (-2.0 * ny * nz), (1.0 - 2.0 * nz * nz), 0,
         (-2.0 * nx * w), (-2.0 * ny * w), (-2.0 * nz * w), 1
     };
-    m.mul(new Matrix4d(elemenents));
+    matrix.mul(new Matrix4d(elemenents));
     return this;
   }
 
@@ -121,27 +121,27 @@ public class Transform {
       throw new IllegalArgumentException("scale by 0 not allowed!");
     }
     double elemenents[] = { vec.x, 0, 0, 0, 0, vec.y, 0, 0, 0, 0, vec.z, 0, 0, 0, 0, 1 };
-    m.mul(new Matrix4d(elemenents));
+    matrix.mul(new Matrix4d(elemenents));
     return this;
   }
 
   public Vector3d transform(Vector3d vec) {
-    double x = m.m00 * vec.x + m.m01 * vec.y + m.m02 * vec.z + m.m03;
-    double y = m.m10 * vec.x + m.m11 * vec.y + m.m12 * vec.z + m.m13;
-    double z = m.m20 * vec.x + m.m21 * vec.y + m.m22 * vec.z + m.m23;
+    double x = matrix.m00 * vec.x + matrix.m01 * vec.y + matrix.m02 * vec.z + matrix.m03;
+    double y = matrix.m10 * vec.x + matrix.m11 * vec.y + matrix.m12 * vec.z + matrix.m13;
+    double z = matrix.m20 * vec.x + matrix.m21 * vec.y + matrix.m22 * vec.z + matrix.m23;
     return new Vector3d(x, y, z);
   }
 
   public boolean isMirror() {
-    return m.determinant() < 0;
+    return matrix.determinant() < 0;
   }
 
   public Transform apply(Transform t) {
-    m.mul(t.m);
+    matrix.mul(t.matrix);
     return this;
   }
 
   public String toString() {
-    return m.toString();
+    return matrix.toString();
   }
 }
