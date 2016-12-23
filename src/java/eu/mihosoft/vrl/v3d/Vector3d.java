@@ -261,17 +261,6 @@ public class Vector3d {
   }
 
   /**
-   * Returns this vector in OBJ string format.
-   *
-   * @param sb
-   *          string builder
-   * @return the specified string builder
-   */
-  public StringBuilder toObjString(StringBuilder sb) {
-    return sb.append(this.x).append(" ").append(this.y).append(" ").append(this.z);
-  }
-
-  /**
    * Applies the specified transformation to this vector.
    *
    * @param transform

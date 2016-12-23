@@ -33,7 +33,6 @@
  */
 package eu.mihosoft.vrl.v3d;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -491,110 +490,6 @@ public class CSG {
         });
     sb.append("endsolid v3d.csg\n");
     return sb;
-  }
-
-  public ObjFile toObj() {
-
-    StringBuilder objSb = new StringBuilder();
-
-    objSb.append("mtllib " + ObjFile.MTL_NAME);
-
-    objSb.append("# Group").append("\n");
-    objSb.append("g v3d.csg\n");
-
-    class PolygonStruct {
-      List<Integer> indices;
-
-      public PolygonStruct(List<Integer> indices) {
-        this.indices = indices;
-      }
-    }
-
-    List<Vertex> vertices = new ArrayList<>();
-    List<PolygonStruct> indices = new ArrayList<>();
-
-    objSb.append("\n# Vertices\n");
-
-    for (Polygon p : polygons) {
-      List<Integer> polyIndices = new ArrayList<>();
-
-      p.vertices.stream().forEach((v) -> {
-        if (!vertices.contains(v)) {
-          vertices.add(v);
-          v.toObjString(objSb);
-          polyIndices.add(vertices.size());
-        } else {
-          polyIndices.add(vertices.indexOf(v) + 1);
-        }
-      });
-
-      indices.add(new PolygonStruct(polyIndices));
-    }
-
-    objSb.append("\n# Faces").append("\n");
-
-    for (PolygonStruct ps : indices) {
-      // we triangulate the polygon to ensure
-      // compatibility with 3d printer software
-      List<Integer> pVerts = ps.indices;
-      int index1 = pVerts.get(0);
-      for (int i = 0; i < pVerts.size() - 2; i++) {
-        int index2 = pVerts.get(i + 1);
-        int index3 = pVerts.get(i + 2);
-
-        objSb.append("f ").append(index1).append(" ").append(index2).append(" ").append(index3)
-            .append("\n");
-      }
-    }
-
-    objSb.append("\n# End Group v3d.csg").append("\n");
-    StringBuilder mtlSb = new StringBuilder();
-    return new ObjFile(objSb.toString(), mtlSb.toString());
-  }
-
-  /**
-   * Returns this csg in OBJ string format.
-   *
-   * @param sb
-   *          string builder
-   * @return the specified string builder
-   */
-  public StringBuilder toObjString(StringBuilder sb) {
-    sb.append("# Group").append("\n");
-    sb.append("g v3d.csg\n");
-
-    List<Vertex> vertices = new ArrayList<>();
-
-    sb.append("\n# Vertices\n");
-
-    for (Polygon p : polygons) {
-      List<Integer> polyIndices = new ArrayList<>();
-
-      p.vertices.stream().forEach((v) -> {
-        if (!vertices.contains(v)) {
-          vertices.add(v);
-          v.toObjString(sb);
-          polyIndices.add(vertices.size());
-        } else {
-          polyIndices.add(vertices.indexOf(v) + 1);
-        }
-      });
-    }
-
-    sb.append("\n# Faces").append("\n");
-    sb.append("\n# End Group v3d.csg").append("\n");
-
-    return sb;
-  }
-
-  /**
-   * Returns this csg in OBJ string format.
-   *
-   * @return this csg in OBJ string format
-   */
-  public String toObjString() {
-    StringBuilder sb = new StringBuilder();
-    return toObjString(sb).toString();
   }
 
   /**

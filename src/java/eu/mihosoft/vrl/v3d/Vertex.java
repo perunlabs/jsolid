@@ -98,27 +98,6 @@ public class Vertex {
   }
 
   /**
-   * Returns this vertex in OBJ string format.
-   *
-   * @param sb
-   *          string builder
-   * @return the specified string builder
-   */
-  public StringBuilder toObjString(StringBuilder sb) {
-    sb.append("v ");
-    return this.position.toObjString(sb).append("\n");
-  }
-
-  /**
-   * Returns this vertex in OBJ string format.
-   *
-   * @return this vertex in OBJ string format
-   */
-  public String toObjString() {
-    return toObjString(new StringBuilder()).toString();
-  }
-
-  /**
    * Applies the specified transform to this vertex.
    *
    * @param transform
