@@ -38,20 +38,37 @@ import javax.vecmath.Matrix4d;
 public class Transform {
   private final Matrix4d matrix;
 
-  public Transform() {
-    matrix = new Matrix4d();
-    matrix.m00 = 1;
-    matrix.m11 = 1;
-    matrix.m22 = 1;
-    matrix.m33 = 1;
-  }
-
   public Transform(double elements[]) {
     this.matrix = new Matrix4d(elements);
   }
 
+  public Vector3d mul(Vector3d vec) {
+    double x = matrix.m00 * vec.x + matrix.m01 * vec.y + matrix.m02 * vec.z + matrix.m03;
+    double y = matrix.m10 * vec.x + matrix.m11 * vec.y + matrix.m12 * vec.z + matrix.m13;
+    double z = matrix.m20 * vec.x + matrix.m21 * vec.y + matrix.m22 * vec.z + matrix.m23;
+    return new Vector3d(x, y, z);
+  }
+
+  public Transform mul(Transform t) {
+    matrix.mul(t.matrix);
+    return this;
+  }
+
+  public boolean isMirror() {
+    return matrix.determinant() < 0;
+  }
+
+  public String toString() {
+    return matrix.toString();
+  }
+
   public static Transform unity() {
-    return new Transform();
+    return new Transform(new double[] {
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1
+    });
   }
 
   public static Transform rotateX(double degrees) {
@@ -123,25 +140,5 @@ public class Transform {
     }
     double elemenents[] = { vec.x, 0, 0, 0, 0, vec.y, 0, 0, 0, 0, vec.z, 0, 0, 0, 0, 1 };
     return new Transform(elemenents);
-  }
-
-  public Vector3d transform(Vector3d vec) {
-    double x = matrix.m00 * vec.x + matrix.m01 * vec.y + matrix.m02 * vec.z + matrix.m03;
-    double y = matrix.m10 * vec.x + matrix.m11 * vec.y + matrix.m12 * vec.z + matrix.m13;
-    double z = matrix.m20 * vec.x + matrix.m21 * vec.y + matrix.m22 * vec.z + matrix.m23;
-    return new Vector3d(x, y, z);
-  }
-
-  public boolean isMirror() {
-    return matrix.determinant() < 0;
-  }
-
-  public Transform apply(Transform t) {
-    matrix.mul(t.matrix);
-    return this;
-  }
-
-  public String toString() {
-    return matrix.toString();
   }
 }

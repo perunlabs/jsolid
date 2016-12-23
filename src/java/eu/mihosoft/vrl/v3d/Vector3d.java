@@ -269,7 +269,7 @@ public class Vector3d {
    * @return this vector
    */
   public Vector3d transform(Transform transform) {
-    return transform.transform(this);
+    return transform.mul(this);
   }
 
   @Override
