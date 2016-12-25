@@ -32,10 +32,6 @@ public final class Vector2 {
     }
   }
 
-  public Vector2 negate() {
-    return vector2(-x, -y);
-  }
-
   public Vector2 plus(Vector2 that) {
     return vector2(x + that.x, y + that.y);
   }
@@ -44,12 +40,16 @@ public final class Vector2 {
     return vector2(x - that.x, y - that.y);
   }
 
-  public Vector2 div(double divisor) {
-    return vector2(x / divisor, y / divisor);
+  public Vector2 negate() {
+    return vector2(-x, -y);
   }
 
   public Vector2 mul(double multiplier) {
     return vector2(x * multiplier, y * multiplier);
+  }
+
+  public Vector2 div(double divisor) {
+    return vector2(x / divisor, y / divisor);
   }
 
   public double dot(Vector2 that) {
