@@ -17,8 +17,8 @@ import com.mikosik.jsolid.d3.Axis;
 import com.mikosik.jsolid.d3.Axis.XAxis;
 import com.mikosik.jsolid.d3.Axis.YAxis;
 import com.mikosik.jsolid.d3.Axis.ZAxis;
-import com.mikosik.jsolid.d3.Box;
 import com.mikosik.jsolid.d3.CsgSolid;
+import com.mikosik.jsolid.d3.Cuboid;
 import com.mikosik.jsolid.d3.Prism;
 import com.mikosik.jsolid.d3.Rod;
 import com.mikosik.jsolid.d3.Solid;
@@ -131,36 +131,76 @@ public class JSolid {
     return new CsgSolid(CSG.fromPolygons());
   }
 
-  public static Box box(double xRange, double yRange, double zRange) {
-    return box(range(xRange), range(yRange), range(zRange));
+  public static Cuboid cuboid(double xRange, double yRange, double zRange) {
+    return cuboid(range(xRange), range(yRange), range(zRange));
   }
 
-  public static Box box(Range xRange, double yRange, double zRange) {
-    return box(xRange, range(yRange), range(zRange));
+  public static Cuboid cuboid(Range xRange, double yRange, double zRange) {
+    return cuboid(xRange, range(yRange), range(zRange));
   }
 
-  public static Box box(double xRange, Range yRange, double zRange) {
-    return box(range(xRange), yRange, range(zRange));
+  public static Cuboid cuboid(double xRange, Range yRange, double zRange) {
+    return cuboid(range(xRange), yRange, range(zRange));
   }
 
-  public static Box box(double xRange, double yRange, Range zRange) {
-    return box(range(xRange), range(yRange), zRange);
+  public static Cuboid cuboid(double xRange, double yRange, Range zRange) {
+    return cuboid(range(xRange), range(yRange), zRange);
   }
 
-  public static Box box(double xRange, Range yRange, Range zRange) {
-    return new Box(range(xRange), yRange, zRange);
+  public static Cuboid cuboid(double xRange, Range yRange, Range zRange) {
+    return new Cuboid(range(xRange), yRange, zRange);
   }
 
-  public static Box box(Range xRange, double yRange, Range zRange) {
-    return new Box(xRange, range(yRange), zRange);
+  public static Cuboid cuboid(Range xRange, double yRange, Range zRange) {
+    return new Cuboid(xRange, range(yRange), zRange);
   }
 
-  public static Box box(Range xRange, Range yRange, double zRange) {
-    return new Box(xRange, yRange, range(zRange));
+  public static Cuboid cuboid(Range xRange, Range yRange, double zRange) {
+    return new Cuboid(xRange, yRange, range(zRange));
   }
 
-  public static Box box(Range xRange, Range yRange, Range zRange) {
-    return new Box(xRange, yRange, zRange);
+  public static Cuboid cuboid(Range xRange, Range yRange, Range zRange) {
+    return new Cuboid(xRange, yRange, zRange);
+  }
+
+  @Deprecated
+  public static Cuboid box(double xRange, double yRange, double zRange) {
+    return cuboid(xRange, yRange, zRange);
+  }
+
+  @Deprecated
+  public static Cuboid box(Range xRange, double yRange, double zRange) {
+    return cuboid(xRange, yRange, zRange);
+  }
+
+  @Deprecated
+  public static Cuboid box(double xRange, Range yRange, double zRange) {
+    return cuboid(xRange, yRange, zRange);
+  }
+
+  @Deprecated
+  public static Cuboid box(double xRange, double yRange, Range zRange) {
+    return cuboid(xRange, yRange, zRange);
+  }
+
+  @Deprecated
+  public static Cuboid box(double xRange, Range yRange, Range zRange) {
+    return cuboid(xRange, yRange, zRange);
+  }
+
+  @Deprecated
+  public static Cuboid box(Range xRange, double yRange, Range zRange) {
+    return cuboid(xRange, yRange, zRange);
+  }
+
+  @Deprecated
+  public static Cuboid box(Range xRange, Range yRange, double zRange) {
+    return cuboid(xRange, yRange, zRange);
+  }
+
+  @Deprecated
+  public static Cuboid box(Range xRange, Range yRange, Range zRange) {
+    return cuboid(xRange, yRange, zRange);
   }
 
   public static Solid convexHull(Vector3d... vertexes) {

@@ -1,6 +1,6 @@
 package com.mikosik.jsolid.d3;
 
-import static com.mikosik.jsolid.JSolid.box;
+import static com.mikosik.jsolid.JSolid.cuboid;
 import static com.mikosik.jsolid.JSolid.range;
 import static com.mikosik.jsolid.JSolid.v;
 import static org.testory.Testory.given;
@@ -11,7 +11,7 @@ import static org.testory.Testory.when;
 import org.junit.Test;
 
 public class AxisTest {
-  private Box box;
+  private Cuboid cuboid;
 
   @Test
   public void axis_x_equals_unit_vector() throws Exception {
@@ -66,113 +66,113 @@ public class AxisTest {
 
   @Test
   public void minX() throws Exception {
-    given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.X.min().valueIn(box));
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.X.min().valueIn(cuboid));
     thenReturned(1.0);
   }
 
   @Test
   public void centerX() {
-    given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.X.center().valueIn(box));
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.X.center().valueIn(cuboid));
     thenReturned(1.5);
   }
 
   @Test
   public void zeroX() {
-    given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.X.zero().valueIn(box));
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.X.zero().valueIn(cuboid));
     thenReturned(0.0);
   }
 
   @Test
   public void maxX() throws Exception {
-    given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.X.max().valueIn(box));
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.X.max().valueIn(cuboid));
     thenReturned(2.0);
   }
 
   @Test
   public void sizeX() throws Exception {
-    given(box = box(range(1, 2), range(1, 3), range(1, 4)));
-    when(Axis.X.size(box));
+    given(cuboid = cuboid(range(1, 2), range(1, 3), range(1, 4)));
+    when(Axis.X.size(cuboid));
     thenReturned(1.0);
   }
 
   @Test
   public void minY() throws Exception {
-    given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Y.min().valueIn(box));
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Y.min().valueIn(cuboid));
     thenReturned(3.0);
   }
 
   @Test
   public void centerY() {
-    given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Y.center().valueIn(box));
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Y.center().valueIn(cuboid));
     thenReturned(3.5);
   }
 
   @Test
   public void zeroY() {
-    given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Y.zero().valueIn(box));
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Y.zero().valueIn(cuboid));
     thenReturned(0.0);
   }
 
   @Test
   public void maxY() throws Exception {
-    given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Y.max().valueIn(box));
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Y.max().valueIn(cuboid));
     thenReturned(4.0);
   }
 
   @Test
   public void sizeY() throws Exception {
-    given(box = box(range(1, 2), range(1, 3), range(1, 4)));
-    when(Axis.Y.size(box));
+    given(cuboid = cuboid(range(1, 2), range(1, 3), range(1, 4)));
+    when(Axis.Y.size(cuboid));
     thenReturned(2.0);
   }
 
   @Test
   public void minZ() throws Exception {
-    given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Z.min().valueIn(box));
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Z.min().valueIn(cuboid));
     thenReturned(5.0);
   }
 
   @Test
   public void centerZ() {
-    given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Z.center().valueIn(box));
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Z.center().valueIn(cuboid));
     thenReturned(5.5);
   }
 
   @Test
   public void zeroZ() {
-    given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Z.zero().valueIn(box));
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Z.zero().valueIn(cuboid));
     thenReturned(0.0);
   }
 
   @Test
   public void maxZ() throws Exception {
-    given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Z.max().valueIn(box));
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Z.max().valueIn(cuboid));
     thenReturned(6.0);
   }
 
   @Test
   public void sizeZ() throws Exception {
-    given(box = box(range(1, 2), range(1, 3), range(1, 4)));
-    when(Axis.Z.size(box));
+    given(cuboid = cuboid(range(1, 2), range(1, 3), range(1, 4)));
+    when(Axis.Z.size(cuboid));
     thenReturned(3.0);
   }
 
   @Test
   public void vectorIn() throws Exception {
-    given(box = box(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Z.max().vectorIn(box));
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Z.max().vectorIn(cuboid));
     thenReturned(v(0, 0, 6));
   }
 }

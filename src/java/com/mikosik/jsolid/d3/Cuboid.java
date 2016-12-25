@@ -8,25 +8,25 @@ import com.mikosik.jsolid.d2.Rectangle;
 
 import eu.mihosoft.vrl.v3d.CSG;
 
-public final class Box extends AbstractSolid {
+public final class Cuboid extends AbstractSolid {
   private final Rectangle base;
   private final Range zRange;
 
-  public Box(Range xRange, Range yRange, Range zRange) {
+  public Cuboid(Range xRange, Range yRange, Range zRange) {
     this(rectangle(xRange, yRange), zRange);
   }
 
-  private Box(Rectangle rectangle, Range zRange) {
+  private Cuboid(Rectangle rectangle, Range zRange) {
     this.base = rectangle;
     this.zRange = zRange;
   }
 
-  public Box zCornerR(double radius) {
-    return new Box(base.cornerR(radius), zRange);
+  public Cuboid zCornerR(double radius) {
+    return new Cuboid(base.cornerR(radius), zRange);
   }
 
-  public Box zCornerRMax() {
-    return new Box(base.cornerRMax(), zRange);
+  public Cuboid zCornerRMax() {
+    return new Cuboid(base.cornerRMax(), zRange);
   }
 
   public CSG toCsg() {
