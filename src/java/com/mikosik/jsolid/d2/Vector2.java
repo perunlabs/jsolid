@@ -73,10 +73,10 @@ public final class Vector2 {
   }
 
   public int hashCode() {
-    return Objects.hash(this.x, this.y);
+    return Objects.hash(x, y);
   }
 
   public String toString() {
-    return format("v(%s,%s)", x, y);
+    return format("v(" + x + "," + y + ")");
   }
 }
