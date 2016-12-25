@@ -260,18 +260,6 @@ public class Vector3d {
     return sb.append(this.x).append(" ").append(this.y).append(" ").append(this.z);
   }
 
-  /**
-   * Applies the specified transformation to this vector.
-   *
-   * @param transform
-   *          the transform to apply
-   *
-   * @return this vector
-   */
-  public Vector3d transform(Transform transform) {
-    return transform.mul(this);
-  }
-
   @Override
   public String toString() {
     return "[" + x + ", " + y + ", " + z + "]";

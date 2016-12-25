@@ -93,7 +93,7 @@ public class Vertex {
    * @return this vertex
    */
   public Vertex transform(Transform transform) {
-    position = position.transform(transform);
+    position = transform.mul(position);
     return this;
   }
 
