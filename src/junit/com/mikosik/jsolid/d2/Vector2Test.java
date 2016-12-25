@@ -10,8 +10,6 @@ import static org.testory.Testory.when;
 
 import org.junit.Test;
 
-import com.mikosik.jsolid.d2.Vector2;
-
 public class Vector2Test {
   private Vector2 vector1;
   private Vector2 vector2;
@@ -236,6 +234,6 @@ public class Vector2Test {
   public void to_string() throws Exception {
     given(vector1 = vector2(1, 2));
     when(vector1.toString());
-    thenReturned("v(1.0,2.0)");
+    thenReturned("v(1.0, 2.0)");
   }
 }

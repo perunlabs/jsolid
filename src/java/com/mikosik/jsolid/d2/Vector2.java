@@ -77,6 +77,6 @@ public final class Vector2 {
   }
 
   public String toString() {
-    return format("v(" + x + "," + y + ")");
+    return format("v(" + x + ", " + y + ")");
   }
 }
