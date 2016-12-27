@@ -240,26 +240,6 @@ public class Vector3d {
         this.x * a.y - this.y * a.x);
   }
 
-  /**
-   * Returns this vector in STL string format.
-   *
-   * @return this vector in STL string format
-   */
-  public String toStlString() {
-    return toStlString(new StringBuilder()).toString();
-  }
-
-  /**
-   * Returns this vector in STL string format.
-   *
-   * @param sb
-   *          string builder
-   * @return the specified string builder
-   */
-  public StringBuilder toStlString(StringBuilder sb) {
-    return sb.append(this.x).append(" ").append(this.y).append(" ").append(this.z);
-  }
-
   @Override
   public String toString() {
     return "[" + x + ", " + y + ", " + z + "]";

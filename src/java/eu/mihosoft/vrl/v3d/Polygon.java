@@ -161,18 +161,35 @@ public final class Polygon {
       // STL requires triangular polygons.
       // If our polygon has more vertices, create
       // multiple triangles:
-      String firstVertexStl = this.vertices.get(0).toStlString();
+      String firstVertexStl = toStl(vertices.get(0));
       for (int i = 0; i < this.vertices.size() - 2; i++) {
-        sb.append("  facet normal ").append(
-            this.plane.normal.toStlString()).append("\n").append("    outer loop\n").append(
-                "      ").append(firstVertexStl).append("\n").append("      ");
-        this.vertices.get(i + 1).toStlString(sb).append("\n").append("      ");
-        this.vertices.get(i + 2).toStlString(sb).append("\n").append("    endloop\n").append(
-            "  endfacet\n");
+        sb
+            .append("  facet normal ")
+            .append(toStl(plane.normal))
+            .append("\n")
+            .append("    outer loop\n")
+            .append("      ")
+            .append(firstVertexStl)
+            .append("\n")
+            .append("      ")
+            .append(toStl(vertices.get(i + 1)))
+            .append("\n").append("      ")
+            .append(toStl(vertices.get(i + 2)))
+            .append("\n")
+            .append("    endloop\n")
+            .append("  endfacet\n");
       }
     }
 
     return sb;
+  }
+
+  private static String toStl(Vertex vertex) {
+    return "vertex " + toStl(vertex.position);
+  }
+
+  private static String toStl(Vector3d position) {
+    return position.x + " " + position.y + " " + position.z;
   }
 
   /**

@@ -65,27 +65,6 @@ public class Vertex {
   }
 
   /**
-   * Returns this vertex in STL string format.
-   *
-   * @return this vertex in STL string format
-   */
-  public String toStlString() {
-    return "vertex " + this.position.toStlString();
-  }
-
-  /**
-   * Returns this vertex in STL string format.
-   *
-   * @param sb
-   *          string builder
-   * @return the specified string builder
-   */
-  public StringBuilder toStlString(StringBuilder sb) {
-    sb.append("vertex ");
-    return this.position.toStlString(sb);
-  }
-
-  /**
    * Applies the specified transform to this vertex.
    *
    * @param transform
