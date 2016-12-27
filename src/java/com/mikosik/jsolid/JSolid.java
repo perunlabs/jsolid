@@ -20,6 +20,7 @@ import com.mikosik.jsolid.d3.Axis.YAxis;
 import com.mikosik.jsolid.d3.Axis.ZAxis;
 import com.mikosik.jsolid.d3.CsgSolid;
 import com.mikosik.jsolid.d3.Cuboid;
+import com.mikosik.jsolid.d3.Matrix4;
 import com.mikosik.jsolid.d3.Prism;
 import com.mikosik.jsolid.d3.Rod;
 import com.mikosik.jsolid.d3.Solid;
@@ -74,6 +75,18 @@ public class JSolid {
 
   public static Vector3 vz(double z) {
     return v(0, 0, z);
+  }
+
+  public static Matrix4 matrix(
+      double m11, double m12, double m13, double m14,
+      double m21, double m22, double m23, double m24,
+      double m31, double m32, double m33, double m34,
+      double m41, double m42, double m43, double m44) {
+    return new Matrix4(
+        m11, m12, m13, m14,
+        m21, m22, m23, m24,
+        m31, m32, m33, m34,
+        m41, m42, m43, m44);
   }
 
   public static <A extends Axis<A>> Alignment<A> alignOutsideMin(A axis) {
