@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.mikosik.jsolid.d3.Vector3;
 
@@ -46,7 +47,7 @@ import eu.mihosoft.vrl.v3d.ext.org.poly2tri.PolygonUtil;
  * Represents a convex polygon.
  */
 public final class Polygon {
-  public final List<Vertex> vertices;
+  public List<Vertex> vertices;
   /**
    * Plane defined by this polygon.
    *
@@ -109,11 +110,7 @@ public final class Polygon {
 
   @Override
   public Polygon clone() {
-    List<Vertex> newVertices = new ArrayList<>();
-    this.vertices.forEach((vertex) -> {
-      newVertices.add(vertex.clone());
-    });
-    return new Polygon(newVertices);
+    return new Polygon(new ArrayList<>(vertices));
   }
 
   /**
@@ -202,9 +199,9 @@ public final class Polygon {
    * @return this polygon
    */
   public Polygon translate(Vector3 v) {
-    vertices.forEach((vertex) -> {
-      vertex.position = vertex.position.plus(v);
-    });
+    vertices = vertices.stream()
+        .map((vertex) -> new Vertex(vertex.position.plus(v)))
+        .collect(Collectors.toList());
 
     Vector3 a = this.vertices.get(0).position;
     Vector3 b = this.vertices.get(1).position;
@@ -241,10 +238,9 @@ public final class Polygon {
    * @return this polygon
    */
   public Polygon transform(Transform transform) {
-    this.vertices.stream().forEach(
-        (v) -> {
-          v.transform(transform);
-        });
+    vertices = vertices.stream()
+        .map((vertex) -> vertex.transformed(transform))
+        .collect(Collectors.toList());
 
     Vector3 a = this.vertices.get(0).position;
     Vector3 b = this.vertices.get(1).position;

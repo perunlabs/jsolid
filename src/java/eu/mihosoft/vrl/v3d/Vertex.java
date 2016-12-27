@@ -41,15 +41,10 @@ import com.mikosik.jsolid.d3.Vector3;
  * Represents a vertex of a polygon.
  */
 public class Vertex {
-  public Vector3 position;
+  public final Vector3 position;
 
   public Vertex(Vector3 pos) {
     this.position = pos;
-  }
-
-  @Override
-  public Vertex clone() {
-    return new Vertex(position);
   }
 
   /**
@@ -67,18 +62,6 @@ public class Vertex {
   }
 
   /**
-   * Applies the specified transform to this vertex.
-   *
-   * @param transform
-   *          the transform to apply
-   * @return this vertex
-   */
-  public Vertex transform(Transform transform) {
-    position = transform.mul(position);
-    return this;
-  }
-
-  /**
    * Applies the specified transform to a copy of this vertex.
    *
    * @param transform
@@ -86,7 +69,7 @@ public class Vertex {
    * @return a copy of this transform
    */
   public Vertex transformed(Transform transform) {
-    return clone().transform(transform);
+    return new Vertex(transform.mul(position));
   }
 
   @Override

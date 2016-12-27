@@ -193,7 +193,7 @@ public class Plane {
             f.add(vi);
           }
           if (ti != FRONT) {
-            b.add(ti != BACK ? vi.clone() : vi);
+            b.add(vi);
           }
           if ((ti | tj) == SPANNING) {
             double t = (this.dist - this.normal.dot(vi.position)) / this.normal.dot(vj.position
@@ -201,7 +201,7 @@ public class Plane {
                     vi.position));
             Vertex v = vi.interpolate(vj, t);
             f.add(v);
-            b.add(v.clone());
+            b.add(v);
           }
         }
         if (f.size() >= 3) {
