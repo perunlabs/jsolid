@@ -10,11 +10,10 @@ import java.util.List;
 import eu.mihosoft.vrl.v3d.CSG;
 import eu.mihosoft.vrl.v3d.Plane;
 import eu.mihosoft.vrl.v3d.Transform;
-import eu.mihosoft.vrl.v3d.Vector3d;
 
 public abstract class AbstractSolid implements Solid {
 
-  public List<Vector3d> vertexes() {
+  public List<Vector3> vertexes() {
     return toCsg().getPolygons().stream()
         .flatMap(x -> x.vertices.stream())
         .map(x -> x.position)
@@ -70,7 +69,7 @@ public abstract class AbstractSolid implements Solid {
     return new CsgSolid(toCsg().intersect(solid.toCsg()));
   }
 
-  public Solid move(Vector3d position) {
+  public Solid move(Vector3 position) {
     return transform(Transform.translate(position));
   }
 
@@ -78,11 +77,11 @@ public abstract class AbstractSolid implements Solid {
     return move(anchor.axis.v(value).minus(anchor.vectorIn(this)));
   }
 
-  public Solid rotate(Vector3d direction, double angle) {
+  public Solid rotate(Vector3 direction, double angle) {
     return transform(rotationTransform(direction, angle));
   }
 
-  private static Transform rotationTransform(Vector3d axis, double angle) {
+  private static Transform rotationTransform(Vector3 axis, double angle) {
     if (axis.equals(vx(1))) {
       return Transform.rotateX(angle);
     } else if (axis.equals(vy(1))) {
@@ -94,11 +93,11 @@ public abstract class AbstractSolid implements Solid {
     }
   }
 
-  public Solid mirror(Vector3d planeNormal) {
+  public Solid mirror(Vector3 planeNormal) {
     return transform(Transform.mirror(plane(planeNormal)));
   }
 
-  private Plane plane(Vector3d planeNormal) {
+  private Plane plane(Vector3 planeNormal) {
     if (planeNormal.equals(vx(1))) {
       return Plane.YZ_PLANE;
     } else if (planeNormal.equals(vy(1))) {
@@ -110,7 +109,7 @@ public abstract class AbstractSolid implements Solid {
     }
   }
 
-  public Solid scale(Vector3d factor) {
+  public Solid scale(Vector3 factor) {
     return transform(Transform.scale(factor));
   }
 

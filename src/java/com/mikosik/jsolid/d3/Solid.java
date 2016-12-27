@@ -3,10 +3,9 @@ package com.mikosik.jsolid.d3;
 import java.util.List;
 
 import eu.mihosoft.vrl.v3d.CSG;
-import eu.mihosoft.vrl.v3d.Vector3d;
 
 public interface Solid {
-  public List<Vector3d> vertexes();
+  public List<Vector3> vertexes();
 
   public Solid plus(Solid solid);
 
@@ -18,15 +17,15 @@ public interface Solid {
 
   public Solid intersect(Solid solid);
 
-  public Solid move(Vector3d position);
+  public Solid move(Vector3 position);
 
   public Solid move(Anchor<?> anchor, double value);
 
-  public Solid rotate(Vector3d direction, double angle);
+  public Solid rotate(Vector3 direction, double angle);
 
-  public Solid mirror(Vector3d planNormal);
+  public Solid mirror(Vector3 planNormal);
 
-  public Solid scale(Vector3d factor);
+  public Solid scale(Vector3 factor);
 
   public Solid convexHull();
 

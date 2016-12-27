@@ -35,19 +35,21 @@ package eu.mihosoft.vrl.v3d;
 
 import java.util.Objects;
 
+import com.mikosik.jsolid.d3.Vector3;
+
 /**
  * Represents a vertex of a polygon.
  */
 public class Vertex {
-  public Vector3d position;
+  public Vector3 position;
 
-  public Vertex(Vector3d pos) {
+  public Vertex(Vector3 pos) {
     this.position = pos;
   }
 
   @Override
   public Vertex clone() {
-    return new Vertex(position.clone());
+    return new Vertex(position);
   }
 
   /**
@@ -61,7 +63,7 @@ public class Vertex {
    * @return a new vertex between this and the specified vertex
    */
   public Vertex interpolate(Vertex other, double t) {
-    return new Vertex(position.lerp(other.position, t));
+    return new Vertex(position.interpolate(other.position, t));
   }
 
   /**

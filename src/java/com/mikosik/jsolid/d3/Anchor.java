@@ -2,8 +2,6 @@ package com.mikosik.jsolid.d3;
 
 import java.util.function.BinaryOperator;
 
-import eu.mihosoft.vrl.v3d.Vector3d;
-
 public abstract class Anchor<A extends Axis<A>> {
   public final Axis<A> axis;
 
@@ -13,7 +11,7 @@ public abstract class Anchor<A extends Axis<A>> {
 
   public abstract double valueIn(Solid solid);
 
-  public Vector3d vectorIn(Solid solid) {
+  public Vector3 vectorIn(Solid solid) {
     return axis.v(valueIn(solid));
   }
 

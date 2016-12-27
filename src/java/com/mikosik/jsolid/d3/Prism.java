@@ -12,7 +12,6 @@ import com.mikosik.jsolid.d2.Polygon;
 import com.mikosik.jsolid.d2.Vector2;
 
 import eu.mihosoft.vrl.v3d.CSG;
-import eu.mihosoft.vrl.v3d.Vector3d;
 
 public final class Prism extends AbstractSolid {
   private final Polygon base;
@@ -57,7 +56,7 @@ public final class Prism extends AbstractSolid {
     return CSG.fromPolygons(polygons);
   }
 
-  private eu.mihosoft.vrl.v3d.Polygon poly(Vector3d p1, Vector3d p2, Vector3d p3) {
+  private eu.mihosoft.vrl.v3d.Polygon poly(Vector3 p1, Vector3 p2, Vector3 p3) {
     return eu.mihosoft.vrl.v3d.Polygon.fromPoints(p1, p2, p3);
   }
 }

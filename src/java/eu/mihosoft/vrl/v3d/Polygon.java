@@ -38,6 +38,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import com.mikosik.jsolid.d3.Vector3;
+
 import eu.mihosoft.vrl.v3d.ext.org.poly2tri.PolygonUtil;
 
 /**
@@ -59,7 +61,7 @@ public final class Polygon {
    *          the points that define the polygon
    * @return the decomposed concave polygon (list of convex polygons)
    */
-  public static List<Polygon> fromConcavePoints(Vector3d... points) {
+  public static List<Polygon> fromConcavePoints(Vector3... points) {
     return PolygonUtil.concaveToConvex(fromPoints(points));
   }
 
@@ -70,7 +72,7 @@ public final class Polygon {
    *          the points that define the polygon
    * @return the decomposed concave polygon (list of convex polygons)
    */
-  public static List<Polygon> fromConcavePoints(List<Vector3d> points) {
+  public static List<Polygon> fromConcavePoints(List<Vector3> points) {
     return PolygonUtil.concaveToConvex(fromPoints(points));
   }
 
@@ -188,7 +190,7 @@ public final class Polygon {
     return "vertex " + toStl(vertex.position);
   }
 
-  private static String toStl(Vector3d position) {
+  private static String toStl(Vector3 position) {
     return position.x + " " + position.y + " " + position.z;
   }
 
@@ -199,14 +201,14 @@ public final class Polygon {
    *          the vector that defines the translation
    * @return this polygon
    */
-  public Polygon translate(Vector3d v) {
+  public Polygon translate(Vector3 v) {
     vertices.forEach((vertex) -> {
       vertex.position = vertex.position.plus(v);
     });
 
-    Vector3d a = this.vertices.get(0).position;
-    Vector3d b = this.vertices.get(1).position;
-    Vector3d c = this.vertices.get(2).position;
+    Vector3 a = this.vertices.get(0).position;
+    Vector3 b = this.vertices.get(1).position;
+    Vector3 c = this.vertices.get(2).position;
 
     this.plane.normal = b.minus(a).cross(c.minus(a));
 
@@ -223,7 +225,7 @@ public final class Polygon {
    *
    * @return a translated copy of this polygon
    */
-  public Polygon translated(Vector3d v) {
+  public Polygon translated(Vector3 v) {
     return clone().translate(v);
   }
 
@@ -244,11 +246,11 @@ public final class Polygon {
           v.transform(transform);
         });
 
-    Vector3d a = this.vertices.get(0).position;
-    Vector3d b = this.vertices.get(1).position;
-    Vector3d c = this.vertices.get(2).position;
+    Vector3 a = this.vertices.get(0).position;
+    Vector3 b = this.vertices.get(1).position;
+    Vector3 c = this.vertices.get(2).position;
 
-    this.plane.normal = b.minus(a).cross(c.minus(a)).normalized();
+    this.plane.normal = b.minus(a).cross(c.minus(a)).normalize();
     this.plane.dist = this.plane.normal.dot(a);
 
     if (transform.isMirror()) {
@@ -281,7 +283,7 @@ public final class Polygon {
    *          the points that define the polygon
    * @return a polygon defined by the specified point list
    */
-  public static Polygon fromPoints(List<Vector3d> points) {
+  public static Polygon fromPoints(List<Vector3> points) {
     return fromPoints(points, null);
   }
 
@@ -292,7 +294,7 @@ public final class Polygon {
    *          the points that define the polygon
    * @return a polygon defined by the specified point list
    */
-  public static Polygon fromPoints(Vector3d... points) {
+  public static Polygon fromPoints(Vector3... points) {
     return fromPoints(Arrays.asList(points), null);
   }
 
@@ -306,17 +308,16 @@ public final class Polygon {
    * @return a polygon defined by the specified point list
    */
   private static Polygon fromPoints(
-      List<Vector3d> points, Plane plane) {
+      List<Vector3> points, Plane plane) {
     List<Vertex> vertices = new ArrayList<>();
-    for (Vector3d p : points) {
-      Vector3d vec = p.clone();
-      Vertex vertex = new Vertex(vec);
+    for (Vector3 p : points) {
+      Vertex vertex = new Vertex(p);
       vertices.add(vertex);
     }
     return new Polygon(vertices);
   }
 
-  public boolean contains(Vector3d p) {
+  public boolean contains(Vector3 p) {
     // taken from http://www.java-gaming.org/index.php?topic=26013.0
     // and
     // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html

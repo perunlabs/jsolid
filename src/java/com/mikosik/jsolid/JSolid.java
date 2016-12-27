@@ -1,6 +1,7 @@
 package com.mikosik.jsolid;
 
 import static com.mikosik.jsolid.d2.Vector2.vector2;
+import static com.mikosik.jsolid.d3.Vector3.vector3;
 import static eu.mihosoft.vrl.v3d.ext.quickhull3d.HullUtil.hull;
 import static java.util.Arrays.asList;
 
@@ -22,9 +23,9 @@ import com.mikosik.jsolid.d3.Cuboid;
 import com.mikosik.jsolid.d3.Prism;
 import com.mikosik.jsolid.d3.Rod;
 import com.mikosik.jsolid.d3.Solid;
+import com.mikosik.jsolid.d3.Vector3;
 
 import eu.mihosoft.vrl.v3d.CSG;
-import eu.mihosoft.vrl.v3d.Vector3d;
 
 public class JSolid {
   public static Range range(double length) {
@@ -39,15 +40,15 @@ public class JSolid {
     return vector2(x, y);
   }
 
-  public static Vector3d v(double x, double y, double z) {
-    return new Vector3d(x, y, z);
+  public static Vector3 v(double x, double y, double z) {
+    return vector3(x, y, z);
   }
 
-  public static Vector3d v(Vector2 v, double z) {
-    return new Vector3d(v.x, v.y, z);
+  public static Vector3 v(Vector2 v, double z) {
+    return vector3(v.x, v.y, z);
   }
 
-  public static Vector3d v0() {
+  public static Vector3 v0() {
     return v(0, 0, 0);
   }
 
@@ -55,7 +56,7 @@ public class JSolid {
     return Axis.X;
   }
 
-  public static Vector3d vx(double x) {
+  public static Vector3 vx(double x) {
     return v(x, 0, 0);
   }
 
@@ -63,7 +64,7 @@ public class JSolid {
     return Axis.Y;
   }
 
-  public static Vector3d vy(double y) {
+  public static Vector3 vy(double y) {
     return v(0, y, 0);
   }
 
@@ -71,7 +72,7 @@ public class JSolid {
     return Axis.Z;
   }
 
-  public static Vector3d vz(double z) {
+  public static Vector3 vz(double z) {
     return v(0, 0, z);
   }
 
@@ -203,7 +204,7 @@ public class JSolid {
     return cuboid(xRange, yRange, zRange);
   }
 
-  public static Solid convexHull(Vector3d... vertexes) {
+  public static Solid convexHull(Vector3... vertexes) {
     return new CsgSolid(hull(asList(vertexes)));
   }
 

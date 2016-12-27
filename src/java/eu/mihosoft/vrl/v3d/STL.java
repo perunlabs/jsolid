@@ -31,12 +31,16 @@
 
 package eu.mihosoft.vrl.v3d;
 
+import static com.mikosik.jsolid.JSolid.v;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.vecmath.Point3f;
+
+import com.mikosik.jsolid.d3.Vector3;
 
 import eu.mihosoft.vrl.v3d.ext.imagej.STLLoader;
 
@@ -48,7 +52,7 @@ import eu.mihosoft.vrl.v3d.ext.imagej.STLLoader;
 public class STL {
   /**
    * Loads a CSG from stl.
-   * 
+   *
    * @param path
    *          file path
    * @return CSG
@@ -59,9 +63,9 @@ public class STL {
     STLLoader loader = new STLLoader();
 
     List<Polygon> polygons = new ArrayList<>();
-    List<Vector3d> vertices = new ArrayList<>();
+    List<Vector3> vertices = new ArrayList<>();
     for (Point3f p : loader.parse(path.toFile())) {
-      vertices.add(new Vector3d(p.x, p.y, p.z));
+      vertices.add(v(p.x, p.y, p.z));
       if (vertices.size() == 3) {
         polygons.add(Polygon.fromPoints(vertices));
         vertices = new ArrayList<>();

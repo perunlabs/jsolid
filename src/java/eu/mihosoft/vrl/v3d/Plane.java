@@ -33,9 +33,15 @@
  */
 package eu.mihosoft.vrl.v3d;
 
+import static com.mikosik.jsolid.JSolid.x;
+import static com.mikosik.jsolid.JSolid.y;
+import static com.mikosik.jsolid.JSolid.z;
+
 // # class Plane
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mikosik.jsolid.d3.Vector3;
 
 /**
  * Represents a plane in 3D space.
@@ -54,20 +60,20 @@ public class Plane {
   /**
    * XY plane.
    */
-  public static final Plane XY_PLANE = new Plane(Vector3d.Z_ONE, 1);
+  public static final Plane XY_PLANE = new Plane(z(), 1);
   /**
    * XZ plane.
    */
-  public static final Plane XZ_PLANE = new Plane(Vector3d.Y_ONE, 1);
+  public static final Plane XZ_PLANE = new Plane(y(), 1);
   /**
    * YZ plane.
    */
-  public static final Plane YZ_PLANE = new Plane(Vector3d.X_ONE, 1);
+  public static final Plane YZ_PLANE = new Plane(x(), 1);
 
   /**
    * Normal vector.
    */
-  public Vector3d normal;
+  public Vector3 normal;
   /**
    * Distance to origin.
    */
@@ -82,8 +88,8 @@ public class Plane {
    * @param dist
    *          distance from origin
    */
-  public Plane(Vector3d normal, double dist) {
-    this.normal = normal.normalized();
+  public Plane(Vector3 normal, double dist) {
+    this.normal = normal.normalize();
     this.dist = dist;
   }
 
@@ -98,21 +104,21 @@ public class Plane {
    *          third point
    * @return a plane
    */
-  public static Plane createFromPoints(Vector3d a, Vector3d b, Vector3d c) {
-    Vector3d n = b.minus(a).cross(c.minus(a)).normalized();
+  public static Plane createFromPoints(Vector3 a, Vector3 b, Vector3 c) {
+    Vector3 n = b.minus(a).cross(c.minus(a)).normalize();
     return new Plane(n, n.dot(a));
   }
 
   @Override
   public Plane clone() {
-    return new Plane(normal.clone(), dist);
+    return new Plane(normal, dist);
   }
 
   /**
    * Flips this plane.
    */
   public void flip() {
-    normal = normal.negated();
+    normal = normal.negate();
     dist = -dist;
   }
 
@@ -190,8 +196,9 @@ public class Plane {
             b.add(ti != BACK ? vi.clone() : vi);
           }
           if ((ti | tj) == SPANNING) {
-            double t = (this.dist - this.normal.dot(vi.position)) / this.normal.dot(vj.position.minus(
-                vi.position));
+            double t = (this.dist - this.normal.dot(vi.position)) / this.normal.dot(vj.position
+                .minus(
+                    vi.position));
             Vertex v = vi.interpolate(vj, t);
             f.add(v);
             b.add(v.clone());

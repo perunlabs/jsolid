@@ -5,7 +5,11 @@
  */
 package eu.mihosoft.vrl.v3d;
 
+import static com.mikosik.jsolid.JSolid.v;
+
 import java.util.Objects;
+
+import com.mikosik.jsolid.d3.Vector3;
 
 /**
  * 3D Matrix3d
@@ -113,8 +117,8 @@ public class Matrix3d {
    *
    * @return the product of this matrix and the specified vector
    */
-  public Vector3d times(Vector3d a) {
-    return new Vector3d(
+  public Vector3 times(Vector3 a) {
+    return v(
         m11 * a.x + m12 * a.y + m13 * a.z,
         m21 * a.x + m22 * a.y + m23 * a.z,
         m31 * a.x + m32 * a.y + m33 * a.z);

@@ -33,12 +33,13 @@
  */
 package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
 
+import static com.mikosik.jsolid.JSolid.v;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import eu.mihosoft.vrl.v3d.Extrude;
-import eu.mihosoft.vrl.v3d.Vector3d;
 import eu.mihosoft.vrl.v3d.Vertex;
 
 /**
@@ -93,7 +94,7 @@ public class PolygonUtil {
 
       int counter = 0;
       for (TriangulationPoint tp : t.points) {
-        triPoints.add(new Vertex(new Vector3d(tp.getX(), tp.getY(), tp.getZ())));
+        triPoints.add(new Vertex(v(tp.getX(), tp.getY(), tp.getZ())));
         if (counter == 2) {
           if (!cw) {
             Collections.reverse(triPoints);

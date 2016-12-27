@@ -11,13 +11,15 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import com.mikosik.jsolid.d3.Vector3;
+
 /**
  * Polyhedron.
  *
  * @author Michael Hoffer &lt;info@michaelhoffer.de&gt;
  */
 public class Polyhedron implements Primitive {
-  private final List<Vector3d> points = new ArrayList<>();
+  private final List<Vector3> points = new ArrayList<>();
   private final List<List<Integer>> faces = new ArrayList<>();
 
   /**
@@ -25,11 +27,11 @@ public class Polyhedron implements Primitive {
    * faces.
    *
    * @param points
-   *          points ({@link Vector3d} list)
+   *          points ({@link Vector3} list)
    * @param faces
    *          list of faces (list of point index lists)
    */
-  public Polyhedron(List<Vector3d> points, List<List<Integer>> faces) {
+  public Polyhedron(List<Vector3> points, List<List<Integer>> faces) {
     this.points.addAll(points);
     this.faces.addAll(faces);
   }
@@ -39,11 +41,11 @@ public class Polyhedron implements Primitive {
    * faces.
    *
    * @param points
-   *          points ({@link Vector3d} array)
+   *          points ({@link Vector3} array)
    * @param faces
    *          list of faces (array of point index arrays)
    */
-  public Polyhedron(Vector3d[] points, Integer[][] faces) {
+  public Polyhedron(Vector3[] points, Integer[][] faces) {
     this.points.addAll(Arrays.asList(points));
 
     for (Integer[] list : faces) {
@@ -55,8 +57,8 @@ public class Polyhedron implements Primitive {
   @Override
   public List<Polygon> toPolygons() {
 
-    Function<Integer, Vector3d> indexToPoint = (Integer i) -> {
-      return points.get(i).clone();
+    Function<Integer, Vector3> indexToPoint = (Integer i) -> {
+      return points.get(i);
     };
 
     Function<List<Integer>, Polygon> faceListToPolygon = (List<Integer> faceList) -> {

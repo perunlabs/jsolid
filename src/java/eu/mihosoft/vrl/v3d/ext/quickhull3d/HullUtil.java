@@ -8,6 +8,8 @@ package eu.mihosoft.vrl.v3d.ext.quickhull3d;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mikosik.jsolid.d3.Vector3;
+
 import eu.mihosoft.vrl.v3d.CSG;
 import eu.mihosoft.vrl.v3d.Polygon;
 
@@ -21,7 +23,7 @@ public class HullUtil {
     throw new AssertionError("Don't instantiate me!", null);
   }
 
-  public static CSG hull(List<eu.mihosoft.vrl.v3d.Vector3d> points) {
+  public static CSG hull(List<Vector3> points) {
 
     Point3d[] hullPoints = points.stream().map((vec) -> new Point3d(vec.x, vec.y, vec.z)).toArray(
         Point3d[]::new);
@@ -34,7 +36,7 @@ public class HullUtil {
 
     List<Polygon> polygons = new ArrayList<>();
 
-    List<eu.mihosoft.vrl.v3d.Vector3d> vertices = new ArrayList<>();
+    List<Vector3> vertices = new ArrayList<>();
 
     for (int[] verts : faces) {
 
@@ -52,7 +54,7 @@ public class HullUtil {
 
   public static CSG hull(CSG csg) {
 
-    List<eu.mihosoft.vrl.v3d.Vector3d> points = new ArrayList<>(csg.getPolygons().size() * 3);
+    List<Vector3> points = new ArrayList<>(csg.getPolygons().size() * 3);
 
     csg.getPolygons().forEach((p) -> p.vertices.forEach((v) -> points.add(v.position)));
 

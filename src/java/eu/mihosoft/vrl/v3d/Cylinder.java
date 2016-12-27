@@ -33,9 +33,15 @@
  */
 package eu.mihosoft.vrl.v3d;
 
+import static com.mikosik.jsolid.JSolid.v;
+import static com.mikosik.jsolid.JSolid.v0;
+import static com.mikosik.jsolid.JSolid.z;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import com.mikosik.jsolid.d3.Vector3;
 
 /**
  * A solid cylinder.
@@ -46,8 +52,8 @@ import java.util.List;
  */
 public class Cylinder implements Primitive {
 
-  private Vector3d start;
-  private Vector3d end;
+  private Vector3 start;
+  private Vector3 end;
   private double startRadius;
   private double endRadius;
   private int numSlices;
@@ -57,8 +63,8 @@ public class Cylinder implements Primitive {
    * from {@code [0,-0.5,0]} to {@code [0,0.5,0]}, i.e. {@code size = 1}.
    */
   public Cylinder() {
-    this.start = new Vector3d(0, -0.5, 0);
-    this.end = new Vector3d(0, 0.5, 0);
+    this.start = v(0, -0.5, 0);
+    this.end = v(0, 0.5, 0);
     this.startRadius = 1;
     this.endRadius = 1;
     this.numSlices = 16;
@@ -78,7 +84,7 @@ public class Cylinder implements Primitive {
    * @param numSlices
    *          number of slices (used for tessellation)
    */
-  public Cylinder(Vector3d start, Vector3d end, double radius, int numSlices) {
+  public Cylinder(Vector3 start, Vector3 end, double radius, int numSlices) {
     this.start = start;
     this.end = end;
     this.startRadius = radius;
@@ -102,7 +108,7 @@ public class Cylinder implements Primitive {
    * @param numSlices
    *          number of slices (used for tessellation)
    */
-  public Cylinder(Vector3d start, Vector3d end, double startRadius, double endRadius,
+  public Cylinder(Vector3 start, Vector3 end, double startRadius, double endRadius,
       int numSlices) {
     this.start = start;
     this.end = end;
@@ -125,8 +131,8 @@ public class Cylinder implements Primitive {
    *          number of slices (used for tessellation)
    */
   public Cylinder(double radius, double height, int numSlices) {
-    this.start = Vector3d.ZERO;
-    this.end = Vector3d.Z_ONE.times(height);
+    this.start = v0();
+    this.end = z().mul(height);
     this.startRadius = radius;
     this.endRadius = radius;
     this.numSlices = numSlices;
@@ -148,8 +154,8 @@ public class Cylinder implements Primitive {
    *          number of slices (used for tessellation)
    */
   public Cylinder(double startRadius, double endRadius, double height, int numSlices) {
-    this.start = Vector3d.ZERO;
-    this.end = Vector3d.Z_ONE.times(height);
+    this.start = v0();
+    this.end = z().mul(height);
     this.startRadius = startRadius;
     this.endRadius = endRadius;
     this.numSlices = numSlices;
@@ -157,13 +163,13 @@ public class Cylinder implements Primitive {
 
   @Override
   public List<Polygon> toPolygons() {
-    final Vector3d s = getStart();
-    Vector3d e = getEnd();
-    final Vector3d ray = e.minus(s);
-    final Vector3d axisZ = ray.normalized();
+    final Vector3 s = getStart();
+    Vector3 e = getEnd();
+    final Vector3 ray = e.minus(s);
+    final Vector3 axisZ = ray.normalize();
     boolean isY = (Math.abs(axisZ.y) > 0.5);
-    final Vector3d axisX = new Vector3d(isY ? 1 : 0, !isY ? 1 : 0, 0).cross(axisZ).normalized();
-    final Vector3d axisY = axisX.cross(axisZ).normalized();
+    final Vector3 axisX = v(isY ? 1 : 0, !isY ? 1 : 0, 0).cross(axisZ).normalize();
+    final Vector3 axisY = axisX.cross(axisZ).normalize();
     Vertex startV = new Vertex(s);
     Vertex endV = new Vertex(e);
     List<Polygon> polygons = new ArrayList<>();
@@ -190,18 +196,18 @@ public class Cylinder implements Primitive {
   }
 
   private Vertex cylPoint(
-      Vector3d axisX, Vector3d axisY, Vector3d axisZ, Vector3d ray, Vector3d s,
+      Vector3 axisX, Vector3 axisY, Vector3 axisZ, Vector3 ray, Vector3 s,
       double r, double stack, double slice, double normalBlend) {
     double angle = slice * Math.PI * 2;
-    Vector3d out = axisX.times(Math.cos(angle)).plus(axisY.times(Math.sin(angle)));
-    Vector3d pos = s.plus(ray.times(stack)).plus(out.times(r));
+    Vector3 out = axisX.mul(Math.cos(angle)).plus(axisY.mul(Math.sin(angle)));
+    Vector3 pos = s.plus(ray.mul(stack)).plus(out.mul(r));
     return new Vertex(pos);
   }
 
   /**
    * @return the start
    */
-  public Vector3d getStart() {
+  public Vector3 getStart() {
     return start;
   }
 
@@ -209,14 +215,14 @@ public class Cylinder implements Primitive {
    * @param start
    *          the start to set
    */
-  public void setStart(Vector3d start) {
+  public void setStart(Vector3 start) {
     this.start = start;
   }
 
   /**
    * @return the end
    */
-  public Vector3d getEnd() {
+  public Vector3 getEnd() {
     return end;
   }
 
@@ -224,7 +230,7 @@ public class Cylinder implements Primitive {
    * @param end
    *          the end to set
    */
-  public void setEnd(Vector3d end) {
+  public void setEnd(Vector3 end) {
     this.end = end;
   }
 

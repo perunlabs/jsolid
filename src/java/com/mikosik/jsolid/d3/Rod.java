@@ -6,7 +6,6 @@ import static java.lang.Math.PI;
 import com.mikosik.jsolid.util.Check;
 
 import eu.mihosoft.vrl.v3d.CSG;
-import eu.mihosoft.vrl.v3d.Vector3d;
 
 public final class Rod extends AbstractSolid {
   private double lastRadius;
@@ -32,8 +31,8 @@ public final class Rod extends AbstractSolid {
     Check.positive(radiusFrom);
     Check.positive(radiusTo);
     if (height != 0) {
-      Vector3d bottomCenter = vz(totalHeight);
-      Vector3d top = bottomCenter.plus(vz(height));
+      Vector3 bottomCenter = vz(totalHeight);
+      Vector3 top = bottomCenter.plus(vz(height));
       CSG cylinder = new eu.mihosoft.vrl.v3d.Cylinder(
           bottomCenter, top, radiusFrom, radiusTo, requiredSlices(radiusFrom, radiusTo)).toCSG();
       Solid next = new CsgSolid(cylinder);

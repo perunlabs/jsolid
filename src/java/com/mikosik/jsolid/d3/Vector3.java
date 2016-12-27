@@ -15,7 +15,7 @@ public class Vector3 {
     return new Vector3(x, y, z);
   }
 
-  private Vector3(double x, double y, double z) {
+  Vector3(double x, double y, double z) {
     this.x = x;
     this.y = y;
     this.z = z;

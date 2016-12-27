@@ -33,7 +33,11 @@
  */
 package eu.mihosoft.vrl.v3d;
 
+import static com.mikosik.jsolid.JSolid.v;
+
 import javax.vecmath.Matrix4d;
+
+import com.mikosik.jsolid.d3.Vector3;
 
 public class Transform {
   private final Matrix4d matrix;
@@ -42,11 +46,11 @@ public class Transform {
     this.matrix = new Matrix4d(elements);
   }
 
-  public Vector3d mul(Vector3d vec) {
+  public Vector3 mul(Vector3 vec) {
     double x = matrix.m00 * vec.x + matrix.m01 * vec.y + matrix.m02 * vec.z + matrix.m03;
     double y = matrix.m10 * vec.x + matrix.m11 * vec.y + matrix.m12 * vec.z + matrix.m13;
     double z = matrix.m20 * vec.x + matrix.m21 * vec.y + matrix.m22 * vec.z + matrix.m23;
-    return new Vector3d(x, y, z);
+    return v(x, y, z);
   }
 
   public Transform mul(Transform t) {
@@ -101,13 +105,13 @@ public class Transform {
     return new Transform(elemenents);
   }
 
-  public static Transform rotate(Vector3d vec) {
+  public static Transform rotate(Vector3 vec) {
     rotateX(vec.x);
     Transform.rotateY(vec.y);
     return Transform.rotateZ(vec.z);
   }
 
-  public static Transform translate(Vector3d vec) {
+  public static Transform translate(Vector3 vec) {
     double elemenents[] = {
         1, 0, 0, vec.x,
         0, 1, 0, vec.y,
@@ -134,7 +138,7 @@ public class Transform {
     return new Transform(elemenents);
   }
 
-  public static Transform scale(Vector3d vec) {
+  public static Transform scale(Vector3 vec) {
     if (vec.x == 0 || vec.y == 0 || vec.z == 0) {
       throw new IllegalArgumentException("scale by 0 not allowed!");
     }

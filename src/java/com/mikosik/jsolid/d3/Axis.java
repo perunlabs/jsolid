@@ -10,9 +10,7 @@ import com.mikosik.jsolid.d3.Anchor.CenterAnchor;
 import com.mikosik.jsolid.d3.Anchor.EdgeAnchor;
 import com.mikosik.jsolid.d3.Anchor.ZeroAnchor;
 
-import eu.mihosoft.vrl.v3d.Vector3d;
-
-public abstract class Axis<A extends Axis<A>> extends Vector3d {
+public abstract class Axis<A extends Axis<A>> extends Vector3 {
   public static final XAxis X = new XAxis();
   public static final YAxis Y = new YAxis();
   public static final ZAxis Z = new ZAxis();
@@ -21,9 +19,9 @@ public abstract class Axis<A extends Axis<A>> extends Vector3d {
     super(x, y, z);
   }
 
-  public abstract double coordinate(Vector3d v);
+  public abstract double coordinate(Vector3 v);
 
-  public abstract Vector3d v(double coordinate);
+  public abstract Vector3 v(double coordinate);
 
   public Anchor<A> min() {
     return new EdgeAnchor<>(this, minReduce(), MAX_VALUE);
@@ -50,11 +48,11 @@ public abstract class Axis<A extends Axis<A>> extends Vector3d {
       super(1, 0, 0);
     }
 
-    public double coordinate(Vector3d v) {
+    public double coordinate(Vector3 v) {
       return v.x;
     }
 
-    public Vector3d v(double coordinate) {
+    public Vector3 v(double coordinate) {
       return JSolid.v(coordinate, 0, 0);
     }
   }
@@ -64,11 +62,11 @@ public abstract class Axis<A extends Axis<A>> extends Vector3d {
       super(0, 1, 0);
     }
 
-    public double coordinate(Vector3d v) {
+    public double coordinate(Vector3 v) {
       return v.y;
     }
 
-    public Vector3d v(double coordinate) {
+    public Vector3 v(double coordinate) {
       return JSolid.v(0, coordinate, 0);
     }
   }
@@ -78,11 +76,11 @@ public abstract class Axis<A extends Axis<A>> extends Vector3d {
       super(0, 0, 1);
     }
 
-    public double coordinate(Vector3d v) {
+    public double coordinate(Vector3 v) {
       return v.z;
     }
 
-    public Vector3d v(double coordinate) {
+    public Vector3 v(double coordinate) {
       return JSolid.v(0, 0, coordinate);
     }
   }

@@ -33,8 +33,13 @@
  */
 package eu.mihosoft.vrl.v3d;
 
+import static com.mikosik.jsolid.JSolid.v;
+import static com.mikosik.jsolid.JSolid.v0;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mikosik.jsolid.d3.Vector3;
 
 /**
  * A solid sphere.
@@ -46,7 +51,7 @@ import java.util.List;
  */
 public class Sphere implements Primitive {
 
-  private Vector3d center;
+  private Vector3 center;
   private double radius;
   private int numSlices;
   private int numStacks;
@@ -103,7 +108,7 @@ public class Sphere implements Primitive {
    * @param numStacks
    *          number of stacks
    */
-  public Sphere(Vector3d center, double radius, int numSlices, int numStacks) {
+  public Sphere(Vector3 center, double radius, int numSlices, int numStacks) {
     this.center = center;
     this.radius = radius;
     this.numSlices = numSlices;
@@ -111,20 +116,20 @@ public class Sphere implements Primitive {
   }
 
   private void init() {
-    center = new Vector3d(0, 0, 0);
+    center = v0();
     radius = 1;
     numSlices = 16;
     numStacks = 8;
   }
 
-  private Vertex sphereVertex(Vector3d c, double r, double theta, double phi) {
+  private Vertex sphereVertex(Vector3 c, double r, double theta, double phi) {
     theta *= Math.PI * 2;
     phi *= Math.PI;
-    Vector3d dir = new Vector3d(
+    Vector3 dir = v(
         Math.cos(theta) * Math.sin(phi),
         Math.cos(phi),
         Math.sin(theta) * Math.sin(phi));
-    return new Vertex(c.plus(dir.times(r)));
+    return new Vertex(c.plus(dir.mul(r)));
   }
 
   @Override
@@ -160,7 +165,7 @@ public class Sphere implements Primitive {
   /**
    * @return the center
    */
-  public Vector3d getCenter() {
+  public Vector3 getCenter() {
     return center;
   }
 
@@ -168,7 +173,7 @@ public class Sphere implements Primitive {
    * @param center
    *          the center to set
    */
-  public void setCenter(Vector3d center) {
+  public void setCenter(Vector3 center) {
     this.center = center;
   }
 
