@@ -39,8 +39,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.mikosik.jsolid.d3.Vector3;
+
 import eu.mihosoft.vrl.v3d.Extrude;
-import eu.mihosoft.vrl.v3d.Vertex;
 
 /**
  *
@@ -64,8 +65,8 @@ public class PolygonUtil {
 
     // convert polygon
     List<PolygonPoint> points = new ArrayList<>();
-    for (Vertex v : polygon.vertices) {
-      PolygonPoint vp = new PolygonPoint(v.position.x, v.position.y, v.position.z);
+    for (Vector3 v : polygon.vertices) {
+      PolygonPoint vp = new PolygonPoint(v.x, v.y, v.z);
       points.add(vp);
     }
 
@@ -88,13 +89,13 @@ public class PolygonUtil {
 
     List<DelaunayTriangle> triangles = p.getTriangles();
 
-    List<Vertex> triPoints = new ArrayList<>();
+    List<Vector3> triPoints = new ArrayList<>();
 
     for (DelaunayTriangle t : triangles) {
 
       int counter = 0;
       for (TriangulationPoint tp : t.points) {
-        triPoints.add(new Vertex(v(tp.getX(), tp.getY(), tp.getZ())));
+        triPoints.add(v(tp.getX(), tp.getY(), tp.getZ()));
         if (counter == 2) {
           if (!cw) {
             Collections.reverse(triPoints);

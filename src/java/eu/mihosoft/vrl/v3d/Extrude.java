@@ -102,10 +102,10 @@ public class Extrude {
 
       int nexti = (i + 1) % numvertices;
 
-      Vector3 bottomV1 = polygon1.vertices.get(i).position;
-      Vector3 topV1 = polygon2.vertices.get(i).position;
-      Vector3 bottomV2 = polygon1.vertices.get(nexti).position;
-      Vector3 topV2 = polygon2.vertices.get(nexti).position;
+      Vector3 bottomV1 = polygon1.vertices.get(i);
+      Vector3 topV1 = polygon2.vertices.get(i);
+      Vector3 bottomV2 = polygon1.vertices.get(nexti);
+      Vector3 topV2 = polygon2.vertices.get(nexti);
 
       List<Vector3> pPoints = Arrays.asList(bottomV2, topV2, topV1, bottomV1);
 
@@ -152,15 +152,15 @@ public class Extrude {
 
     // search highest left vertex
     int highestLeftVertexIndex = 0;
-    Vertex highestLeftVertex = polygon.vertices.get(0);
+    Vector3 highestLeftVertex = polygon.vertices.get(0);
     for (int i = 0; i < polygon.vertices.size(); i++) {
-      Vertex v = polygon.vertices.get(i);
+      Vector3 v = polygon.vertices.get(i);
 
-      if (v.position.y > highestLeftVertex.position.y) {
+      if (v.y > highestLeftVertex.y) {
         highestLeftVertex = v;
         highestLeftVertexIndex = i;
-      } else if (v.position.y == highestLeftVertex.position.y
-          && v.position.x < highestLeftVertex.position.x) {
+      } else if (v.y == highestLeftVertex.y
+          && v.x < highestLeftVertex.x) {
         highestLeftVertex = v;
         highestLeftVertexIndex = i;
       }
@@ -172,14 +172,14 @@ public class Extrude {
     if (prevVertexIndex < 0) {
       prevVertexIndex = polygon.vertices.size() - 1;
     }
-    Vertex nextVertex = polygon.vertices.get(nextVertexIndex);
-    Vertex prevVertex = polygon.vertices.get(prevVertexIndex);
+    Vector3 nextVertex = polygon.vertices.get(nextVertexIndex);
+    Vector3 prevVertex = polygon.vertices.get(prevVertexIndex);
 
     // edge 1
-    double a1 = normalizedX(highestLeftVertex.position, nextVertex.position);
+    double a1 = normalizedX(highestLeftVertex, nextVertex);
 
     // edge 2
-    double a2 = normalizedX(highestLeftVertex.position, prevVertex.position);
+    double a2 = normalizedX(highestLeftVertex, prevVertex);
 
     // select vertex with lowest x value
     int selectedVIndex;

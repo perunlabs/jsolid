@@ -47,7 +47,7 @@ import eu.mihosoft.vrl.v3d.ext.org.poly2tri.PolygonUtil;
  * Represents a convex polygon.
  */
 public final class Polygon {
-  public List<Vertex> vertices;
+  public List<Vector3> vertices;
   /**
    * Plane defined by this polygon.
    *
@@ -86,12 +86,12 @@ public final class Polygon {
    * @param vertices
    *          polygon vertices
    */
-  public Polygon(List<Vertex> vertices) {
+  public Polygon(List<Vector3> vertices) {
     this.vertices = vertices;
     this.plane = Plane.createFromPoints(
-        vertices.get(0).position,
-        vertices.get(1).position,
-        vertices.get(2).position);
+        vertices.get(0),
+        vertices.get(1),
+        vertices.get(2));
   }
 
   /**
@@ -104,7 +104,7 @@ public final class Polygon {
    *          polygon vertices
    *
    */
-  public Polygon(Vertex... vertices) {
+  public Polygon(Vector3... vertices) {
     this(Arrays.asList(vertices));
   }
 
@@ -160,7 +160,7 @@ public final class Polygon {
       // STL requires triangular polygons.
       // If our polygon has more vertices, create
       // multiple triangles:
-      String firstVertexStl = toStl(vertices.get(0));
+      String firstVertexStl = toVertexStl(vertices.get(0));
       for (int i = 0; i < this.vertices.size() - 2; i++) {
         sb
             .append("  facet normal ")
@@ -171,9 +171,9 @@ public final class Polygon {
             .append(firstVertexStl)
             .append("\n")
             .append("      ")
-            .append(toStl(vertices.get(i + 1)))
+            .append(toVertexStl(vertices.get(i + 1)))
             .append("\n").append("      ")
-            .append(toStl(vertices.get(i + 2)))
+            .append(toVertexStl(vertices.get(i + 2)))
             .append("\n")
             .append("    endloop\n")
             .append("  endfacet\n");
@@ -183,8 +183,8 @@ public final class Polygon {
     return sb;
   }
 
-  private static String toStl(Vertex vertex) {
-    return "vertex " + toStl(vertex.position);
+  private static String toVertexStl(Vector3 v) {
+    return "vertex " + toStl(v);
   }
 
   private static String toStl(Vector3 position) {
@@ -200,12 +200,12 @@ public final class Polygon {
    */
   public Polygon translate(Vector3 v) {
     vertices = vertices.stream()
-        .map((vertex) -> new Vertex(vertex.position.plus(v)))
+        .map((vertex) -> vertex.plus(v))
         .collect(Collectors.toList());
 
-    Vector3 a = this.vertices.get(0).position;
-    Vector3 b = this.vertices.get(1).position;
-    Vector3 c = this.vertices.get(2).position;
+    Vector3 a = this.vertices.get(0);
+    Vector3 b = this.vertices.get(1);
+    Vector3 c = this.vertices.get(2);
 
     this.plane.normal = b.minus(a).cross(c.minus(a));
 
@@ -239,12 +239,12 @@ public final class Polygon {
    */
   public Polygon transform(Transform transform) {
     vertices = vertices.stream()
-        .map((vertex) -> vertex.transformed(transform))
+        .map((vertex) -> transform.mul(vertex))
         .collect(Collectors.toList());
 
-    Vector3 a = this.vertices.get(0).position;
-    Vector3 b = this.vertices.get(1).position;
-    Vector3 c = this.vertices.get(2).position;
+    Vector3 a = this.vertices.get(0);
+    Vector3 b = this.vertices.get(1);
+    Vector3 c = this.vertices.get(2);
 
     this.plane.normal = b.minus(a).cross(c.minus(a)).normalize();
     this.plane.dist = this.plane.normal.dot(a);
@@ -273,17 +273,6 @@ public final class Polygon {
   }
 
   /**
-   * Creates a polygon from the specified point list.
-   *
-   * @param points
-   *          the points that define the polygon
-   * @return a polygon defined by the specified point list
-   */
-  public static Polygon fromPoints(List<Vector3> points) {
-    return fromPoints(points, null);
-  }
-
-  /**
    * Creates a polygon from the specified points.
    *
    * @param points
@@ -291,7 +280,7 @@ public final class Polygon {
    * @return a polygon defined by the specified point list
    */
   public static Polygon fromPoints(Vector3... points) {
-    return fromPoints(Arrays.asList(points), null);
+    return fromPoints(Arrays.asList(points));
   }
 
   /**
@@ -299,18 +288,11 @@ public final class Polygon {
    *
    * @param points
    *          the points that define the polygon
-   * @param plane
-   *          may be null
    * @return a polygon defined by the specified point list
    */
-  private static Polygon fromPoints(
-      List<Vector3> points, Plane plane) {
-    List<Vertex> vertices = new ArrayList<>();
-    for (Vector3 p : points) {
-      Vertex vertex = new Vertex(p);
-      vertices.add(vertex);
-    }
-    return new Polygon(vertices);
+  public static Polygon fromPoints(
+      List<Vector3> points) {
+    return new Polygon(new ArrayList<>(points));
   }
 
   public boolean contains(Vector3 p) {
@@ -320,12 +302,12 @@ public final class Polygon {
     double px = p.x;
     double py = p.y;
     boolean oddNodes = false;
-    double x2 = vertices.get(vertices.size() - 1).position.x;
-    double y2 = vertices.get(vertices.size() - 1).position.y;
+    double x2 = vertices.get(vertices.size() - 1).x;
+    double y2 = vertices.get(vertices.size() - 1).y;
     double x1, y1;
     for (int i = 0; i < vertices.size(); x2 = x1, y2 = y1, ++i) {
-      x1 = vertices.get(i).position.x;
-      y1 = vertices.get(i).position.y;
+      x1 = vertices.get(i).x;
+      y1 = vertices.get(i).y;
       if (((y1 < py) && (y2 >= py))
           || (y1 >= py) && (y2 < py)) {
         if ((py - y1) / (y2 - y1)
@@ -338,8 +320,8 @@ public final class Polygon {
   }
 
   public boolean contains(Polygon p) {
-    for (Vertex v : p.vertices) {
-      if (!contains(v.position)) {
+    for (Vector3 v : p.vertices) {
+      if (!contains(v)) {
         return false;
       }
     }

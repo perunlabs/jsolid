@@ -56,7 +56,7 @@ public class HullUtil {
 
     List<Vector3> points = new ArrayList<>(csg.getPolygons().size() * 3);
 
-    csg.getPolygons().forEach((p) -> p.vertices.forEach((v) -> points.add(v.position)));
+    csg.getPolygons().forEach((p) -> p.vertices.forEach((v) -> points.add(v)));
 
     return hull(points);
   }

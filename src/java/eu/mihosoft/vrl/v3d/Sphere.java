@@ -122,14 +122,14 @@ public class Sphere implements Primitive {
     numStacks = 8;
   }
 
-  private Vertex sphereVertex(Vector3 c, double r, double theta, double phi) {
+  private Vector3 sphereVertex(Vector3 c, double r, double theta, double phi) {
     theta *= Math.PI * 2;
     phi *= Math.PI;
     Vector3 dir = v(
         Math.cos(theta) * Math.sin(phi),
         Math.cos(phi),
         Math.sin(theta) * Math.sin(phi));
-    return new Vertex(c.plus(dir.mul(r)));
+    return c.plus(dir.mul(r));
   }
 
   @Override
@@ -138,7 +138,7 @@ public class Sphere implements Primitive {
 
     for (int i = 0; i < numSlices; i++) {
       for (int j = 0; j < numStacks; j++) {
-        final List<Vertex> vertices = new ArrayList<>();
+        final List<Vector3> vertices = new ArrayList<>();
 
         vertices.add(
             sphereVertex(center, radius, i / (double) numSlices,
