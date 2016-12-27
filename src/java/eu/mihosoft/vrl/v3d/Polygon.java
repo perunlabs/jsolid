@@ -294,38 +294,4 @@ public final class Polygon {
       List<Vector3> points) {
     return new Polygon(new ArrayList<>(points));
   }
-
-  public boolean contains(Vector3 p) {
-    // taken from http://www.java-gaming.org/index.php?topic=26013.0
-    // and
-    // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
-    double px = p.x;
-    double py = p.y;
-    boolean oddNodes = false;
-    double x2 = vertices.get(vertices.size() - 1).x;
-    double y2 = vertices.get(vertices.size() - 1).y;
-    double x1, y1;
-    for (int i = 0; i < vertices.size(); x2 = x1, y2 = y1, ++i) {
-      x1 = vertices.get(i).x;
-      y1 = vertices.get(i).y;
-      if (((y1 < py) && (y2 >= py))
-          || (y1 >= py) && (y2 < py)) {
-        if ((py - y1) / (y2 - y1)
-            * (x2 - x1) < (px - x1)) {
-          oddNodes = !oddNodes;
-        }
-      }
-    }
-    return oddNodes;
-  }
-
-  public boolean contains(Polygon p) {
-    for (Vector3 v : p.vertices) {
-      if (!contains(v)) {
-        return false;
-      }
-    }
-
-    return true;
-  }
 }
