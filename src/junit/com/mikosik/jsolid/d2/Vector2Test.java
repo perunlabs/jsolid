@@ -93,30 +93,30 @@ public class Vector2Test {
   @Test
   public void negate() throws Exception {
     given(vector1 = vector2(1, -2));
-    when(vector1.negate());
+    when(vector1.neg());
     thenReturned(vector2(-1, 2));
   }
 
   @Test
   public void negate_zero() throws Exception {
     given(vector1 = vector2(0, 0));
-    when(vector1.negate());
+    when(vector1.neg());
     thenReturned(vector2(0, 0));
   }
 
   @Test
-  public void vector_plus_vector() throws Exception {
+  public void vector_add_vector() throws Exception {
     given(vector1 = vector2(1, 2));
     given(vector2 = vector2(4, 8));
-    when(vector1.plus(vector2));
+    when(vector1.add(vector2));
     thenReturned(vector2(5, 10));
   }
 
   @Test
-  public void vector_minus_vector() throws Exception {
+  public void vector_sub_vector() throws Exception {
     given(vector1 = vector2(1, 2));
     given(vector2 = vector2(4, 8));
-    when(vector1.minus(vector2));
+    when(vector1.sub(vector2));
     thenReturned(vector2(-3, -6));
   }
 
@@ -152,7 +152,7 @@ public class Vector2Test {
   @Test
   public void cross_product_on_negated_is_zero() throws Exception {
     given(vector1 = vector2(1, 2));
-    when(vector1.cross(vector1.negate()));
+    when(vector1.cross(vector1.neg()));
     thenReturned(0.0);
   }
 

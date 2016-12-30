@@ -16,27 +16,27 @@ public class EmptyTest {
   @Test
   public void subtracting_empty_solid_does_not_change_anything() throws Exception {
     given(solid = cuboid(1, 2, 3));
-    when(solid.minus(empty()).toStl());
+    when(solid.sub(empty()).toStl());
     thenReturned(solid.toStl());
   }
 
   @Test
   public void subtracting_from_empty_solid_returns_empty_solid() throws Exception {
-    when(empty().minus(solid).toStl());
+    when(empty().sub(solid).toStl());
     thenReturned(empty().toStl());
   }
 
   @Test
   public void adding_empty_solid_does_not_change_anything() throws Exception {
     given(solid = cuboid(1, 2, 3));
-    when(solid.plus(empty()).toStl());
+    when(solid.add(empty()).toStl());
     thenReturned(solid.toStl());
   }
 
   @Test
   public void adding_to_empty_solid_returns_added_solid() throws Exception {
     given(solid = cuboid(1, 2, 3));
-    when(empty().plus(solid).toStl());
+    when(empty().add(solid).toStl());
     thenReturned(solid.toStl());
   }
 
@@ -53,6 +53,6 @@ public class EmptyTest {
   }
 
   private Solid empty() {
-    return cuboid(1, 1, 1).minus(cuboid(9, 9, 9));
+    return cuboid(1, 1, 1).sub(cuboid(9, 9, 9));
   }
 }

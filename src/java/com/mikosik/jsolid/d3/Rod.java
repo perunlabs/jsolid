@@ -32,14 +32,14 @@ public final class Rod extends AbstractSolid {
     Check.positive(radiusTo);
     if (height != 0) {
       Vector3 bottomCenter = vz(totalHeight);
-      Vector3 top = bottomCenter.plus(vz(height));
+      Vector3 top = bottomCenter.add(vz(height));
       CSG cylinder = new eu.mihosoft.vrl.v3d.Cylinder(
           bottomCenter, top, radiusFrom, radiusTo, requiredSlices(radiusFrom, radiusTo)).toCSG();
       Solid next = new CsgSolid(cylinder);
       if (rod == null) {
         rod = next;
       } else {
-        rod = rod.plus(next);
+        rod = rod.add(next);
       }
     }
     lastRadius = radiusTo;

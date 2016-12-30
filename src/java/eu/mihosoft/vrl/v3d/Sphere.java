@@ -129,7 +129,7 @@ public class Sphere implements Primitive {
         Math.cos(theta) * Math.sin(phi),
         Math.cos(phi),
         Math.sin(theta) * Math.sin(phi));
-    return c.plus(dir.mul(r));
+    return c.add(dir.mul(r));
   }
 
   @Override

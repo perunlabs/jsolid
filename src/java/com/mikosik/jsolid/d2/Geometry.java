@@ -8,11 +8,11 @@ public class Geometry {
       throw new IllegalArgumentException(
           "At least 3 vertexes are needed. Received " + vertexes.size());
     }
-    double lastAngle = vertexes.get(0).minus(vertexes.get(vertexes.size() - 1)).angle();
+    double lastAngle = vertexes.get(0).sub(vertexes.get(vertexes.size() - 1)).angle();
     double previous = lastAngle;
     boolean alreadyDecreased = false;
     for (int i = 0; i < vertexes.size() - 1; i++) {
-      double angle = vertexes.get(i + 1).minus(vertexes.get(i)).angle();
+      double angle = vertexes.get(i + 1).sub(vertexes.get(i)).angle();
       if (angle < previous) {
         if (alreadyDecreased) {
           return false;

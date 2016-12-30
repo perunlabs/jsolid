@@ -165,7 +165,7 @@ public class Cylinder implements Primitive {
   public List<Polygon> toPolygons() {
     final Vector3 s = getStart();
     Vector3 e = getEnd();
-    final Vector3 ray = e.minus(s);
+    final Vector3 ray = e.sub(s);
     final Vector3 axisZ = ray.normalize();
     boolean isY = (Math.abs(axisZ.y) > 0.5);
     final Vector3 axisX = v(isY ? 1 : 0, !isY ? 1 : 0, 0).cross(axisZ).normalize();
@@ -199,8 +199,8 @@ public class Cylinder implements Primitive {
       Vector3 axisX, Vector3 axisY, Vector3 axisZ, Vector3 ray, Vector3 s,
       double r, double stack, double slice, double normalBlend) {
     double angle = slice * Math.PI * 2;
-    Vector3 out = axisX.mul(Math.cos(angle)).plus(axisY.mul(Math.sin(angle)));
-    Vector3 pos = s.plus(ray.mul(stack)).plus(out.mul(r));
+    Vector3 out = axisX.mul(Math.cos(angle)).add(axisY.mul(Math.sin(angle)));
+    Vector3 pos = s.add(ray.mul(stack)).add(out.mul(r));
     return pos;
   }
 

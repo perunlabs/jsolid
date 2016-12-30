@@ -200,14 +200,14 @@ public final class Polygon {
    */
   public Polygon translate(Vector3 v) {
     vertices = vertices.stream()
-        .map((vertex) -> vertex.plus(v))
+        .map((vertex) -> vertex.add(v))
         .collect(Collectors.toList());
 
     Vector3 a = this.vertices.get(0);
     Vector3 b = this.vertices.get(1);
     Vector3 c = this.vertices.get(2);
 
-    this.plane.normal = b.minus(a).cross(c.minus(a));
+    this.plane.normal = b.sub(a).cross(c.sub(a));
 
     return this;
   }
@@ -246,7 +246,7 @@ public final class Polygon {
     Vector3 b = this.vertices.get(1);
     Vector3 c = this.vertices.get(2);
 
-    this.plane.normal = b.minus(a).cross(c.minus(a)).normalize();
+    this.plane.normal = b.sub(a).cross(c.sub(a)).normalize();
     this.plane.dist = this.plane.normal.dot(a);
 
     if (transform.isMirror()) {

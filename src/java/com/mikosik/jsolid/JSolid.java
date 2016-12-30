@@ -213,7 +213,7 @@ public class JSolid {
   }
 
   public static Solid quadrupleInZPlane(Solid leg) {
-    Solid vxClone = leg.plus(leg.mirror(x()));
-    return vxClone.plus(vxClone.mirror(y()));
+    Solid vxClone = leg.add(leg.mirror(x()));
+    return vxClone.add(vxClone.mirror(y()));
   }
 }

@@ -82,7 +82,7 @@ public final class Rectangle implements Polygon {
       Vector2 v = v(
           cos(angle0 + (i * 0.5 * PI) / count) * radius,
           sin(angle0 + (i * 0.5 * PI) / count) * radius);
-      result.add(v0.plus(v));
+      result.add(v0.add(v));
     }
   }
 }

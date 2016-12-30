@@ -23,7 +23,12 @@ public abstract class AbstractSolid implements Solid {
     return new CsgSolid(toCsg().transformed(transform));
   }
 
+  @Deprecated
   public Solid plus(Solid solid) {
+    return add(solid);
+  }
+
+  public Solid add(Solid solid) {
     CSG thisCsg = toCsg();
     if (thisCsg.getPolygons().size() == 0) {
       return solid;
@@ -36,11 +41,21 @@ public abstract class AbstractSolid implements Solid {
     return new CsgSolid(toCsg().union(solid.toCsg()));
   }
 
+  @Deprecated
   public Solid plus(Solid solid, Alignment<?> alignment) {
-    return plus(alignment.align(this, solid));
+    return add(solid, alignment);
   }
 
+  public Solid add(Solid solid, Alignment<?> alignment) {
+    return add(alignment.align(this, solid));
+  }
+
+  @Deprecated
   public Solid minus(Solid solid) {
+    return sub(solid);
+  }
+
+  public Solid sub(Solid solid) {
     CSG thisCsg = toCsg();
     if (thisCsg.getPolygons().size() == 0) {
       return this;
@@ -52,8 +67,13 @@ public abstract class AbstractSolid implements Solid {
     return new CsgSolid(thisCsg.difference(thatCsg));
   }
 
+  @Deprecated
   public Solid minus(Solid solid, Alignment<?> alignment) {
-    return minus(alignment.align(this, solid));
+    return sub(solid, alignment);
+  }
+
+  public Solid sub(Solid solid, Alignment<?> alignment) {
+    return sub(alignment.align(this, solid));
   }
 
   public Solid intersect(Solid solid) {
@@ -73,7 +93,7 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid move(Anchor<?> anchor, double value) {
-    return move(anchor.axis.v(value).minus(anchor.vectorIn(this)));
+    return move(anchor.axis.v(value).sub(anchor.vectorIn(this)));
   }
 
   public Solid rotate(Vector3 direction, double angle) {

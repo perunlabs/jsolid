@@ -25,21 +25,36 @@ public class Vector3 {
     return sqrt(x * x + y * y + z * z);
   }
 
+  @Deprecated
   public Vector3 plus(Vector3 v) {
+    return add(v);
+  }
+
+  public Vector3 add(Vector3 v) {
     return new Vector3(
         x + v.x,
         y + v.y,
         z + v.z);
   }
 
+  @Deprecated
   public Vector3 minus(Vector3 v) {
+    return sub(v);
+  }
+
+  public Vector3 sub(Vector3 v) {
     return new Vector3(
         x - v.x,
         y - v.y,
         z - v.z);
   }
 
+  @Deprecated
   public Vector3 negate() {
+    return neg();
+  }
+
+  public Vector3 neg() {
     return new Vector3(-x, -y, -z);
   }
 

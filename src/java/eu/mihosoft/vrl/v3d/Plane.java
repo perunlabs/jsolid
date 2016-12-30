@@ -105,7 +105,7 @@ public class Plane {
    * @return a plane
    */
   public static Plane createFromPoints(Vector3 a, Vector3 b, Vector3 c) {
-    Vector3 n = b.minus(a).cross(c.minus(a)).normalize();
+    Vector3 n = b.sub(a).cross(c.sub(a)).normalize();
     return new Plane(n, n.dot(a));
   }
 
@@ -118,7 +118,7 @@ public class Plane {
    * Flips this plane.
    */
   public void flip() {
-    normal = normal.negate();
+    normal = normal.neg();
     dist = -dist;
   }
 
@@ -196,8 +196,7 @@ public class Plane {
             b.add(vi);
           }
           if ((ti | tj) == SPANNING) {
-            double t = (this.dist - this.normal.dot(vi)) / this.normal.dot(vj
-                .minus(vi));
+            double t = (this.dist - this.normal.dot(vi)) / this.normal.dot(vj.sub(vi));
             Vector3 v = vi.interpolate(vj, t);
             f.add(v);
             b.add(v);

@@ -19,23 +19,23 @@ public class Vector3Test {
   }
 
   @Test
-  public void plus() throws Exception {
+  public void add() throws Exception {
     given(vector = vector3(1, 2, 3));
-    when(vector.plus(vector3(5, 7, 11)));
+    when(vector.add(vector3(5, 7, 11)));
     thenReturned(vector3(6, 9, 14));
   }
 
   @Test
-  public void minus() throws Exception {
+  public void subtract() throws Exception {
     given(vector = vector3(1, 2, 3));
-    when(vector.minus(vector3(5, 7, 11)));
+    when(vector.sub(vector3(5, 7, 11)));
     thenReturned(vector3(-4, -5, -8));
   }
 
   @Test
   public void negate() throws Exception {
     given(vector = vector3(1, 2, 3));
-    when(vector.negate());
+    when(vector.neg());
     thenReturned(vector3(-1, -2, -3));
   }
 
@@ -84,7 +84,7 @@ public class Vector3Test {
   @Test
   public void cross_product_on_negated_is_zero() throws Exception {
     given(vector = vector3(1, 2, 0));
-    when(vector.cross(vector.negate()));
+    when(vector.cross(vector.neg()));
     thenReturned(vector3(0, 0, 0));
   }
 

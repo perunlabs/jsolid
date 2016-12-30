@@ -32,15 +32,30 @@ public final class Vector2 {
     }
   }
 
-  public Vector2 plus(Vector2 that) {
-    return vector2(x + that.x, y + that.y);
+  @Deprecated
+  public Vector2 plus(Vector2 v) {
+    return add(v);
   }
 
-  public Vector2 minus(Vector2 that) {
-    return vector2(x - that.x, y - that.y);
+  public Vector2 add(Vector2 v) {
+    return vector2(x + v.x, y + v.y);
   }
 
+  @Deprecated
+  public Vector2 minus(Vector2 v) {
+    return sub(v);
+  }
+
+  public Vector2 sub(Vector2 v) {
+    return vector2(x - v.x, y - v.y);
+  }
+
+  @Deprecated
   public Vector2 negate() {
+    return neg();
+  }
+
+  public Vector2 neg() {
     return vector2(-x, -y);
   }
 
@@ -52,20 +67,20 @@ public final class Vector2 {
     return vector2(x / divisor, y / divisor);
   }
 
-  public double dot(Vector2 that) {
-    return x * that.x + y * that.y;
+  public double dot(Vector2 v) {
+    return x * v.x + y * v.y;
   }
 
-  public double cross(Vector2 that) {
-    return x * that.y - y * that.x;
+  public double cross(Vector2 v) {
+    return x * v.y - y * v.x;
   }
 
   public Vector2 normalize() {
     return div(length());
   }
 
-  public boolean equals(Object obj) {
-    return obj instanceof Vector2 && equals((Vector2) obj);
+  public boolean equals(Object object) {
+    return object instanceof Vector2 && equals((Vector2) object);
   }
 
   private boolean equals(Vector2 that) {

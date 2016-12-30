@@ -14,6 +14,6 @@ public class Alignment<A extends Axis<A>> {
   }
 
   public Vector3 alignShiftFor(Solid solid1, Solid solid2) {
-    return anchor1.vectorIn(solid1).minus(anchor2.vectorIn(solid2));
+    return anchor1.vectorIn(solid1).sub(anchor2.vectorIn(solid2));
   }
 }

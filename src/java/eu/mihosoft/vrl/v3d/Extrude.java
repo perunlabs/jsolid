@@ -206,7 +206,7 @@ public class Extrude {
   }
 
   private static double normalizedX(Vector3 v1, Vector3 v2) {
-    Vector3 v2MinusV1 = v2.minus(v1);
+    Vector3 v2MinusV1 = v2.sub(v1);
 
     return v2MinusV1.div(v2MinusV1.length()).x;
   }
