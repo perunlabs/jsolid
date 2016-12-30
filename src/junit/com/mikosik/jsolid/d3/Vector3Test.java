@@ -10,6 +10,7 @@ import org.junit.Test;
 
 public class Vector3Test {
   private Vector3 vector;
+  private Vector3 vector2;
 
   @Test
   public void length() throws Exception {
@@ -33,6 +34,14 @@ public class Vector3Test {
   }
 
   @Test
+  public void dif() throws Exception {
+    given(vector = vector3(1, 2, 3));
+    given(vector2 = vector3(4, 7, -5));
+    when(vector).dif(vector2);
+    thenReturned(vector3(3, 5, 8));
+  }
+
+  @Test
   public void negate() throws Exception {
     given(vector = vector3(1, 2, 3));
     when(vector.neg());
@@ -50,6 +59,20 @@ public class Vector3Test {
   public void div() throws Exception {
     given(vector = vector3(2, 4, 6));
     when(vector.div(2));
+    thenReturned(vector3(1, 2, 3));
+  }
+
+  @Test
+  public void abs_returns_same_vector_when_all_components_are_positive() throws Exception {
+    given(vector = vector3(1, 2, 3));
+    when(vector.abs());
+    thenReturned(vector3(1, 2, 3));
+  }
+
+  @Test
+  public void abs_converts_negative_components_to_positive() throws Exception {
+    given(vector = vector3(-1, -2, -3));
+    when(vector.abs());
     thenReturned(vector3(1, 2, 3));
   }
 

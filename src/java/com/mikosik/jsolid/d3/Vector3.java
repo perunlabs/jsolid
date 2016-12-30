@@ -49,6 +49,13 @@ public class Vector3 {
         z - v.z);
   }
 
+  public Vector3 dif(Vector3 v) {
+    return new Vector3(
+        Math.abs(x - v.x),
+        Math.abs(y - v.y),
+        Math.abs(z - v.z));
+  }
+
   @Deprecated
   public Vector3 negate() {
     return neg();
@@ -64,6 +71,10 @@ public class Vector3 {
 
   public Vector3 div(double divisor) {
     return new Vector3(x / divisor, y / divisor, z / divisor);
+  }
+
+  public Vector3 abs() {
+    return new Vector3(Math.abs(x), Math.abs(y), Math.abs(z));
   }
 
   public double dot(Vector3 v) {
