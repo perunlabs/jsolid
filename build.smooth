@@ -5,6 +5,8 @@
 #
 
 vecmath.jar: file("//lib/vecmath-1.3.1.jar");
+hamcrest-core.jar:    file("//lib/hamcrest-core-1.3.jar");
+hamcrest-library.jar: file("//lib/hamcrest-library-1.3.jar");
 junit.jar:   file("//lib/junit-4.12.jar");
 testory.jar: file("//lib/testory-1.1.1.jar");
 
@@ -21,6 +23,8 @@ jsolid.jar:
   jar ;
 
 testing-jars: [
+  hamcrest-core.jar,
+  hamcrest-library.jar,
   jsolid.jar,
   testory.jar,
 ];
