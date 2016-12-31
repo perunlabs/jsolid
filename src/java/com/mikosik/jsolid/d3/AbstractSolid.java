@@ -23,11 +23,6 @@ public abstract class AbstractSolid implements Solid {
     return new CsgSolid(toCsg().transformed(transform));
   }
 
-  @Deprecated
-  public Solid plus(Solid solid) {
-    return add(solid);
-  }
-
   public Solid add(Solid solid) {
     CSG thisCsg = toCsg();
     if (thisCsg.getPolygons().size() == 0) {
@@ -41,18 +36,8 @@ public abstract class AbstractSolid implements Solid {
     return new CsgSolid(toCsg().union(solid.toCsg()));
   }
 
-  @Deprecated
-  public Solid plus(Solid solid, Alignment<?> alignment) {
-    return add(solid, alignment);
-  }
-
   public Solid add(Solid solid, Alignment<?> alignment) {
     return add(alignment.align(this, solid));
-  }
-
-  @Deprecated
-  public Solid minus(Solid solid) {
-    return sub(solid);
   }
 
   public Solid sub(Solid solid) {
@@ -65,11 +50,6 @@ public abstract class AbstractSolid implements Solid {
       return this;
     }
     return new CsgSolid(thisCsg.difference(thatCsg));
-  }
-
-  @Deprecated
-  public Solid minus(Solid solid, Alignment<?> alignment) {
-    return sub(solid, alignment);
   }
 
   public Solid sub(Solid solid, Alignment<?> alignment) {

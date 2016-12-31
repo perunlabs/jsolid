@@ -15,18 +15,6 @@ public interface Solid {
 
   public Solid sub(Solid solid, Alignment<?> alignment);
 
-  @Deprecated
-  public Solid plus(Solid solid);
-
-  @Deprecated
-  public Solid plus(Solid solid, Alignment<?> alignment);
-
-  @Deprecated
-  public Solid minus(Solid solid);
-
-  @Deprecated
-  public Solid minus(Solid solid, Alignment<?> alignment);
-
   public Solid intersect(Solid solid);
 
   public Solid move(Vector3 position);
