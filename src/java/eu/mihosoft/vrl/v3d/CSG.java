@@ -38,6 +38,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.mikosik.jsolid.d3.Matrix4;
+
 import eu.mihosoft.vrl.v3d.ext.quickhull3d.HullUtil;
 
 /**
@@ -492,21 +494,11 @@ public class CSG {
     return sb;
   }
 
-  /**
-   * Returns a transformed copy of this CSG.
-   *
-   * @param transform
-   *          the transform to apply
-   *
-   * @return a transformed copy of this CSG
-   */
-  public CSG transformed(Transform transform) {
-    if (polygons.isEmpty()) {
-      return clone();
-    }
-
-    List<Polygon> newpolygons = this.polygons.stream().map(
-        p -> p.transformed(transform)).collect(Collectors.toList());
+  public CSG mul(Matrix4 matrix) {
+    List<Polygon> newpolygons = polygons
+        .stream()
+        .map(p -> p.mul(matrix))
+        .collect(Collectors.toList());
     return CSG.fromPolygons(newpolygons);
   }
 }

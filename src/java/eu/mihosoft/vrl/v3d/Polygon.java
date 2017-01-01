@@ -39,6 +39,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.mikosik.jsolid.d3.Matrix4;
 import com.mikosik.jsolid.d3.Vector3;
 
 import eu.mihosoft.vrl.v3d.ext.org.poly2tri.PolygonUtil;
@@ -232,14 +233,14 @@ public final class Polygon {
    * <b>Note:</b> if the applied transformation performs a mirror operation the
    * vertex order of this polygon is reversed.
    *
-   * @param transform
+   * @param matrix
    *          the transformation to apply
    *
    * @return this polygon
    */
-  public Polygon transform(Transform transform) {
+  public Polygon transform(Matrix4 matrix) {
     vertices = vertices.stream()
-        .map((vertex) -> transform.mul(vertex))
+        .map((vertex) -> matrix.mul(vertex))
         .collect(Collectors.toList());
 
     Vector3 a = this.vertices.get(0);
@@ -249,8 +250,7 @@ public final class Polygon {
     this.plane.normal = b.sub(a).cross(c.sub(a)).normalize();
     this.plane.dist = this.plane.normal.dot(a);
 
-    if (transform.isMirror()) {
-      // the transformation includes mirroring. flip polygon
+    if (matrix.determinant() < 0) {
       flip();
     }
     return this;
@@ -264,12 +264,12 @@ public final class Polygon {
    *
    * <b>Note:</b> this polygon is not modified
    *
-   * @param transform
+   * @param matrix
    *          the transformation to apply
    * @return a transformed copy of this polygon
    */
-  public Polygon transformed(Transform transform) {
-    return clone().transform(transform);
+  public Polygon mul(Matrix4 matrix) {
+    return clone().transform(matrix);
   }
 
   /**

@@ -3,13 +3,14 @@ package com.mikosik.jsolid.d3;
 import static com.mikosik.jsolid.JSolid.vx;
 import static com.mikosik.jsolid.JSolid.vy;
 import static com.mikosik.jsolid.JSolid.vz;
+import static com.mikosik.jsolid.JSolid.x;
+import static com.mikosik.jsolid.JSolid.y;
+import static com.mikosik.jsolid.JSolid.z;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 
 import eu.mihosoft.vrl.v3d.CSG;
-import eu.mihosoft.vrl.v3d.Plane;
-import eu.mihosoft.vrl.v3d.Transform;
 
 public abstract class AbstractSolid implements Solid {
 
@@ -19,8 +20,8 @@ public abstract class AbstractSolid implements Solid {
         .collect(toList());
   }
 
-  public Solid transform(Transform transform) {
-    return new CsgSolid(toCsg().transformed(transform));
+  private Solid apply(Matrix4 matrix) {
+    return new CsgSolid(toCsg().mul(matrix));
   }
 
   public Solid add(Solid solid) {
@@ -69,47 +70,47 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid move(Vector3 position) {
-    return transform(Transform.translate(position));
+    return apply(Matrix4.move(position));
   }
 
   public Solid move(Anchor<?> anchor, double value) {
     return move(anchor.axis.v(value).sub(anchor.vectorIn(this)));
   }
 
+  @Deprecated
   public Solid rotate(Vector3 direction, double angle) {
-    return transform(rotationTransform(direction, angle));
+    return apply(rotationMatrix(direction, angle));
   }
 
-  private static Transform rotationTransform(Vector3 axis, double angle) {
+  public Solid rotate(Axis<?> direction, double angle) {
+    return apply(direction.rotateMatrix(angle));
+  }
+
+  private static Matrix4 rotationMatrix(Vector3 axis, double angle) {
     if (axis.equals(vx(1))) {
-      return Transform.rotateX(angle);
+      return x().rotateMatrix(angle);
     } else if (axis.equals(vy(1))) {
-      return Transform.rotateY(angle);
+      return y().rotateMatrix(angle);
     } else if (axis.equals(vz(1))) {
-      return Transform.rotateZ(angle);
+      return z().rotateMatrix(angle);
     } else {
       throw new IllegalArgumentException("Axis must be one of vx(1), vy(1), vz(1).");
     }
   }
 
-  public Solid mirror(Vector3 planeNormal) {
-    return transform(Transform.mirror(plane(planeNormal)));
-  }
-
-  private Plane plane(Vector3 planeNormal) {
-    if (planeNormal.equals(vx(1))) {
-      return Plane.YZ_PLANE;
-    } else if (planeNormal.equals(vy(1))) {
-      return Plane.XZ_PLANE;
-    } else if (planeNormal.equals(vz(1))) {
-      return Plane.XY_PLANE;
-    } else {
-      throw new IllegalArgumentException("planeNormal must be one of vx(1), vy(1), vz(1).");
-    }
+  public Solid mirror(Axis<?> direction) {
+    return apply(direction.mirrorMatrix());
   }
 
   public Solid scale(Vector3 factor) {
-    return transform(Transform.scale(factor));
+    return scale(factor.x, factor.y, factor.z);
+  }
+
+  private Solid scale(double x, double y, double z) {
+    Matrix4 xm = x().scaleMatrix(x);
+    Matrix4 ym = y().scaleMatrix(y);
+    Matrix4 zm = z().scaleMatrix(z);
+    return apply(xm.mul(ym.mul(zm)));
   }
 
   public Solid convexHull() {
