@@ -102,6 +102,7 @@ public abstract class AbstractSolid implements Solid {
     return apply(direction.mirrorMatrix());
   }
 
+  @Deprecated
   public Solid scale(Vector3 factor) {
     return scale(factor.x, factor.y, factor.z);
   }
@@ -111,6 +112,10 @@ public abstract class AbstractSolid implements Solid {
     Matrix4 ym = y().scaleMatrix(y);
     Matrix4 zm = z().scaleMatrix(z);
     return apply(xm.mul(ym.mul(zm)));
+  }
+
+  public Solid scale(Axis<?> direction, double factor) {
+    return apply(direction.scaleMatrix(factor));
   }
 
   public Solid convexHull() {

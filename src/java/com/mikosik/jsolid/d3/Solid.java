@@ -28,7 +28,10 @@ public interface Solid {
 
   public Solid mirror(Axis<?> planNormal);
 
+  @Deprecated
   public Solid scale(Vector3 factor);
+
+  public Solid scale(Axis<?> direction, double factor);
 
   public Solid convexHull();
 
