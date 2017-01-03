@@ -7,6 +7,8 @@ import eu.mihosoft.vrl.v3d.CSG;
 public interface Solid {
   public List<Vector3> vertexes();
 
+  public Solid apply(Matrix4 matrix);
+
   public Solid add(Solid solid);
 
   public Solid add(Solid solid, Alignment<?> alignment);

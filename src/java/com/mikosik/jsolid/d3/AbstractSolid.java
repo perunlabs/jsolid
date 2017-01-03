@@ -20,8 +20,8 @@ public abstract class AbstractSolid implements Solid {
         .collect(toList());
   }
 
-  private Solid apply(Matrix4 matrix) {
-    return new CsgSolid(toCsg().mul(matrix));
+  public Solid apply(Matrix4 matrix) {
+    return new TransformedSolid(this, matrix);
   }
 
   public Solid add(Solid solid) {

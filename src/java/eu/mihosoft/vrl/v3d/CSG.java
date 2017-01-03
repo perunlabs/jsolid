@@ -494,7 +494,7 @@ public class CSG {
     return sb;
   }
 
-  public CSG mul(Matrix4 matrix) {
+  public CSG apply(Matrix4 matrix) {
     List<Polygon> newpolygons = polygons
         .stream()
         .map(p -> p.mul(matrix))
