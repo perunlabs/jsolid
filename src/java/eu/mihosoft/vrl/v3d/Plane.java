@@ -33,10 +33,6 @@
  */
 package eu.mihosoft.vrl.v3d;
 
-import static com.mikosik.jsolid.JSolid.x;
-import static com.mikosik.jsolid.JSolid.y;
-import static com.mikosik.jsolid.JSolid.z;
-
 // # class Plane
 import java.util.ArrayList;
 import java.util.List;
@@ -56,19 +52,6 @@ public class Plane {
    * to decide if a point is on the plane.
    */
   public static final double EPSILON = 1e-6;
-
-  /**
-   * XY plane.
-   */
-  public static final Plane XY_PLANE = new Plane(z(), 1);
-  /**
-   * XZ plane.
-   */
-  public static final Plane XZ_PLANE = new Plane(y(), 1);
-  /**
-   * YZ plane.
-   */
-  public static final Plane YZ_PLANE = new Plane(x(), 1);
 
   /**
    * Normal vector.
