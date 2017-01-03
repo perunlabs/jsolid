@@ -23,15 +23,9 @@ public interface Solid {
 
   public Solid move(Anchor<?> anchor, double value);
 
-  @Deprecated
-  public Solid rotate(Vector3 direction, double angle);
-
   public Solid rotate(Axis<?> direction, double angle);
 
   public Solid mirror(Axis<?> planNormal);
-
-  @Deprecated
-  public Solid scale(Vector3 factor);
 
   public Solid scale(Axis<?> direction, double factor);
 

@@ -1,11 +1,5 @@
 package com.mikosik.jsolid.d3;
 
-import static com.mikosik.jsolid.JSolid.vx;
-import static com.mikosik.jsolid.JSolid.vy;
-import static com.mikosik.jsolid.JSolid.vz;
-import static com.mikosik.jsolid.JSolid.x;
-import static com.mikosik.jsolid.JSolid.y;
-import static com.mikosik.jsolid.JSolid.z;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
@@ -77,41 +71,12 @@ public abstract class AbstractSolid implements Solid {
     return move(anchor.axis.v(value).sub(anchor.vectorIn(this)));
   }
 
-  @Deprecated
-  public Solid rotate(Vector3 direction, double angle) {
-    return apply(rotationMatrix(direction, angle));
-  }
-
   public Solid rotate(Axis<?> direction, double angle) {
     return apply(direction.rotateMatrix(angle));
   }
 
-  private static Matrix4 rotationMatrix(Vector3 axis, double angle) {
-    if (axis.equals(vx(1))) {
-      return x().rotateMatrix(angle);
-    } else if (axis.equals(vy(1))) {
-      return y().rotateMatrix(angle);
-    } else if (axis.equals(vz(1))) {
-      return z().rotateMatrix(angle);
-    } else {
-      throw new IllegalArgumentException("Axis must be one of vx(1), vy(1), vz(1).");
-    }
-  }
-
   public Solid mirror(Axis<?> direction) {
     return apply(direction.mirrorMatrix());
-  }
-
-  @Deprecated
-  public Solid scale(Vector3 factor) {
-    return scale(factor.x, factor.y, factor.z);
-  }
-
-  private Solid scale(double x, double y, double z) {
-    Matrix4 xm = x().scaleMatrix(x);
-    Matrix4 ym = y().scaleMatrix(y);
-    Matrix4 zm = z().scaleMatrix(z);
-    return apply(xm.mul(ym.mul(zm)));
   }
 
   public Solid scale(Axis<?> direction, double factor) {
