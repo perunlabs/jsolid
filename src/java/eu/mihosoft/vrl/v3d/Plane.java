@@ -193,4 +193,21 @@ public class Plane {
         break;
     }
   }
+
+  public boolean equals(Object object) {
+    return object instanceof Plane && equals((Plane) object);
+  }
+
+  private boolean equals(Plane that) {
+    return this.normal.equals(that.normal)
+        && this.dist == that.dist;
+  }
+
+  public int hashCode() {
+    return 31 * normal.hashCode() + hashOf(dist);
+  }
+
+  private static int hashOf(double value) {
+    return Double.hashCode(value == -0.0 ? 0.0 : value);
+  }
 }
