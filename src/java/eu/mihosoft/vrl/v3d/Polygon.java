@@ -54,7 +54,7 @@ public final class Polygon {
    *
    * <b>Note:</b> uses first three vertices to define the plane.
    */
-  public final Plane plane;
+  public Plane plane;
 
   /**
    * Decomposes the specified concave polygon into convex polygons.
@@ -121,7 +121,7 @@ public final class Polygon {
    */
   public Polygon flip() {
     Collections.reverse(vertices);
-    plane.flip();
+    plane = plane.flip();
     return this;
   }
 
@@ -207,9 +207,7 @@ public final class Polygon {
     Vector3 a = this.vertices.get(0);
     Vector3 b = this.vertices.get(1);
     Vector3 c = this.vertices.get(2);
-
-    this.plane.normal = b.sub(a).cross(c.sub(a));
-
+    plane = Plane.createFromPoints(a, b, c);
     return this;
   }
 
@@ -247,8 +245,9 @@ public final class Polygon {
     Vector3 b = this.vertices.get(1);
     Vector3 c = this.vertices.get(2);
 
-    this.plane.normal = b.sub(a).cross(c.sub(a)).normalize();
-    this.plane.dist = this.plane.normal.dot(a);
+    this.plane = new Plane(
+        b.sub(a).cross(c.sub(a)).normalize(),
+        plane.normal.dot(a));
 
     if (matrix.determinant() < 0) {
       flip();

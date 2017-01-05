@@ -56,11 +56,11 @@ public class Plane {
   /**
    * Normal vector.
    */
-  public Vector3 normal;
+  public final Vector3 normal;
   /**
    * Distance to origin.
    */
-  public double dist;
+  public final double dist;
 
   /**
    * Constructor. Creates a new plane defined by its normal vector and the
@@ -100,9 +100,8 @@ public class Plane {
   /**
    * Flips this plane.
    */
-  public void flip() {
-    normal = normal.neg();
-    dist = -dist;
+  public Plane flip() {
+    return new Plane(normal.neg(), -dist);
   }
 
   /**

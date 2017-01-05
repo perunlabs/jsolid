@@ -133,7 +133,7 @@ final class Node {
       throw new RuntimeException("Please fix me! I don't know what to do?");
     }
 
-    this.plane.flip();
+    this.plane = plane.flip();
 
     if (this.front != null) {
       this.front.invert();
