@@ -5,8 +5,12 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 
 import eu.mihosoft.vrl.v3d.CSG;
+import eu.mihosoft.vrl.v3d.Polygon;
 
 public abstract class AbstractSolid implements Solid {
+  public List<Polygon> sides() {
+    return toCsg().getPolygons();
+  }
 
   public List<Vector3> vertexes() {
     return toCsg().getPolygons().stream()

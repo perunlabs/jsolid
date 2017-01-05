@@ -3,8 +3,11 @@ package com.mikosik.jsolid.d3;
 import java.util.List;
 
 import eu.mihosoft.vrl.v3d.CSG;
+import eu.mihosoft.vrl.v3d.Polygon;
 
 public interface Solid {
+  public List<Polygon> sides();
+
   public List<Vector3> vertexes();
 
   public Solid apply(Matrix4 matrix);
