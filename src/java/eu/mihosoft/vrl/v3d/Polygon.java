@@ -260,4 +260,17 @@ public final class Polygon {
       List<Vector3> points) {
     return new Polygon(new ArrayList<>(points));
   }
+
+  public boolean equals(Object object) {
+    return object instanceof Polygon && equals((Polygon) object);
+  }
+
+  private boolean equals(Polygon that) {
+    return plane.equals(that.plane)
+        && vertices.equals(that.vertices);
+  }
+
+  public int hashCode() {
+    return 31 * vertices.hashCode() + plane.hashCode();
+  }
 }
