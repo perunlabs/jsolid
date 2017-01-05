@@ -16,40 +16,40 @@ public class EmptyTest {
   @Test
   public void subtracting_empty_solid_does_not_change_anything() throws Exception {
     given(solid = cuboid(1, 2, 3));
-    when(solid.sub(empty()).toStl());
-    thenReturned(solid.toStl());
+    when(solid.sub(empty()).sides());
+    thenReturned(solid.sides());
   }
 
   @Test
   public void subtracting_from_empty_solid_returns_empty_solid() throws Exception {
-    when(empty().sub(solid).toStl());
-    thenReturned(empty().toStl());
+    when(empty().sub(solid).sides());
+    thenReturned(empty().sides());
   }
 
   @Test
   public void adding_empty_solid_does_not_change_anything() throws Exception {
     given(solid = cuboid(1, 2, 3));
-    when(solid.add(empty()).toStl());
-    thenReturned(solid.toStl());
+    when(solid.add(empty()).sides());
+    thenReturned(solid.sides());
   }
 
   @Test
   public void adding_to_empty_solid_returns_added_solid() throws Exception {
     given(solid = cuboid(1, 2, 3));
-    when(empty().add(solid).toStl());
-    thenReturned(solid.toStl());
+    when(empty().add(solid).sides());
+    thenReturned(solid.sides());
   }
 
   @Test
   public void intersecting_with_empty_solid_returns_empty_solid() throws Exception {
-    when(cuboid(1, 1, 1).intersect(empty()).toStl());
-    thenReturned(empty().toStl());
+    when(cuboid(1, 1, 1).intersect(empty()).sides());
+    thenReturned(empty().sides());
   }
 
   @Test
   public void intersecting_empty_solid_with_anything_returns_empty_solid() throws Exception {
-    when(empty().intersect(cuboid(1, 1, 1)).toStl());
-    thenReturned(empty().toStl());
+    when(empty().intersect(cuboid(1, 1, 1)).sides());
+    thenReturned(empty().sides());
   }
 
   private Solid empty() {
