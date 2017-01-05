@@ -174,15 +174,19 @@ public class CSG {
    * @return union of this csg and the specified csg
    */
   public CSG union(CSG csg) {
-    Node a = new Node(this.clone().polygons);
-    Node b = new Node(csg.clone().polygons);
+    return CSG.fromPolygons(union(this.clone().polygons, csg.clone().polygons));
+  }
+
+  public static List<Polygon> union(List<Polygon> polygons1, List<Polygon> polygons2) {
+    Node a = new Node(polygons1);
+    Node b = new Node(polygons2);
     a.clipTo(b);
     b.clipTo(a);
     b.invert();
     b.clipTo(a);
     b.invert();
     a.build(b.allPolygons());
-    return CSG.fromPolygons(a.allPolygons());
+    return a.allPolygons();
   }
 
   /**
@@ -341,8 +345,12 @@ public class CSG {
    * @return difference of this csg and the specified csg
    */
   public CSG difference(CSG csg) {
-    Node a = new Node(this.clone().polygons);
-    Node b = new Node(csg.clone().polygons);
+    return CSG.fromPolygons(difference(this.clone().polygons, csg.clone().polygons));
+  }
+
+  public static List<Polygon> difference(List<Polygon> polygons1, List<Polygon> polygons2) {
+    Node a = new Node(polygons1);
+    Node b = new Node(polygons2);
     a.invert();
     a.clipTo(b);
     b.clipTo(a);
@@ -351,7 +359,7 @@ public class CSG {
     b.invert();
     a.build(b.allPolygons());
     a.invert();
-    return CSG.fromPolygons(a.allPolygons());
+    return a.allPolygons();
   }
 
   /**
@@ -381,8 +389,12 @@ public class CSG {
    * @return intersection of this csg and the specified csg
    */
   public CSG intersect(CSG csg) {
-    Node a = new Node(this.clone().polygons);
-    Node b = new Node(csg.clone().polygons);
+    return CSG.fromPolygons(intersect(this.clone().polygons, csg.clone().polygons));
+  }
+
+  public static List<Polygon> intersect(List<Polygon> polygons1, List<Polygon> polygons2) {
+    Node a = new Node(polygons1);
+    Node b = new Node(polygons2);
     a.invert();
     b.clipTo(a);
     b.invert();
@@ -390,7 +402,7 @@ public class CSG {
     b.clipTo(a);
     a.build(b.allPolygons());
     a.invert();
-    return CSG.fromPolygons(a.allPolygons());
+    return a.allPolygons();
   }
 
   /**

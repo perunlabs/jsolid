@@ -24,7 +24,11 @@ public class HullUtil {
   }
 
   public static CSG hull(List<Vector3> points) {
+    List<Polygon> polygons = hullPolygons(points);
+    return CSG.fromPolygons(polygons);
+  }
 
+  public static List<Polygon> hullPolygons(List<Vector3> points) {
     Point3d[] hullPoints = points.stream().map((vec) -> new Point3d(vec.x, vec.y, vec.z)).toArray(
         Point3d[]::new);
 
@@ -48,8 +52,7 @@ public class HullUtil {
 
       vertices.clear();
     }
-
-    return CSG.fromPolygons(polygons);
+    return polygons;
   }
 
   public static CSG hull(CSG csg) {
