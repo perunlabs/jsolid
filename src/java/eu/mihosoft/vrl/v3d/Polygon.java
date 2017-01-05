@@ -131,62 +131,6 @@ public final class Polygon {
   }
 
   /**
-   * Returns this polygon in STL string format.
-   *
-   * @return this polygon in STL string format
-   */
-  public String toStlString() {
-    return toStlString(new StringBuilder()).toString();
-  }
-
-  /**
-   * Returns this polygon in STL string format.
-   *
-   * @param sb
-   *          string builder
-   *
-   * @return the specified string builder
-   */
-  public StringBuilder toStlString(StringBuilder sb) {
-    if (this.vertices.size() >= 3) {
-
-      // TODO: improve the triangulation?
-      //
-      // STL requires triangular polygons.
-      // If our polygon has more vertices, create
-      // multiple triangles:
-      String firstVertexStl = toVertexStl(vertices.get(0));
-      for (int i = 0; i < this.vertices.size() - 2; i++) {
-        sb
-            .append("  facet normal ")
-            .append(toStl(plane.normal))
-            .append("\n")
-            .append("    outer loop\n")
-            .append("      ")
-            .append(firstVertexStl)
-            .append("\n")
-            .append("      ")
-            .append(toVertexStl(vertices.get(i + 1)))
-            .append("\n").append("      ")
-            .append(toVertexStl(vertices.get(i + 2)))
-            .append("\n")
-            .append("    endloop\n")
-            .append("  endfacet\n");
-      }
-    }
-
-    return sb;
-  }
-
-  private static String toVertexStl(Vector3 v) {
-    return "vertex " + toStl(v);
-  }
-
-  private static String toStl(Vector3 position) {
-    return position.x + " " + position.y + " " + position.z;
-  }
-
-  /**
    * Translates this polygon.
    *
    * @param v

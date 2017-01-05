@@ -34,7 +34,5 @@ public interface Solid {
 
   public Solid convexHull();
 
-  public String toStl();
-
   public CSG toCsg();
 }

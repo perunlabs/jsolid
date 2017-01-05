@@ -90,8 +90,4 @@ public abstract class AbstractSolid implements Solid {
   public Solid convexHull() {
     return new CsgSolid(toCsg().hull());
   }
-
-  public String toStl() {
-    return toCsg().toStlString();
-  }
 }

@@ -477,35 +477,6 @@ public class CSG {
     return intersect(Arrays.asList(csgs));
   }
 
-  /**
-   * Returns this csg in STL string format.
-   *
-   * @return this csg in STL string format
-   */
-  public String toStlString() {
-    StringBuilder sb = new StringBuilder();
-    toStlString(sb);
-    return sb.toString();
-  }
-
-  /**
-   * Returns this csg in STL string format.
-   *
-   * @param sb
-   *          string builder
-   *
-   * @return the specified string builder
-   */
-  public StringBuilder toStlString(StringBuilder sb) {
-    sb.append("solid v3d.csg\n");
-    this.polygons.stream().forEach(
-        (Polygon p) -> {
-          p.toStlString(sb);
-        });
-    sb.append("endsolid v3d.csg\n");
-    return sb;
-  }
-
   public CSG apply(Matrix4 matrix) {
     List<Polygon> newpolygons = polygons
         .stream()
