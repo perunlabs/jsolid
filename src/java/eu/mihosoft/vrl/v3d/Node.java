@@ -123,9 +123,9 @@ final class Node {
       polygonStream = polygons.stream();
     }
 
-    polygonStream.forEach((polygon) -> {
-      polygon.flip();
-    });
+    polygons = polygonStream
+        .map(Polygon::flip)
+        .collect(Collectors.toList());
 
     if (this.plane == null && !polygons.isEmpty()) {
       this.plane = polygons.get(0).plane.clone();

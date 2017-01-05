@@ -33,9 +33,11 @@
  */
 package eu.mihosoft.vrl.v3d;
 
+import static com.mikosik.jsolid.util.Lists.immutable;
+import static com.mikosik.jsolid.util.Lists.reverse;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,13 +50,13 @@ import eu.mihosoft.vrl.v3d.ext.org.poly2tri.PolygonUtil;
  * Represents a convex polygon.
  */
 public final class Polygon {
-  public List<Vector3> vertices;
+  public final List<Vector3> vertices;
   /**
    * Plane defined by this polygon.
    *
    * <b>Note:</b> uses first three vertices to define the plane.
    */
-  public Plane plane;
+  public final Plane plane;
 
   /**
    * Decomposes the specified concave polygon into convex polygons.
@@ -88,11 +90,16 @@ public final class Polygon {
    *          polygon vertices
    */
   public Polygon(List<Vector3> vertices) {
-    this.vertices = vertices;
+    this.vertices = immutable(vertices);
     this.plane = Plane.createFromPoints(
         vertices.get(0),
         vertices.get(1),
         vertices.get(2));
+  }
+
+  private Polygon(List<Vector3> vertices, Plane plane) {
+    this.vertices = vertices;
+    this.plane = plane;
   }
 
   /**
@@ -120,20 +127,7 @@ public final class Polygon {
    * @return this polygon
    */
   public Polygon flip() {
-    Collections.reverse(vertices);
-    plane = plane.flip();
-    return this;
-  }
-
-  /**
-   * Returns a flipped copy of this polygon.
-   *
-   * <b>Note:</b> this polygon is not modified.
-   *
-   * @return a flipped copy of this polygon
-   */
-  public Polygon flipped() {
-    return clone().flip();
+    return new Polygon(reverse(vertices), plane.flip());
   }
 
   /**
@@ -199,30 +193,10 @@ public final class Polygon {
    *          the vector that defines the translation
    * @return this polygon
    */
-  public Polygon translate(Vector3 v) {
-    vertices = vertices.stream()
+  public Polygon translateNew(Vector3 v) {
+    return new Polygon(vertices.stream()
         .map((vertex) -> vertex.add(v))
-        .collect(Collectors.toList());
-
-    Vector3 a = this.vertices.get(0);
-    Vector3 b = this.vertices.get(1);
-    Vector3 c = this.vertices.get(2);
-    plane = Plane.createFromPoints(a, b, c);
-    return this;
-  }
-
-  /**
-   * Returns a translated copy of this polygon.
-   *
-   * <b>Note:</b> this polygon is not modified
-   *
-   * @param v
-   *          the vector that defines the translation
-   *
-   * @return a translated copy of this polygon
-   */
-  public Polygon translated(Vector3 v) {
-    return clone().translate(v);
+        .collect(Collectors.toList()));
   }
 
   /**
@@ -237,22 +211,15 @@ public final class Polygon {
    * @return this polygon
    */
   public Polygon transform(Matrix4 matrix) {
-    vertices = vertices.stream()
+    List<Vector3> newvertices = vertices.stream()
         .map((vertex) -> matrix.mul(vertex))
         .collect(Collectors.toList());
 
-    Vector3 a = this.vertices.get(0);
-    Vector3 b = this.vertices.get(1);
-    Vector3 c = this.vertices.get(2);
-
-    this.plane = new Plane(
-        b.sub(a).cross(c.sub(a)).normalize(),
-        plane.normal.dot(a));
-
     if (matrix.determinant() < 0) {
-      flip();
+      newvertices = reverse(newvertices);
     }
-    return this;
+
+    return new Polygon(newvertices);
   }
 
   /**
@@ -268,7 +235,7 @@ public final class Polygon {
    * @return a transformed copy of this polygon
    */
   public Polygon mul(Matrix4 matrix) {
-    return clone().transform(matrix);
+    return transform(matrix);
   }
 
   /**

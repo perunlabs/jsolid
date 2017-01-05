@@ -95,7 +95,7 @@ public class Extrude {
     }
 
     newPolygons.addAll(PolygonUtil.concaveToConvex(polygon1));
-    Polygon polygon2 = polygon1.translated(dir);
+    Polygon polygon2 = polygon1.translateNew(dir);
 
     int numvertices = polygon1.vertices.size();
     for (int i = 0; i < numvertices; i++) {
@@ -112,7 +112,7 @@ public class Extrude {
       newPolygons.add(Polygon.fromPoints(pPoints));
     }
 
-    polygon2 = polygon2.flipped();
+    polygon2 = polygon2.flip();
     List<Polygon> topPolygons = PolygonUtil.concaveToConvex(polygon2);
 
     newPolygons.addAll(topPolygons);
