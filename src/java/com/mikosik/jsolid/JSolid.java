@@ -2,7 +2,7 @@ package com.mikosik.jsolid;
 
 import static com.mikosik.jsolid.d2.Vector2.vector2;
 import static com.mikosik.jsolid.d3.Vector3.vector3;
-import static eu.mihosoft.vrl.v3d.ext.quickhull3d.HullUtil.hull;
+import static eu.mihosoft.vrl.v3d.ext.quickhull3d.HullUtil.hullPolygons;
 import static java.util.Arrays.asList;
 
 import java.util.List;
@@ -20,15 +20,13 @@ import com.mikosik.jsolid.d3.Axis;
 import com.mikosik.jsolid.d3.Axis.XAxis;
 import com.mikosik.jsolid.d3.Axis.YAxis;
 import com.mikosik.jsolid.d3.Axis.ZAxis;
-import com.mikosik.jsolid.d3.CsgSolid;
 import com.mikosik.jsolid.d3.Cuboid;
 import com.mikosik.jsolid.d3.Matrix4;
 import com.mikosik.jsolid.d3.Prism;
 import com.mikosik.jsolid.d3.Rod;
 import com.mikosik.jsolid.d3.Solid;
+import com.mikosik.jsolid.d3.SolidImpl;
 import com.mikosik.jsolid.d3.Vector3;
-
-import eu.mihosoft.vrl.v3d.CSG;
 
 public class JSolid {
   public static Range range(double length) {
@@ -144,7 +142,7 @@ public class JSolid {
   }
 
   public static Solid nothing() {
-    return new CsgSolid(CSG.fromPolygons());
+    return new SolidImpl(asList());
   }
 
   public static Cuboid cuboid(double xRange, double yRange, double zRange) {
@@ -224,7 +222,7 @@ public class JSolid {
   }
 
   public static Solid convexHull(List<Vector3> vertexes) {
-    return new CsgSolid(hull(vertexes));
+    return new SolidImpl(hullPolygons(vertexes));
   }
 
   public static Rod rod(double radius) {

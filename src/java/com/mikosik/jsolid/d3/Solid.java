@@ -2,7 +2,6 @@ package com.mikosik.jsolid.d3;
 
 import java.util.List;
 
-import eu.mihosoft.vrl.v3d.CSG;
 import eu.mihosoft.vrl.v3d.Polygon;
 
 public interface Solid {
@@ -33,6 +32,4 @@ public interface Solid {
   public Solid scale(Axis<?> direction, double factor);
 
   public Solid convexHull();
-
-  public CSG toCsg();
 }

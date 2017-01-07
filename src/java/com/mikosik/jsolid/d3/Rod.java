@@ -9,7 +9,6 @@ import java.util.List;
 import com.mikosik.jsolid.d2.Circle;
 import com.mikosik.jsolid.util.Check;
 
-import eu.mihosoft.vrl.v3d.CSG;
 import eu.mihosoft.vrl.v3d.Polygon;
 
 public final class Rod extends AbstractSolid {
@@ -66,7 +65,7 @@ public final class Rod extends AbstractSolid {
     return parts.get(parts.size() - 1);
   }
 
-  public CSG toCsg() {
+  public List<Polygon> sides() {
     if (parts.size() == 1) {
       throw new IllegalStateException("Cannot create rod without any section.");
     }
@@ -78,7 +77,7 @@ public final class Rod extends AbstractSolid {
       z = z + part.length;
     }
     addPartPolygons(polygons, new Part(lastPart().r2, 0, 0), vertexCount, z);
-    return CSG.fromPolygons(polygons);
+    return polygons;
   }
 
   private void addPartPolygons(List<Polygon> polygons, Part part, int vertexCount, double z) {

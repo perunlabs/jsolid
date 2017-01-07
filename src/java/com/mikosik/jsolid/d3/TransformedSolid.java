@@ -1,6 +1,9 @@
 package com.mikosik.jsolid.d3;
 
-import eu.mihosoft.vrl.v3d.CSG;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import eu.mihosoft.vrl.v3d.Polygon;
 
 public class TransformedSolid extends AbstractSolid {
   private final Solid solid;
@@ -15,7 +18,10 @@ public class TransformedSolid extends AbstractSolid {
     return new TransformedSolid(solid, matrix.mul(this.matrix));
   }
 
-  public CSG toCsg() {
-    return solid.toCsg().apply(matrix);
+  public List<Polygon> sides() {
+    return solid.sides()
+        .stream()
+        .map(p -> p.mul(matrix))
+        .collect(Collectors.toList());
   }
 }

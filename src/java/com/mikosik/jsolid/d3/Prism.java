@@ -11,8 +11,6 @@ import com.mikosik.jsolid.d2.Geometry;
 import com.mikosik.jsolid.d2.Polygon;
 import com.mikosik.jsolid.d2.Vector2;
 
-import eu.mihosoft.vrl.v3d.CSG;
-
 public final class Prism extends AbstractSolid {
   private final Polygon base;
   private final Range zRange;
@@ -22,7 +20,7 @@ public final class Prism extends AbstractSolid {
     this.zRange = requireNonNull(zRange);
   }
 
-  public CSG toCsg() {
+  public List<eu.mihosoft.vrl.v3d.Polygon> sides() {
     if (!Geometry.isConvexCounterClockwisePolygon(base.vertexes())) {
       throw new IllegalStateException("base is not convex, counter clockwise polygon.");
     }
@@ -53,7 +51,7 @@ public final class Prism extends AbstractSolid {
           v(vertexes.get(next), top),
           v(vertexes.get(i), top)));
     }
-    return CSG.fromPolygons(polygons);
+    return polygons;
   }
 
   private eu.mihosoft.vrl.v3d.Polygon poly(Vector3 p1, Vector3 p2, Vector3 p3) {

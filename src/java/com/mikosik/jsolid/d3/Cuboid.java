@@ -3,10 +3,12 @@ package com.mikosik.jsolid.d3;
 import static com.mikosik.jsolid.JSolid.prism;
 import static com.mikosik.jsolid.JSolid.rectangle;
 
+import java.util.List;
+
 import com.mikosik.jsolid.d1.Range;
 import com.mikosik.jsolid.d2.Rectangle;
 
-import eu.mihosoft.vrl.v3d.CSG;
+import eu.mihosoft.vrl.v3d.Polygon;
 
 public final class Cuboid extends AbstractSolid {
   private final Rectangle base;
@@ -29,7 +31,7 @@ public final class Cuboid extends AbstractSolid {
     return new Cuboid(base.cornerRMax(), zRange);
   }
 
-  public CSG toCsg() {
-    return prism(base, zRange).toCsg();
+  public List<Polygon> sides() {
+    return prism(base, zRange).sides();
   }
 }

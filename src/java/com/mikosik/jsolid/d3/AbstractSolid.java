@@ -4,16 +4,16 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 
+import com.mikosik.jsolid.JSolid;
+
 import eu.mihosoft.vrl.v3d.CSG;
 import eu.mihosoft.vrl.v3d.Polygon;
 
 public abstract class AbstractSolid implements Solid {
-  public List<Polygon> sides() {
-    return toCsg().getPolygons();
-  }
+  public abstract List<Polygon> sides();
 
   public List<Vector3> vertexes() {
-    return toCsg().getPolygons().stream()
+    return sides().stream()
         .flatMap(x -> x.vertices.stream())
         .collect(toList());
   }
@@ -23,16 +23,15 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid add(Solid solid) {
-    CSG thisCsg = toCsg();
-    if (thisCsg.getPolygons().size() == 0) {
+    List<Polygon> thisSides = sides();
+    if (thisSides.size() == 0) {
       return solid;
     }
-    CSG thatCsg = solid.toCsg();
-    if (thatCsg.getPolygons().size() == 0) {
+    List<Polygon> thatSides = solid.sides();
+    if (thatSides.size() == 0) {
       return this;
     }
-
-    return new CsgSolid(toCsg().union(solid.toCsg()));
+    return new SolidImpl(CSG.union(thisSides, thatSides));
   }
 
   public Solid add(Solid solid, Alignment<?> alignment) {
@@ -40,15 +39,15 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid sub(Solid solid) {
-    CSG thisCsg = toCsg();
-    if (thisCsg.getPolygons().size() == 0) {
+    List<Polygon> thisSides = sides();
+    if (thisSides.size() == 0) {
       return this;
     }
-    CSG thatCsg = solid.toCsg();
-    if (thatCsg.getPolygons().size() == 0) {
+    List<Polygon> thatSides = solid.sides();
+    if (thatSides.size() == 0) {
       return this;
     }
-    return new CsgSolid(thisCsg.difference(thatCsg));
+    return new SolidImpl(CSG.difference(thisSides, thatSides));
   }
 
   public Solid sub(Solid solid, Alignment<?> alignment) {
@@ -56,15 +55,15 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid intersect(Solid solid) {
-    CSG thisCsg = toCsg();
-    if (thisCsg.getPolygons().size() == 0) {
+    List<Polygon> thisSides = sides();
+    if (thisSides.size() == 0) {
       return this;
     }
-    CSG thatCsg = solid.toCsg();
-    if (thatCsg.getPolygons().size() == 0) {
+    List<Polygon> thatSides = solid.sides();
+    if (thatSides.size() == 0) {
       return solid;
     }
-    return new CsgSolid(toCsg().intersect(solid.toCsg()));
+    return new SolidImpl(CSG.intersect(thisSides, thatSides));
   }
 
   public Solid move(Vector3 position) {
@@ -88,6 +87,6 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid convexHull() {
-    return new CsgSolid(toCsg().hull());
+    return JSolid.convexHull(vertexes());
   }
 }
