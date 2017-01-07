@@ -5,6 +5,8 @@ import static com.mikosik.jsolid.d3.Vector3.vector3;
 import static eu.mihosoft.vrl.v3d.ext.quickhull3d.HullUtil.hull;
 import static java.util.Arrays.asList;
 
+import java.util.List;
+
 import com.mikosik.jsolid.d1.Range;
 import com.mikosik.jsolid.d2.Circle;
 import com.mikosik.jsolid.d2.ConvexPolygon;
@@ -218,7 +220,11 @@ public class JSolid {
   }
 
   public static Solid convexHull(Vector3... vertexes) {
-    return new CsgSolid(hull(asList(vertexes)));
+    return convexHull(asList(vertexes));
+  }
+
+  public static Solid convexHull(List<Vector3> vertexes) {
+    return new CsgSolid(hull(vertexes));
   }
 
   public static Rod rod(double radius) {
