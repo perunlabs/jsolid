@@ -221,8 +221,8 @@ public class JSolid {
     return new CsgSolid(hull(asList(vertexes)));
   }
 
-  public static Rod rod() {
-    return new Rod();
+  public static Rod rod(double radius) {
+    return new Rod(radius);
   }
 
   public static Solid quadrupleInZPlane(Solid leg) {
