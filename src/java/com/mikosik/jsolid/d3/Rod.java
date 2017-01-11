@@ -57,6 +57,9 @@ public final class Rod extends AbstractSolid {
   }
 
   public CSG toCsg() {
+    if (rod == null) {
+      throw new IllegalStateException("Rod has no sections yet.");
+    }
     return rod.move(vz(-totalHeight / 2)).toCsg();
   }
 }
