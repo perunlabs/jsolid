@@ -1,5 +1,6 @@
 package com.mikosik.jsolid.d2;
 
+import static java.lang.Math.PI;
 import static java.lang.Math.acos;
 
 public final class Circle extends RegularPolygon {
@@ -10,6 +11,10 @@ public final class Circle extends RegularPolygon {
 
   public Circle(double radius) {
     super(radius, vertexCount(radius, PI_X_2));
+  }
+
+  public static int vertexCount(double radius) {
+    return vertexCount(radius, 2 * PI);
   }
 
   public static int vertexCount(double radius, double circleAngle) {
