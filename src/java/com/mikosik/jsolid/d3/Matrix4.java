@@ -24,26 +24,26 @@ public class Matrix4 {
   private final double a44;
 
   public Matrix4(
-      double m11, double m12, double m13, double m14,
-      double m21, double m22, double m23, double m24,
-      double m31, double m32, double m33, double m34,
-      double m41, double m42, double m43, double m44) {
-    this.a11 = m11;
-    this.a12 = m12;
-    this.a13 = m13;
-    this.a14 = m14;
-    this.a21 = m21;
-    this.a22 = m22;
-    this.a23 = m23;
-    this.a24 = m24;
-    this.a31 = m31;
-    this.a32 = m32;
-    this.a33 = m33;
-    this.a34 = m34;
-    this.a41 = m41;
-    this.a42 = m42;
-    this.a43 = m43;
-    this.a44 = m44;
+      double a11, double a12, double a13, double a14,
+      double a21, double a22, double a23, double a24,
+      double a31, double a32, double a33, double a34,
+      double a41, double a42, double a43, double a44) {
+    this.a11 = a11;
+    this.a12 = a12;
+    this.a13 = a13;
+    this.a14 = a14;
+    this.a21 = a21;
+    this.a22 = a22;
+    this.a23 = a23;
+    this.a24 = a24;
+    this.a31 = a31;
+    this.a32 = a32;
+    this.a33 = a33;
+    this.a34 = a34;
+    this.a41 = a41;
+    this.a42 = a42;
+    this.a43 = a43;
+    this.a44 = a44;
   }
 
   public static Matrix4 move(Vector3 v) {
