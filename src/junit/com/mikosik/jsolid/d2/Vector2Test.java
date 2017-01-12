@@ -1,11 +1,14 @@
 package com.mikosik.jsolid.d2;
 
 import static com.mikosik.jsolid.d2.Vector2.vector2;
+import static java.lang.Double.NaN;
+import static java.lang.Double.POSITIVE_INFINITY;
 import static java.lang.Math.PI;
 import static java.lang.Math.sqrt;
 import static org.testory.Testory.given;
 import static org.testory.Testory.then;
 import static org.testory.Testory.thenReturned;
+import static org.testory.Testory.thenThrown;
 import static org.testory.Testory.when;
 
 import org.junit.Test;
@@ -13,6 +16,30 @@ import org.junit.Test;
 public class Vector2Test {
   private Vector2 vector1;
   private Vector2 vector2;
+
+  @Test
+  public void x_must_not_be_NaN() throws Exception {
+    when(() -> vector2(NaN, 2));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void y_must_not_be_NaN() throws Exception {
+    when(() -> vector2(1, NaN));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void x_must_not_be_Infinity() throws Exception {
+    when(() -> vector2(POSITIVE_INFINITY, 2));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void y_must_not_be_Infinity() throws Exception {
+    when(() -> vector2(1, POSITIVE_INFINITY));
+    thenThrown(IllegalArgumentException.class);
+  }
 
   @Test
   public void length_of_zero_vector_is_zero() throws Exception {

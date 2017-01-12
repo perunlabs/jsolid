@@ -6,12 +6,16 @@ import static java.lang.String.format;
 
 import java.util.Objects;
 
+import com.mikosik.jsolid.util.Check;
+
 public final class Vector2 {
   public final double x;
   public final double y;
 
   public static Vector2 vector2(double x, double y) {
-    return new Vector2(x, y);
+    return new Vector2(
+        Check.isFinite(x),
+        Check.isFinite(y));
   }
 
   private Vector2(double x, double y) {
