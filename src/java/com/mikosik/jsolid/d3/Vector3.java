@@ -1,5 +1,6 @@
 package com.mikosik.jsolid.d3;
 
+import static com.mikosik.jsolid.JSolid.v0;
 import static java.lang.Math.sqrt;
 
 import java.util.Objects;
@@ -16,9 +17,9 @@ public class Vector3 {
   }
 
   Vector3(double x, double y, double z) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
+    this.x = Check.isFinite(x);
+    this.y = Check.isFinite(y);
+    this.z = Check.isFinite(z);
   }
 
   public double length() {
@@ -90,10 +91,14 @@ public class Vector3 {
 
   public Vector3 normalize() {
     double length = length();
-    return new Vector3(
-        x / length,
-        y / length,
-        z / length);
+    if (length == 0) {
+      return v0();
+    } else {
+      return new Vector3(
+          x / length,
+          y / length,
+          z / length);
+    }
   }
 
   public Vector3 interpolate(Vector3 v, double value) {

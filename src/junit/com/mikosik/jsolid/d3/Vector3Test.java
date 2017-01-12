@@ -1,5 +1,6 @@
 package com.mikosik.jsolid.d3;
 
+import static com.mikosik.jsolid.JSolid.v0;
 import static com.mikosik.jsolid.d3.Vector3.vector3;
 import static org.testory.Testory.given;
 import static org.testory.Testory.thenReturned;
@@ -60,6 +61,13 @@ public class Vector3Test {
     given(vector = vector3(2, 4, 6));
     when(vector.div(2));
     thenReturned(vector3(1, 2, 3));
+  }
+
+  @Test
+  public void division_by_zero_causes_runtime_exception() throws Exception {
+    given(vector = vector3(2, 4, 6));
+    when(vector).div(0);
+    thenThrown(IllegalArgumentException.class);
   }
 
   @Test
@@ -124,6 +132,13 @@ public class Vector3Test {
     given(vector = vector3(3, 4, 12));
     when(vector.normalize());
     thenReturned(vector3(3.0 / 13, 4.0 / 13, 12.0 / 13));
+  }
+
+  @Test
+  public void normalize_returns_v0_for_v0() throws Exception {
+    given(vector = v0());
+    when(vector.normalize());
+    thenReturned(v0());
   }
 
   @Test
