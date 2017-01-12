@@ -1,8 +1,11 @@
 package com.mikosik.jsolid.d3;
 
 import static com.mikosik.jsolid.JSolid.v;
+import static java.lang.Double.NaN;
+import static java.lang.Double.POSITIVE_INFINITY;
 import static org.testory.Testory.given;
 import static org.testory.Testory.thenReturned;
+import static org.testory.Testory.thenThrown;
 import static org.testory.Testory.when;
 
 import org.junit.Test;
@@ -11,6 +14,328 @@ public class Matrix4Test {
   private Matrix4 matrix;
   private Matrix4 matrix2;
   private Vector3 v;
+
+  @Test
+  public void a11_must_not_be_NaN() throws Exception {
+    when(() -> new Matrix4(
+        NaN, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a12_must_not_be_NaN() throws Exception {
+    when(() -> new Matrix4(
+        0, NaN, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a13_must_not_be_NaN() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, NaN, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a14_must_not_be_NaN() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, NaN,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a21_must_not_be_NaN() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        NaN, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a22_must_not_be_NaN() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, NaN, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a23_must_not_be_NaN() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, NaN, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a24_must_not_be_NaN() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, NaN,
+        0, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a31_must_not_be_NaN() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        NaN, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a32_must_not_be_NaN() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, NaN, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a33_must_not_be_NaN() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, NaN, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a34_must_not_be_NaN() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, NaN,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a41_must_not_be_NaN() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        NaN, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a42_must_not_be_NaN() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, NaN, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a43_must_not_be_NaN() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, NaN, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a44_must_not_be_NaN() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, NaN));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  ///
+
+  @Test
+  public void a11_must_not_be_infinity() throws Exception {
+    when(() -> new Matrix4(
+        POSITIVE_INFINITY, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a12_must_not_be_infinity() throws Exception {
+    when(() -> new Matrix4(
+        0, POSITIVE_INFINITY, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a13_must_not_be_infinity() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, POSITIVE_INFINITY, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a14_must_not_be_infinity() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, POSITIVE_INFINITY,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a21_must_not_be_infinity() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        POSITIVE_INFINITY, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a22_must_not_be_infinity() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, POSITIVE_INFINITY, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a23_must_not_be_infinity() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, POSITIVE_INFINITY, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a24_must_not_be_infinity() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, POSITIVE_INFINITY,
+        0, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a31_must_not_be_infinity() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        POSITIVE_INFINITY, 0, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a32_must_not_be_infinity() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, POSITIVE_INFINITY, 0, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a33_must_not_be_infinity() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, POSITIVE_INFINITY, 0,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a34_must_not_be_infinity() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, POSITIVE_INFINITY,
+        0, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a41_must_not_be_infinity() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        POSITIVE_INFINITY, 0, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a42_must_not_be_infinity() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, POSITIVE_INFINITY, 0, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a43_must_not_be_infinity() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, POSITIVE_INFINITY, 0));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void a44_must_not_be_infinity() throws Exception {
+    when(() -> new Matrix4(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, POSITIVE_INFINITY));
+    thenThrown(IllegalArgumentException.class);
+  }
 
   @Test
   public void move() throws Exception {

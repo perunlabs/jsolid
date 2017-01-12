@@ -2,6 +2,8 @@ package com.mikosik.jsolid.d3;
 
 import static com.mikosik.jsolid.JSolid.v;
 
+import com.mikosik.jsolid.util.Check;
+
 public class Matrix4 {
   private final double a11;
   private final double a12;
@@ -28,22 +30,22 @@ public class Matrix4 {
       double a21, double a22, double a23, double a24,
       double a31, double a32, double a33, double a34,
       double a41, double a42, double a43, double a44) {
-    this.a11 = a11;
-    this.a12 = a12;
-    this.a13 = a13;
-    this.a14 = a14;
-    this.a21 = a21;
-    this.a22 = a22;
-    this.a23 = a23;
-    this.a24 = a24;
-    this.a31 = a31;
-    this.a32 = a32;
-    this.a33 = a33;
-    this.a34 = a34;
-    this.a41 = a41;
-    this.a42 = a42;
-    this.a43 = a43;
-    this.a44 = a44;
+    this.a11 = Check.isFinite(a11);
+    this.a12 = Check.isFinite(a12);
+    this.a13 = Check.isFinite(a13);
+    this.a14 = Check.isFinite(a14);
+    this.a21 = Check.isFinite(a21);
+    this.a22 = Check.isFinite(a22);
+    this.a23 = Check.isFinite(a23);
+    this.a24 = Check.isFinite(a24);
+    this.a31 = Check.isFinite(a31);
+    this.a32 = Check.isFinite(a32);
+    this.a33 = Check.isFinite(a33);
+    this.a34 = Check.isFinite(a34);
+    this.a41 = Check.isFinite(a41);
+    this.a42 = Check.isFinite(a42);
+    this.a43 = Check.isFinite(a43);
+    this.a44 = Check.isFinite(a44);
   }
 
   public static Matrix4 move(Vector3 v) {
