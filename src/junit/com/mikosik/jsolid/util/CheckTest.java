@@ -60,4 +60,28 @@ public class CheckTest {
     when(() -> Check.notNegative(0.0));
     thenReturned(0.0);
   }
+
+  @Test
+  public void is_finite_returns_value_if_it_is_number() throws Exception {
+    when(() -> Check.isFinite(33));
+    thenReturned(33.0);
+  }
+
+  @Test
+  public void is_finite_throws_exception_when_argument_is_NaN() throws Exception {
+    when(() -> Check.isFinite(Double.NaN));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void is_finite_throws_exception_when_argument_is_positive_infinity() throws Exception {
+    when(() -> Check.isFinite(Double.POSITIVE_INFINITY));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void is_finite_throws_exception_when_argument_is_negative_infinity() throws Exception {
+    when(() -> Check.isFinite(Double.NEGATIVE_INFINITY));
+    thenThrown(IllegalArgumentException.class);
+  }
 }

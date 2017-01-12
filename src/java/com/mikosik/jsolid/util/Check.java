@@ -21,4 +21,11 @@ public class Check {
     }
     return value;
   }
+
+  public static double isFinite(double value) {
+    if (Double.isFinite(value)) {
+      return value;
+    }
+    throw new IllegalArgumentException("Value should be finite.");
+  }
 }
