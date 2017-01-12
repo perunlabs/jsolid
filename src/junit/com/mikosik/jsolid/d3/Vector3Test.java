@@ -2,6 +2,8 @@ package com.mikosik.jsolid.d3;
 
 import static com.mikosik.jsolid.JSolid.v0;
 import static com.mikosik.jsolid.d3.Vector3.vector3;
+import static java.lang.Double.NaN;
+import static java.lang.Double.POSITIVE_INFINITY;
 import static org.testory.Testory.given;
 import static org.testory.Testory.thenReturned;
 import static org.testory.Testory.thenThrown;
@@ -12,6 +14,42 @@ import org.junit.Test;
 public class Vector3Test {
   private Vector3 vector;
   private Vector3 vector2;
+
+  @Test
+  public void x_must_not_be_NaN() throws Exception {
+    when(() -> vector3(NaN, 2, 3));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void y_must_not_be_NaN() throws Exception {
+    when(() -> vector3(1, NaN, 3));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void z_must_not_be_NaN() throws Exception {
+    when(() -> vector3(1, 2, NaN));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void x_must_not_be_Infinity() throws Exception {
+    when(() -> vector3(POSITIVE_INFINITY, 2, 3));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void y_must_not_be_Infinity() throws Exception {
+    when(() -> vector3(1, POSITIVE_INFINITY, 3));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void z_must_not_be_Infinity() throws Exception {
+    when(() -> vector3(1, 2, POSITIVE_INFINITY));
+    thenThrown(IllegalArgumentException.class);
+  }
 
   @Test
   public void length() throws Exception {

@@ -13,7 +13,10 @@ public class Vector3 {
   public final double z;
 
   public static Vector3 vector3(double x, double y, double z) {
-    return new Vector3(x, y, z);
+    return new Vector3(
+        Check.isFinite(x),
+        Check.isFinite(y),
+        Check.isFinite(z));
   }
 
   Vector3(double x, double y, double z) {
