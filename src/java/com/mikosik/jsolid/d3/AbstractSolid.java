@@ -66,6 +66,10 @@ public abstract class AbstractSolid implements Solid {
     return new SolidImpl(CSG.intersect(thisSides, thatSides));
   }
 
+  public Solid intersect(Solid solid, Alignment<?> alignment) {
+    return intersect(alignment.align(this, solid));
+  }
+
   public Solid move(Vector3 position) {
     return apply(Matrix4.move(position));
   }

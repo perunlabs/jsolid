@@ -21,6 +21,8 @@ public interface Solid {
 
   public Solid intersect(Solid solid);
 
+  public Solid intersect(Solid solid, Alignment<?> alignment);
+
   public Solid move(Vector3 position);
 
   public Solid move(Anchor<?> anchor, double value);
