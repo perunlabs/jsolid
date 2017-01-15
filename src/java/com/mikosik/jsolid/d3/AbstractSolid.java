@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.mikosik.jsolid.JSolid;
 import com.mikosik.jsolid.d3.op.AddSolid;
+import com.mikosik.jsolid.d3.op.SubSolid;
 
 import eu.mihosoft.vrl.v3d.CSG;
 import eu.mihosoft.vrl.v3d.Polygon;
@@ -48,15 +49,7 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid sub(Solid solid) {
-    List<Polygon> thisSides = sides();
-    if (thisSides.size() == 0) {
-      return this;
-    }
-    List<Polygon> thatSides = solid.sides();
-    if (thatSides.size() == 0) {
-      return this;
-    }
-    return new SolidImpl(CSG.difference(thisSides, thatSides));
+    return new SubSolid(this, solid);
   }
 
   public Solid sub(Solid solid, Alignment<?> alignment) {
