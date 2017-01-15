@@ -20,7 +20,7 @@ public final class Prism extends AbstractSolid {
     this.zRange = requireNonNull(zRange);
   }
 
-  public List<eu.mihosoft.vrl.v3d.Polygon> sides() {
+  protected List<eu.mihosoft.vrl.v3d.Polygon> calculateSides() {
     if (!Geometry.isConvexCounterClockwisePolygon(base.vertexes())) {
       throw new IllegalStateException("base is not convex, counter clockwise polygon.");
     }

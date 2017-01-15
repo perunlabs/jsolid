@@ -65,7 +65,7 @@ public final class Rod extends AbstractSolid {
     return parts.get(parts.size() - 1);
   }
 
-  public List<Polygon> sides() {
+  protected List<Polygon> calculateSides() {
     if (parts.size() == 1) {
       throw new IllegalStateException("Cannot create rod without any section.");
     }

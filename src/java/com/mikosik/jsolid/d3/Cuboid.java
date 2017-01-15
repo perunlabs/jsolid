@@ -31,7 +31,7 @@ public final class Cuboid extends AbstractSolid {
     return new Cuboid(base.cornerRMax(), zRange);
   }
 
-  public List<Polygon> sides() {
-    return prism(base, zRange).sides();
+  protected List<Polygon> calculateSides() {
+    return prism(base, zRange).calculateSides();
   }
 }

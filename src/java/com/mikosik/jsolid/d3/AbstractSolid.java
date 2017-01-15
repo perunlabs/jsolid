@@ -1,5 +1,6 @@
 package com.mikosik.jsolid.d3;
 
+import static com.mikosik.jsolid.util.Lists.immutable;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
@@ -10,7 +11,22 @@ import eu.mihosoft.vrl.v3d.CSG;
 import eu.mihosoft.vrl.v3d.Polygon;
 
 public abstract class AbstractSolid implements Solid {
-  public abstract List<Polygon> sides();
+  private volatile List<Polygon> sides;
+
+  protected abstract List<Polygon> calculateSides();
+
+  public List<Polygon> sides() {
+    List<Polygon> result = sides;
+    if (result == null) {
+      synchronized (this) {
+        result = sides;
+        if (result == null) {
+          sides = result = immutable(calculateSides());
+        }
+      }
+    }
+    return result;
+  }
 
   public List<Vector3> vertexes() {
     return sides().stream()

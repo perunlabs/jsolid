@@ -14,7 +14,7 @@ public class SolidImpl extends AbstractSolid {
     this.sides = immutable(sides);
   }
 
-  public List<Polygon> sides() {
+  protected List<Polygon> calculateSides() {
     return sides;
   }
 

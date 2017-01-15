@@ -18,7 +18,7 @@ public class TransformedSolid extends AbstractSolid {
     return new TransformedSolid(solid, matrix.mul(this.matrix));
   }
 
-  public List<Polygon> sides() {
+  protected List<Polygon> calculateSides() {
     return solid.sides()
         .stream()
         .map(p -> p.mul(matrix))
