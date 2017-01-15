@@ -6,6 +6,7 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 
 import com.mikosik.jsolid.JSolid;
+import com.mikosik.jsolid.d3.op.AddSolid;
 
 import eu.mihosoft.vrl.v3d.CSG;
 import eu.mihosoft.vrl.v3d.Polygon;
@@ -39,15 +40,7 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid add(Solid solid) {
-    List<Polygon> thisSides = sides();
-    if (thisSides.size() == 0) {
-      return solid;
-    }
-    List<Polygon> thatSides = solid.sides();
-    if (thatSides.size() == 0) {
-      return this;
-    }
-    return new SolidImpl(CSG.union(thisSides, thatSides));
+    return new AddSolid(this, solid);
   }
 
   public Solid add(Solid solid, Alignment<?> alignment) {
