@@ -1,4 +1,4 @@
-package com.mikosik.jsolid.d3;
+package com.mikosik.jsolid.d3.op;
 
 import static com.mikosik.jsolid.JSolid.x;
 import static com.mikosik.jsolid.JSolid.y;
@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import com.mikosik.jsolid.d3.op.SolidImpl;
 
 import eu.mihosoft.vrl.v3d.Polygon;
 

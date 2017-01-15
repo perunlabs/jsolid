@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mikosik.jsolid.d2.Circle;
+import com.mikosik.jsolid.d3.op.AbstractSolid;
 import com.mikosik.jsolid.util.Check;
 
 import eu.mihosoft.vrl.v3d.Polygon;

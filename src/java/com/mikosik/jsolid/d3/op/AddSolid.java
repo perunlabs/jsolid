@@ -2,7 +2,6 @@ package com.mikosik.jsolid.d3.op;
 
 import java.util.List;
 
-import com.mikosik.jsolid.d3.AbstractSolid;
 import com.mikosik.jsolid.d3.Solid;
 
 import eu.mihosoft.vrl.v3d.CSG;

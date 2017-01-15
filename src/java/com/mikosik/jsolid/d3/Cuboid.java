@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.mikosik.jsolid.d1.Range;
 import com.mikosik.jsolid.d2.Rectangle;
+import com.mikosik.jsolid.d3.op.AbstractSolid;
 
 import eu.mihosoft.vrl.v3d.Polygon;
 

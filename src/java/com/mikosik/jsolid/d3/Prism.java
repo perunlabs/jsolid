@@ -10,6 +10,7 @@ import com.mikosik.jsolid.d1.Range;
 import com.mikosik.jsolid.d2.Geometry;
 import com.mikosik.jsolid.d2.Polygon;
 import com.mikosik.jsolid.d2.Vector2;
+import com.mikosik.jsolid.d3.op.AbstractSolid;
 
 public final class Prism extends AbstractSolid {
   private final Polygon base;

@@ -1,4 +1,4 @@
-package com.mikosik.jsolid.d3;
+package com.mikosik.jsolid.d3.op;
 
 import static com.mikosik.jsolid.util.Lists.immutable;
 

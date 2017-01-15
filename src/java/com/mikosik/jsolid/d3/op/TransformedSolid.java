@@ -1,7 +1,10 @@
-package com.mikosik.jsolid.d3;
+package com.mikosik.jsolid.d3.op;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.mikosik.jsolid.d3.Matrix4;
+import com.mikosik.jsolid.d3.Solid;
 
 import eu.mihosoft.vrl.v3d.Polygon;
 

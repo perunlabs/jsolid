@@ -1,14 +1,16 @@
-package com.mikosik.jsolid.d3;
+package com.mikosik.jsolid.d3.op;
 
 import static com.mikosik.jsolid.util.Lists.immutable;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 
-import com.mikosik.jsolid.d3.op.AddSolid;
-import com.mikosik.jsolid.d3.op.ConvexHullSolid;
-import com.mikosik.jsolid.d3.op.IntersectSolid;
-import com.mikosik.jsolid.d3.op.SubSolid;
+import com.mikosik.jsolid.d3.Alignment;
+import com.mikosik.jsolid.d3.Anchor;
+import com.mikosik.jsolid.d3.Axis;
+import com.mikosik.jsolid.d3.Matrix4;
+import com.mikosik.jsolid.d3.Solid;
+import com.mikosik.jsolid.d3.Vector3;
 
 import eu.mihosoft.vrl.v3d.Polygon;
 

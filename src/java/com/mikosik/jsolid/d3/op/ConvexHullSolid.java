@@ -4,7 +4,6 @@ import static eu.mihosoft.vrl.v3d.ext.quickhull3d.HullUtil.hullPolygons;
 
 import java.util.List;
 
-import com.mikosik.jsolid.d3.AbstractSolid;
 import com.mikosik.jsolid.d3.Solid;
 
 import eu.mihosoft.vrl.v3d.Polygon;
