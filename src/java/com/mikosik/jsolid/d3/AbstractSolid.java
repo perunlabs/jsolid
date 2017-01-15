@@ -5,8 +5,8 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 
-import com.mikosik.jsolid.JSolid;
 import com.mikosik.jsolid.d3.op.AddSolid;
+import com.mikosik.jsolid.d3.op.ConvexHullSolid;
 import com.mikosik.jsolid.d3.op.IntersectSolid;
 import com.mikosik.jsolid.d3.op.SubSolid;
 
@@ -85,6 +85,6 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid convexHull() {
-    return JSolid.convexHull(vertexes());
+    return new ConvexHullSolid(this);
   }
 }
