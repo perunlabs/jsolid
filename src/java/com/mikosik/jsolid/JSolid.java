@@ -20,15 +20,21 @@ import com.mikosik.jsolid.d3.Axis;
 import com.mikosik.jsolid.d3.Axis.XAxis;
 import com.mikosik.jsolid.d3.Axis.YAxis;
 import com.mikosik.jsolid.d3.Axis.ZAxis;
-import com.mikosik.jsolid.d3.op.SolidImpl;
 import com.mikosik.jsolid.d3.Cuboid;
 import com.mikosik.jsolid.d3.Matrix4;
 import com.mikosik.jsolid.d3.Prism;
 import com.mikosik.jsolid.d3.Rod;
 import com.mikosik.jsolid.d3.Solid;
 import com.mikosik.jsolid.d3.Vector3;
+import com.mikosik.jsolid.d3.op.SolidImpl;
 
 public class JSolid {
+  private static final Config CONFIG = new Config();
+
+  public static Config config() {
+    return CONFIG;
+  }
+
   public static Range range(double length) {
     return new Range(length);
   }
