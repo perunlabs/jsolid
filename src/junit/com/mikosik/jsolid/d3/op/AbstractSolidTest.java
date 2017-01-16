@@ -13,8 +13,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.mikosik.jsolid.d3.op.AbstractSolid;
-
 import eu.mihosoft.vrl.v3d.Polygon;
 
 public class AbstractSolidTest {
@@ -24,25 +22,17 @@ public class AbstractSolidTest {
   @Test
   public void sides_returns_value_from_calculate_sides() throws Exception {
     given(sides = polygonList());
-    given(solid = new AbstractSolid() {
-      public List<Polygon> calculateSides() {
-        return sides;
-      }
-    });
-    when(solid).sides();
+    given(solid = abstractSolid(sides));
+    when(solid.sides());
     thenReturned(sides);
   }
 
   @Test
   public void sides_returns_value_from_calculate_sides_on_second_call() throws Exception {
     given(sides = polygonList());
-    given(solid = new AbstractSolid() {
-      public List<Polygon> calculateSides() {
-        return sides;
-      }
-    });
+    given(solid = abstractSolid(sides));
     given(solid).sides();
-    when(solid).sides();
+    when(solid.sides());
     thenReturned(sides);
   }
 
@@ -68,5 +58,13 @@ public class AbstractSolidTest {
 
   private static List<Polygon> polygonList() {
     return immutable(asList(new Polygon(x(), y(), z())));
+  }
+
+  private static AbstractSolid abstractSolid(List<Polygon> polygons) {
+    return new AbstractSolid() {
+      public List<Polygon> calculateSides() {
+        return polygons;
+      }
+    };
   }
 }
