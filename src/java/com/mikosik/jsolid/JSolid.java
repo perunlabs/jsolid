@@ -183,46 +183,6 @@ public class JSolid {
     return new Cuboid(xRange, yRange, zRange);
   }
 
-  @Deprecated
-  public static Cuboid box(double xRange, double yRange, double zRange) {
-    return cuboid(xRange, yRange, zRange);
-  }
-
-  @Deprecated
-  public static Cuboid box(Range xRange, double yRange, double zRange) {
-    return cuboid(xRange, yRange, zRange);
-  }
-
-  @Deprecated
-  public static Cuboid box(double xRange, Range yRange, double zRange) {
-    return cuboid(xRange, yRange, zRange);
-  }
-
-  @Deprecated
-  public static Cuboid box(double xRange, double yRange, Range zRange) {
-    return cuboid(xRange, yRange, zRange);
-  }
-
-  @Deprecated
-  public static Cuboid box(double xRange, Range yRange, Range zRange) {
-    return cuboid(xRange, yRange, zRange);
-  }
-
-  @Deprecated
-  public static Cuboid box(Range xRange, double yRange, Range zRange) {
-    return cuboid(xRange, yRange, zRange);
-  }
-
-  @Deprecated
-  public static Cuboid box(Range xRange, Range yRange, double zRange) {
-    return cuboid(xRange, yRange, zRange);
-  }
-
-  @Deprecated
-  public static Cuboid box(Range xRange, Range yRange, Range zRange) {
-    return cuboid(xRange, yRange, zRange);
-  }
-
   public static Solid convexHull(Vector3... vertexes) {
     return convexHull(asList(vertexes));
   }
