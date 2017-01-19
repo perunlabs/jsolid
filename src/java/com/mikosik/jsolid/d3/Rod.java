@@ -35,12 +35,22 @@ public final class Rod extends AbstractSolid {
     this.parts = rings;
   }
 
+  @Deprecated
   public Rod section(double length) {
+    return addSegment(length);
+  }
+
+  public Rod addSegment(double length) {
     Check.positive(length);
     return funnelTo(length, lastPart().r2);
   }
 
+  @Deprecated
   public Rod section(double length, double radius) {
+    return addSegment(radius, length);
+  }
+
+  public Rod addSegment(double radius, double length) {
     Check.positive(length);
     Check.positive(radius);
     Rod newRod = this;
@@ -50,7 +60,12 @@ public final class Rod extends AbstractSolid {
     return newRod.funnelTo(length, radius);
   }
 
+  @Deprecated
   public Rod funnel(double length, double radius) {
+    return addFunnel(radius, length);
+  }
+
+  public Rod addFunnel(double radius, double length) {
     Check.positive(length);
     Check.positive(radius);
     return funnelTo(length, radius);
@@ -68,7 +83,7 @@ public final class Rod extends AbstractSolid {
 
   protected List<Polygon> calculateSides() {
     if (parts.size() == 1) {
-      throw new IllegalStateException("Cannot create rod without any section.");
+      throw new IllegalStateException("Cannot create rod without any segment.");
     }
     List<Polygon> polygons = new ArrayList<>();
     int vertexCount = vertexCount();
