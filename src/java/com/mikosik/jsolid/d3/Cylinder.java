@@ -35,19 +35,9 @@ public final class Cylinder extends AbstractSolid {
     this.parts = rings;
   }
 
-  @Deprecated
-  public Cylinder section(double length) {
-    return addSegment(length);
-  }
-
   public Cylinder addSegment(double length) {
     Check.positive(length);
     return funnelTo(length, lastPart().r2);
-  }
-
-  @Deprecated
-  public Cylinder section(double length, double radius) {
-    return addSegment(radius, length);
   }
 
   public Cylinder addSegment(double radius, double length) {
@@ -58,11 +48,6 @@ public final class Cylinder extends AbstractSolid {
       newRod = funnelTo(0, radius);
     }
     return newRod.funnelTo(length, radius);
-  }
-
-  @Deprecated
-  public Cylinder funnel(double length, double radius) {
-    return addFunnel(radius, length);
   }
 
   public Cylinder addFunnel(double radius, double length) {

@@ -187,11 +187,6 @@ public class JSolid {
     return new SolidImpl(hullPolygons(vertexes));
   }
 
-  @Deprecated
-  public static Cylinder rod(double radius, double length) {
-    return cylinder(radius, length);
-  }
-
   public static Cylinder cylinder(double radius, double length) {
     return new Cylinder(radius).addSegment(length);
   }
