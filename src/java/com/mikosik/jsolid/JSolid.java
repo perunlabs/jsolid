@@ -194,9 +194,4 @@ public class JSolid {
   public static Rod rod(double radius) {
     return new Rod(radius);
   }
-
-  public static Solid quadrupleInZPlane(Solid leg) {
-    Solid vxClone = leg.add(leg.mirror(x()));
-    return vxClone.add(vxClone.mirror(y()));
-  }
 }
