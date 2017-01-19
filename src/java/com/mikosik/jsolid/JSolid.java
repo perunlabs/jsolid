@@ -21,9 +21,9 @@ import com.mikosik.jsolid.d3.Axis.XAxis;
 import com.mikosik.jsolid.d3.Axis.YAxis;
 import com.mikosik.jsolid.d3.Axis.ZAxis;
 import com.mikosik.jsolid.d3.Cuboid;
+import com.mikosik.jsolid.d3.Cylinder;
 import com.mikosik.jsolid.d3.Matrix4;
 import com.mikosik.jsolid.d3.Prism;
-import com.mikosik.jsolid.d3.Rod;
 import com.mikosik.jsolid.d3.Solid;
 import com.mikosik.jsolid.d3.Vector3;
 import com.mikosik.jsolid.d3.op.SolidImpl;
@@ -135,10 +135,6 @@ public class JSolid {
     return new ConvexPolygon(vertexes);
   }
 
-  public static Prism cylinder(double radius, double length) {
-    return prism(circle(radius), range(length));
-  }
-
   public static Prism prism(Polygon base, double zRange) {
     return new Prism(base, range(zRange));
   }
@@ -191,7 +187,16 @@ public class JSolid {
     return new SolidImpl(hullPolygons(vertexes));
   }
 
-  public static Rod rod(double radius) {
-    return new Rod(radius);
+  @Deprecated
+  public static Cylinder rod(double radius, double length) {
+    return cylinder(radius, length);
+  }
+
+  public static Cylinder cylinder(double radius, double length) {
+    return new Cylinder(radius).addSegment(length);
+  }
+
+  public static Cylinder funnel(double radiusStart, double radiusEnd, double length) {
+    return new Cylinder(radiusStart).addFunnel(radiusEnd, length);
   }
 }

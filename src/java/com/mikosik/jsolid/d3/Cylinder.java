@@ -12,7 +12,7 @@ import com.mikosik.jsolid.util.Check;
 
 import eu.mihosoft.vrl.v3d.Polygon;
 
-public final class Rod extends AbstractSolid {
+public final class Cylinder extends AbstractSolid {
   private final List<Part> parts;
 
   private static class Part {
@@ -27,33 +27,33 @@ public final class Rod extends AbstractSolid {
     }
   }
 
-  public Rod(double radius) {
-    this(asList(new Part(0, radius, 0)));
+  public Cylinder(double radius) {
+    this(asList(new Part(0, Check.notNegative(radius), 0)));
   }
 
-  private Rod(List<Part> rings) {
+  private Cylinder(List<Part> rings) {
     this.parts = rings;
   }
 
   @Deprecated
-  public Rod section(double length) {
+  public Cylinder section(double length) {
     return addSegment(length);
   }
 
-  public Rod addSegment(double length) {
+  public Cylinder addSegment(double length) {
     Check.positive(length);
     return funnelTo(length, lastPart().r2);
   }
 
   @Deprecated
-  public Rod section(double length, double radius) {
+  public Cylinder section(double length, double radius) {
     return addSegment(radius, length);
   }
 
-  public Rod addSegment(double radius, double length) {
+  public Cylinder addSegment(double radius, double length) {
     Check.positive(length);
     Check.positive(radius);
-    Rod newRod = this;
+    Cylinder newRod = this;
     if (lastPart().r2 != radius) {
       newRod = funnelTo(0, radius);
     }
@@ -61,20 +61,20 @@ public final class Rod extends AbstractSolid {
   }
 
   @Deprecated
-  public Rod funnel(double length, double radius) {
+  public Cylinder funnel(double length, double radius) {
     return addFunnel(radius, length);
   }
 
-  public Rod addFunnel(double radius, double length) {
+  public Cylinder addFunnel(double radius, double length) {
     Check.positive(length);
     Check.positive(radius);
     return funnelTo(length, radius);
   }
 
-  private Rod funnelTo(double length, double radius) {
+  private Cylinder funnelTo(double length, double radius) {
     ArrayList<Part> newRings = new ArrayList<>(parts);
     newRings.add(new Part(lastPart().r2, radius, length));
-    return new Rod(newRings);
+    return new Cylinder(newRings);
   }
 
   private Part lastPart() {
