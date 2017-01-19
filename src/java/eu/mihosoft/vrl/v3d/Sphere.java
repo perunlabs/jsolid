@@ -49,7 +49,7 @@ import com.mikosik.jsolid.d3.Vector3;
  *
  * @author Michael Hoffer &lt;info@michaelhoffer.de&gt;
  */
-public class Sphere implements Primitive {
+public class Sphere {
 
   private Vector3 center;
   private double radius;
@@ -132,7 +132,6 @@ public class Sphere implements Primitive {
     return c.add(dir.mul(r));
   }
 
-  @Override
   public List<Polygon> toPolygons() {
     List<Polygon> polygons = new ArrayList<>();
 

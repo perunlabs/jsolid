@@ -18,7 +18,7 @@ import com.mikosik.jsolid.d3.Vector3;
  *
  * @author Michael Hoffer &lt;info@michaelhoffer.de&gt;
  */
-public class Polyhedron implements Primitive {
+public class Polyhedron {
   private final List<Vector3> points = new ArrayList<>();
   private final List<List<Integer>> faces = new ArrayList<>();
 
@@ -54,7 +54,6 @@ public class Polyhedron implements Primitive {
 
   }
 
-  @Override
   public List<Polygon> toPolygons() {
 
     Function<Integer, Vector3> indexToPoint = (Integer i) -> {
