@@ -46,24 +46,31 @@ public abstract class AbstractSolid implements Solid {
     return new AddSolid(this, solid);
   }
 
-  public Solid add(Solid solid, Alignment alignment) {
-    return add(alignment.align(this, solid));
+  public Solid add(Solid solid, Alignment... alignments) {
+    return add(align(solid, alignments));
   }
 
   public Solid sub(Solid solid) {
     return new SubSolid(this, solid);
   }
 
-  public Solid sub(Solid solid, Alignment alignment) {
-    return sub(alignment.align(this, solid));
+  public Solid sub(Solid solid, Alignment... alignments) {
+    return sub(align(solid, alignments));
   }
 
   public Solid intersect(Solid solid) {
     return new IntersectSolid(this, solid);
   }
 
-  public Solid intersect(Solid solid, Alignment alignment) {
-    return intersect(alignment.align(this, solid));
+  public Solid intersect(Solid solid, Alignment... alignments) {
+    return intersect(align(solid, alignments));
+  }
+
+  private Solid align(Solid solid, Alignment[] alignments) {
+    for (Alignment alignment : alignments) {
+      solid = alignment.align(this, solid);
+    }
+    return solid;
   }
 
   public Solid move(Vector3 position) {
