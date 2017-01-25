@@ -13,15 +13,15 @@ public interface Solid {
 
   public Solid add(Solid solid);
 
-  public Solid add(Solid solid, Alignment<?> alignment);
+  public Solid add(Solid solid, Alignment alignment);
 
   public Solid sub(Solid solid);
 
-  public Solid sub(Solid solid, Alignment<?> alignment);
+  public Solid sub(Solid solid, Alignment alignment);
 
   public Solid intersect(Solid solid);
 
-  public Solid intersect(Solid solid, Alignment<?> alignment);
+  public Solid intersect(Solid solid, Alignment alignment);
 
   public Solid move(Vector3 position);
 

@@ -20,6 +20,7 @@ import com.mikosik.jsolid.d3.Axis;
 import com.mikosik.jsolid.d3.Axis.XAxis;
 import com.mikosik.jsolid.d3.Axis.YAxis;
 import com.mikosik.jsolid.d3.Axis.ZAxis;
+import com.mikosik.jsolid.d3.AxisAlignment;
 import com.mikosik.jsolid.d3.Cuboid;
 import com.mikosik.jsolid.d3.Cylinder;
 import com.mikosik.jsolid.d3.Matrix4;
@@ -95,24 +96,24 @@ public class JSolid {
         m41, m42, m43, m44);
   }
 
-  public static <A extends Axis<A>> Alignment<A> alignOutsideMin(A axis) {
+  public static <A extends Axis<A>> Alignment alignOutsideMin(A axis) {
     return align(axis.min(), axis.max());
   }
 
-  public static <A extends Axis<A>> Alignment<A> alignOutsideMax(A axis) {
+  public static <A extends Axis<A>> Alignment alignOutsideMax(A axis) {
     return align(axis.max(), axis.min());
   }
 
-  public static <A extends Axis<A>> Alignment<A> alignInsideMin(A axis) {
+  public static <A extends Axis<A>> Alignment alignInsideMin(A axis) {
     return align(axis.min(), axis.min());
   }
 
-  public static <A extends Axis<A>> Alignment<A> alignInsideMax(A axis) {
+  public static <A extends Axis<A>> Alignment alignInsideMax(A axis) {
     return align(axis.max(), axis.max());
   }
 
-  public static <A extends Axis<A>> Alignment<A> align(Anchor<A> anchor1, Anchor<A> anchor2) {
-    return new Alignment<>(anchor1, anchor2);
+  public static <A extends Axis<A>> Alignment align(Anchor<A> anchor1, Anchor<A> anchor2) {
+    return new AxisAlignment<>(anchor1, anchor2);
   }
 
   public static Polygon regularPolygon(double radius, int vertexCount) {

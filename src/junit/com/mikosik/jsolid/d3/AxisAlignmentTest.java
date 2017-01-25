@@ -9,12 +9,12 @@ import static org.testory.Testory.when;
 
 import org.junit.Test;
 
-public class AlignmentTest {
-  private Alignment<?> alignment;
+public class AxisAlignmentTest {
+  private AxisAlignment<?> alignment;
 
   @Test
   public void alignment() throws Exception {
-    given(alignment = new Alignment<>(x().max(), x().min()));
+    given(alignment = new AxisAlignment<>(x().max(), x().min()));
     when(alignment.alignShiftFor(cuboid(3, 7, 11), cuboid(5, 13, 17)));
     thenReturned(vx(4));
   }

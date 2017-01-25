@@ -46,7 +46,7 @@ public abstract class AbstractSolid implements Solid {
     return new AddSolid(this, solid);
   }
 
-  public Solid add(Solid solid, Alignment<?> alignment) {
+  public Solid add(Solid solid, Alignment alignment) {
     return add(alignment.align(this, solid));
   }
 
@@ -54,7 +54,7 @@ public abstract class AbstractSolid implements Solid {
     return new SubSolid(this, solid);
   }
 
-  public Solid sub(Solid solid, Alignment<?> alignment) {
+  public Solid sub(Solid solid, Alignment alignment) {
     return sub(alignment.align(this, solid));
   }
 
@@ -62,7 +62,7 @@ public abstract class AbstractSolid implements Solid {
     return new IntersectSolid(this, solid);
   }
 
-  public Solid intersect(Solid solid, Alignment<?> alignment) {
+  public Solid intersect(Solid solid, Alignment alignment) {
     return intersect(alignment.align(this, solid));
   }
 
