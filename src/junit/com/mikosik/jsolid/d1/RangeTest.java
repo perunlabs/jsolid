@@ -64,4 +64,18 @@ public class RangeTest {
     when(range.length());
     thenReturned(4.0);
   }
+
+  @Test
+  public void center() throws Exception {
+    given(range = new Range(3, 7));
+    when(range.center());
+    thenReturned(5.0);
+  }
+
+  @Test
+  public void center_for_v2_lower_than_v1() throws Exception {
+    given(range = new Range(7, 3));
+    when(range.center());
+    thenReturned(5.0);
+  }
 }

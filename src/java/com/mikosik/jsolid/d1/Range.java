@@ -20,4 +20,8 @@ public final class Range {
   public double length() {
     return high - low;
   }
+
+  public double center() {
+    return (high + low) / 2;
+  }
 }
