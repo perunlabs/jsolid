@@ -105,26 +105,6 @@ public class JSolid {
     return align(anchor, anchor);
   }
 
-  @Deprecated
-  public static <A extends Axis<A>> Alignment alignOutsideMin(A axis) {
-    return alignOutside(axis.min());
-  }
-
-  @Deprecated
-  public static <A extends Axis<A>> Alignment alignOutsideMax(A axis) {
-    return alignOutside(axis.max());
-  }
-
-  @Deprecated
-  public static <A extends Axis<A>> Alignment alignInsideMin(A axis) {
-    return align(axis.min());
-  }
-
-  @Deprecated
-  public static <A extends Axis<A>> Alignment alignInsideMax(A axis) {
-    return align(axis.max());
-  }
-
   public static <A extends Axis<A>> Alignment align(Anchor<A> anchor1, Anchor<A> anchor2) {
     return new AxisAlignment<>(anchor1, anchor2);
   }
