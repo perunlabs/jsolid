@@ -4,6 +4,7 @@ import static org.testory.Testory.thenReturned;
 import static org.testory.Testory.thenThrown;
 import static org.testory.Testory.when;
 
+import org.hamcrest.Matcher;
 import org.junit.Test;
 
 public class CheckTest {
@@ -16,13 +17,13 @@ public class CheckTest {
   @Test
   public void positive_int_throws_exception_when_negative() throws Exception {
     when(() -> Check.positive(-1));
-    thenThrown(IllegalArgumentException.class);
+    thenThrown(iae("Parameter is -1 but expected positive int."));
   }
 
   @Test
   public void positive_int_throws_exception_when_zero() throws Exception {
     when(() -> Check.positive(0));
-    thenThrown(IllegalArgumentException.class);
+    thenThrown(iae("Parameter is 0 but expected positive int."));
   }
 
   @Test
@@ -34,13 +35,13 @@ public class CheckTest {
   @Test
   public void positive_double_throws_exception_when_negative() throws Exception {
     when(() -> Check.positive(-1.0));
-    thenThrown(IllegalArgumentException.class);
+    thenThrown(iae("Parameter is -1.0 but expected positive double."));
   }
 
   @Test
   public void positive_double_throws_exception_when_zero() throws Exception {
     when(() -> Check.positive(0.0));
-    thenThrown(IllegalArgumentException.class);
+    thenThrown(iae("Parameter is 0.0 but expected positive double."));
   }
 
   @Test
@@ -52,7 +53,7 @@ public class CheckTest {
   @Test
   public void not_negative_double_throws_exception_when_negative() throws Exception {
     when(() -> Check.notNegative(-1.0));
-    thenThrown(IllegalArgumentException.class);
+    thenThrown(iae("Parameter is -1.0 but expected not negative double."));
   }
 
   @Test
@@ -70,18 +71,22 @@ public class CheckTest {
   @Test
   public void is_finite_throws_exception_when_argument_is_NaN() throws Exception {
     when(() -> Check.isFinite(Double.NaN));
-    thenThrown(IllegalArgumentException.class);
+    thenThrown(iae("Parameter is NaN but expected finite double."));
   }
 
   @Test
   public void is_finite_throws_exception_when_argument_is_positive_infinity() throws Exception {
     when(() -> Check.isFinite(Double.POSITIVE_INFINITY));
-    thenThrown(IllegalArgumentException.class);
+    thenThrown(iae("Parameter is Infinity but expected finite double."));
   }
 
   @Test
   public void is_finite_throws_exception_when_argument_is_negative_infinity() throws Exception {
     when(() -> Check.isFinite(Double.NEGATIVE_INFINITY));
-    thenThrown(IllegalArgumentException.class);
+    thenThrown(iae("Parameter is -Infinity but expected finite double."));
+  }
+
+  private static Matcher<Throwable> iae(String message) {
+    return ExceptionMatcher.exception(new IllegalArgumentException(message));
   }
 }
