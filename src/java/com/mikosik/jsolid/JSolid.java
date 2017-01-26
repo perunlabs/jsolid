@@ -109,6 +109,30 @@ public class JSolid {
     return new AxisAlignment<>(anchor1, anchor2);
   }
 
+  public static EdgeAnchor<XAxis> maxX() {
+    return x().max();
+  }
+
+  public static EdgeAnchor<XAxis> minX() {
+    return x().min();
+  }
+
+  public static EdgeAnchor<YAxis> maxY() {
+    return y().max();
+  }
+
+  public static EdgeAnchor<YAxis> minY() {
+    return y().min();
+  }
+
+  public static EdgeAnchor<ZAxis> maxZ() {
+    return z().max();
+  }
+
+  public static EdgeAnchor<ZAxis> minZ() {
+    return z().min();
+  }
+
   public static Polygon regularPolygon(double radius, int vertexCount) {
     return new RegularPolygon(radius, vertexCount);
   }
