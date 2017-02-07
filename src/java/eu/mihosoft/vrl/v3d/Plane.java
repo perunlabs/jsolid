@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mikosik.jsolid.d3.Vector3;
+import com.mikosik.jsolid.util.Hash;
 
 /**
  * Represents a plane in 3D space.
@@ -204,10 +205,6 @@ public class Plane {
   }
 
   public int hashCode() {
-    return 31 * normal.hashCode() + hashOf(dist);
-  }
-
-  private static int hashOf(double value) {
-    return Double.hashCode(value == -0.0 ? 0.0 : value);
+    return 31 * normal.hashCode() + Hash.hash(dist);
   }
 }

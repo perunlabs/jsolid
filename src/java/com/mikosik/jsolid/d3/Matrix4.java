@@ -3,6 +3,7 @@ package com.mikosik.jsolid.d3;
 import static com.mikosik.jsolid.JSolid.v;
 
 import com.mikosik.jsolid.util.Check;
+import com.mikosik.jsolid.util.Hash;
 
 public class Matrix4 {
   private final double a11;
@@ -121,27 +122,11 @@ public class Matrix4 {
   }
 
   public int hashCode() {
-    int result = hashOf(a11);
-    result = result * 17 + hashOf(a12);
-    result = result * 17 + hashOf(a13);
-    result = result * 17 + hashOf(a14);
-    result = result * 17 + hashOf(a21);
-    result = result * 17 + hashOf(a22);
-    result = result * 17 + hashOf(a23);
-    result = result * 17 + hashOf(a24);
-    result = result * 17 + hashOf(a31);
-    result = result * 17 + hashOf(a32);
-    result = result * 17 + hashOf(a33);
-    result = result * 17 + hashOf(a34);
-    result = result * 17 + hashOf(a41);
-    result = result * 17 + hashOf(a42);
-    result = result * 17 + hashOf(a43);
-    result = result * 17 + hashOf(a44);
-    return result;
-  }
-
-  private int hashOf(double value) {
-    return Double.hashCode(value == -0.0 ? 0.0 : value);
+    return Hash.hash(
+        a11, a12, a13, a14,
+        a21, a22, a23, a24,
+        a31, a32, a33, a34,
+        a41, a42, a43, a44);
   }
 
   public String toString() {

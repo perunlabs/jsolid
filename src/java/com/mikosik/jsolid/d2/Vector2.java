@@ -4,9 +4,8 @@ import static java.lang.Math.PI;
 import static java.lang.Math.sqrt;
 import static java.lang.String.format;
 
-import java.util.Objects;
-
 import com.mikosik.jsolid.util.Check;
+import com.mikosik.jsolid.util.Hash;
 
 public final class Vector2 {
   public final double x;
@@ -92,7 +91,7 @@ public final class Vector2 {
   }
 
   public int hashCode() {
-    return Objects.hash(x, y);
+    return Hash.hash(x, y);
   }
 
   public String toString() {

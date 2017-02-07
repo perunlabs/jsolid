@@ -3,9 +3,8 @@ package com.mikosik.jsolid.d3;
 import static com.mikosik.jsolid.JSolid.v0;
 import static java.lang.Math.sqrt;
 
-import java.util.Objects;
-
 import com.mikosik.jsolid.util.Check;
+import com.mikosik.jsolid.util.Hash;
 
 public class Vector3 {
   public final double x;
@@ -126,7 +125,7 @@ public class Vector3 {
   }
 
   public int hashCode() {
-    return Objects.hash(x, y, z);
+    return Hash.hash(x, y, z);
   }
 
   public String toString() {
