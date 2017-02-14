@@ -36,6 +36,10 @@ public final class Range {
     return new Range(center - half, center + half);
   }
 
+  public Range resizeBy(double delta) {
+    return resizeTo(length() + delta);
+  }
+
   public Range add(double value) {
     return new Range(low + value, high + value);
   }
