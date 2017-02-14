@@ -81,6 +81,27 @@ public class RangeTest {
   }
 
   @Test
+  public void resize_to() throws Exception {
+    given(range = new Range(3, 5));
+    when(range.resizeTo(10));
+    thenReturned(new Range(-1, 9));
+  }
+
+  @Test
+  public void resize_to_zero() throws Exception {
+    given(range = new Range(3, 5));
+    when(range.resizeTo(0));
+    thenReturned(new Range(4, 4));
+  }
+
+  @Test
+  public void resize_to_fails_for_negative_value() throws Exception {
+    given(range = new Range(3, 5));
+    when(() -> range.resizeTo(-1));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
   public void add() throws Exception {
     given(range = new Range(3, 5));
     when(range.add(7));

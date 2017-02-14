@@ -29,6 +29,13 @@ public final class Range {
     return (high + low) / 2;
   }
 
+  public Range resizeTo(double newSize) {
+    Check.notNegative(newSize);
+    double center = center();
+    double half = newSize / 2;
+    return new Range(center - half, center + half);
+  }
+
   public Range add(double value) {
     return new Range(low + value, high + value);
   }
