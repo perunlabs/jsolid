@@ -10,10 +10,10 @@ public final class Range {
   public final double low;
   public final double high;
 
-  public Range(double length) {
-    Check.positive(length);
-    this.low = -length / 2;
-    this.high = length / 2;
+  public Range(double size) {
+    Check.positive(size);
+    this.low = -size / 2;
+    this.high = size / 2;
   }
 
   public Range(double v1, double v2) {
@@ -21,7 +21,7 @@ public final class Range {
     this.high = v1 < v2 ? v2 : v1;
   }
 
-  public double length() {
+  public double size() {
     return high - low;
   }
 
@@ -37,7 +37,7 @@ public final class Range {
   }
 
   public Range resizeBy(double delta) {
-    return resizeTo(length() + delta);
+    return resizeTo(size() + delta);
   }
 
   public Range add(double value) {
@@ -47,8 +47,8 @@ public final class Range {
   public Range mul(double value) {
     Check.notNegative(value);
     double center = center();
-    double newHalfLength = (value * length()) / 2;
-    return new Range(center - newHalfLength, center + newHalfLength);
+    double newHalfSize = (value * size()) / 2;
+    return new Range(center - newHalfSize, center + newHalfSize);
   }
 
   public Range grow(double value) {

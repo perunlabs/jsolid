@@ -47,29 +47,29 @@ public final class Rectangle implements Polygon {
   }
 
   private List<Vector2> roundedVertexes(double x1, double y1, double x2, double y2) {
-    double xLength = this.xRange.length();
-    double yLength = this.yRange.length();
-    double maxRadius = min(xLength, yLength) / 2;
+    double xSize = this.xRange.size();
+    double ySize = this.yRange.size();
+    double maxRadius = min(xSize, ySize) / 2;
     double radius = min(maxRadius, cornerR);
     double count = Circle.vertexCount(radius, 0.5 * Math.PI);
     ArrayList<Vector2> result = new ArrayList<>();
     addCornerVertexes(result, v(x1 + radius, y1 + radius), radius, PI, count);
-    if (2 * radius < xLength) {
+    if (2 * radius < xSize) {
       result.add(v(x1 + radius, y1));
     }
 
     addCornerVertexes(result, v(x2 - radius, y1 + radius), radius, 1.5 * PI, count);
-    if (2 * radius < yLength) {
+    if (2 * radius < ySize) {
       result.add(v(x2, y1 + radius));
     }
 
     addCornerVertexes(result, v(x2 - radius, y2 - radius), radius, 0, count);
-    if (2 * radius < xLength) {
+    if (2 * radius < xSize) {
       result.add(v(x2 - radius, y2));
     }
 
     addCornerVertexes(result, v(x1 + radius, y2 - radius), radius, 0.5 * PI, count);
-    if (2 * radius < yLength) {
+    if (2 * radius < ySize) {
       result.add(v(x1, y2 - radius));
     }
 

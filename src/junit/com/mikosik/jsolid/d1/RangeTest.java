@@ -11,14 +11,14 @@ public class RangeTest {
   private Range range;
 
   @Test
-  public void low_is_calculated_from_constructor_length_param() throws Exception {
+  public void low_is_calculated_from_constructor_size_param() throws Exception {
     given(range = new Range(10));
     when(range.low);
     thenReturned(-5.0);
   }
 
   @Test
-  public void high_is_calculated_from_constructor_length_param() throws Exception {
+  public void high_is_calculated_from_constructor_size_param() throws Exception {
     given(range = new Range(10));
     when(range.high);
     thenReturned(5.0);
@@ -53,16 +53,16 @@ public class RangeTest {
   }
 
   @Test
-  public void length() throws Exception {
+  public void size() throws Exception {
     given(range = new Range(3, 7));
-    when(range.length());
+    when(range.size());
     thenReturned(4.0);
   }
 
   @Test
-  public void length_for_v2_lower_than_v1() throws Exception {
+  public void size_for_v2_lower_than_v1() throws Exception {
     given(range = new Range(7, 3));
-    when(range.length());
+    when(range.size());
     thenReturned(4.0);
   }
 
@@ -172,14 +172,14 @@ public class RangeTest {
   }
 
   @Test
-  public void negative_grow_greater_equal_to_half_of_length_shrinks_to_zero() throws Exception {
+  public void negative_grow_greater_equal_to_half_of_size_shrinks_to_zero() throws Exception {
     given(range = new Range(3, 5));
     when(range.grow(-1));
     thenReturned(new Range(4, 4));
   }
 
   @Test
-  public void negative_grow_greater_than_half_of_length_shrinks_to_zero() throws Exception {
+  public void negative_grow_greater_than_half_of_size_shrinks_to_zero() throws Exception {
     given(range = new Range(3, 5));
     when(range.grow(-3));
     thenReturned(new Range(4, 4));
