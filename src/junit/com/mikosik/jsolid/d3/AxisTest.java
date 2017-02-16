@@ -71,6 +71,27 @@ public class AxisTest {
   }
 
   @Test
+  public void x_axis_range() throws Exception {
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.X.range(cuboid));
+    thenReturned(range(1, 2));
+  }
+
+  @Test
+  public void y_axis_range() throws Exception {
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Y.range(cuboid));
+    thenReturned(range(3, 4));
+  }
+
+  @Test
+  public void z_axis_range() throws Exception {
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Z.range(cuboid));
+    thenReturned(range(5, 6));
+  }
+
+  @Test
   public void minX() throws Exception {
     given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
     when(Axis.X.min().valueIn(cuboid));

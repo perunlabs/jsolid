@@ -7,6 +7,7 @@ import static java.lang.Double.MIN_VALUE;
 import java.util.function.BinaryOperator;
 
 import com.mikosik.jsolid.JSolid;
+import com.mikosik.jsolid.d1.Range;
 import com.mikosik.jsolid.d3.Anchor.CenterAnchor;
 import com.mikosik.jsolid.d3.Anchor.EdgeAnchor;
 import com.mikosik.jsolid.d3.Anchor.ZeroAnchor;
@@ -23,6 +24,10 @@ public abstract class Axis<A extends Axis<A>> extends Vector3 {
   public abstract double coordinate(Vector3 v);
 
   public abstract Vector3 v(double coordinate);
+
+  public Range range(Solid solid) {
+    return JSolid.range(min().valueIn(solid), max().valueIn(solid));
+  }
 
   public abstract Matrix4 rotateMatrix(double angle);
 
