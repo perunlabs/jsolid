@@ -73,12 +73,15 @@ public abstract class AbstractSolid implements Solid {
     return solid;
   }
 
-  public Solid move(Vector3 position) {
-    return apply(Matrix4.move(position));
+  public Solid moveBy(Vector3 shift) {
+    return apply(Matrix4.move(shift));
   }
 
-  public Solid move(Anchor<?> anchor, double value) {
-    return move(anchor.axis.v(value).sub(anchor.vectorIn(this)));
+  public Solid moveTo(Anchor<?> anchor, double position) {
+    Vector3 desiredPosition = anchor.axis.v(position);
+    Vector3 currentPosition = anchor.vectorIn(this);
+    Vector3 shift = desiredPosition.sub(currentPosition);
+    return moveBy(shift);
   }
 
   public Solid rotate(Axis<?> direction, double angle) {

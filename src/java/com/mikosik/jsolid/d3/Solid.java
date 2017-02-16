@@ -23,9 +23,19 @@ public interface Solid {
 
   public Solid intersect(Solid solid, Alignment... alignments);
 
-  public Solid move(Vector3 position);
+  @Deprecated
+  public default Solid move(Vector3 shift) {
+    return moveBy(shift);
+  }
 
-  public Solid move(Anchor<?> anchor, double value);
+  public Solid moveBy(Vector3 shift);
+
+  @Deprecated
+  public default Solid move(Anchor<?> anchor, double position) {
+    return moveTo(anchor, position);
+  }
+
+  public Solid moveTo(Anchor<?> anchor, double position);
 
   public Solid rotate(Axis<?> direction, double angle);
 

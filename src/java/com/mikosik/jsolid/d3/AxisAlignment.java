@@ -10,7 +10,7 @@ public class AxisAlignment<A extends Axis<A>> implements Alignment {
   }
 
   public Solid align(Solid solid1, Solid solid2) {
-    return solid2.move(alignShiftFor(solid1, solid2));
+    return solid2.moveBy(alignShiftFor(solid1, solid2));
   }
 
   public Vector3 alignShiftFor(Solid solid1, Solid solid2) {

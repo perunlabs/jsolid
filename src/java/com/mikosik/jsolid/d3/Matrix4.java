@@ -49,11 +49,11 @@ public class Matrix4 {
     this.a44 = Check.isFinite(a44);
   }
 
-  public static Matrix4 move(Vector3 v) {
+  public static Matrix4 move(Vector3 shift) {
     return new Matrix4(
-        1, 0, 0, v.x,
-        0, 1, 0, v.y,
-        0, 0, 1, v.z,
+        1, 0, 0, shift.x,
+        0, 1, 0, shift.y,
+        0, 0, 1, shift.z,
         0, 0, 0, 1);
   }
 
