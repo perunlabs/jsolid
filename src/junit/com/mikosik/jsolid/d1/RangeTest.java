@@ -137,9 +137,9 @@ public class RangeTest {
   }
 
   @Test
-  public void add() throws Exception {
+  public void moveBy() throws Exception {
     given(range = new Range(3, 5));
-    when(range.add(7));
+    when(range.moveBy(7));
     thenReturned(new Range(10, 12));
   }
 

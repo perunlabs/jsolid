@@ -40,7 +40,12 @@ public final class Range {
     return resizeTo(size() + delta);
   }
 
+  @Deprecated
   public Range add(double value) {
+    return moveBy(value);
+  }
+
+  public Range moveBy(double value) {
     return new Range(low + value, high + value);
   }
 
