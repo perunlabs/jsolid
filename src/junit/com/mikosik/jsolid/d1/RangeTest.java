@@ -81,6 +81,47 @@ public class RangeTest {
   }
 
   @Test
+  public void set_low() throws Exception {
+    given(range = new Range(3, 5));
+    when(range.low(1));
+    thenReturned(new Range(1, 5));
+  }
+
+  @Test
+  public void set_low_with_low_equal_to_high() throws Exception {
+    given(range = new Range(3, 5));
+    when(range.low(5));
+    thenReturned(new Range(5, 5));
+  }
+
+  @Test
+  public void set_low_fails_when_it_is_greater_than_high() throws Exception {
+    given(range = new Range(3, 5));
+    when(() -> range.low(6));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void set_high() throws Exception {
+    given(range = new Range(3, 5));
+    when(range.high(7));
+    thenReturned(new Range(3, 7));
+  }
+
+  public void set_high_with_low_equal_to_high() throws Exception {
+    given(range = new Range(3, 5));
+    when(range.high(3));
+    thenReturned(new Range(3, 3));
+  }
+
+  @Test
+  public void set_high_fails_when_it_is_lower_than_low() throws Exception {
+    given(range = new Range(3, 5));
+    when(() -> range.high(2));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
   public void resize_to() throws Exception {
     given(range = new Range(3, 5));
     when(range.resizeTo(10));
