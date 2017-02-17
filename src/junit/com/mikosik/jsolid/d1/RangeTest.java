@@ -144,6 +144,27 @@ public class RangeTest {
   }
 
   @Test
+  public void moveCenterTo() throws Exception {
+    given(range = new Range(3, 5));
+    when(range.moveCenterTo(7));
+    thenReturned(new Range(6, 8));
+  }
+
+  @Test
+  public void moveLowTo() throws Exception {
+    given(range = new Range(3, 5));
+    when(range.moveLowTo(7));
+    thenReturned(new Range(7, 9));
+  }
+
+  @Test
+  public void moveHighTo() throws Exception {
+    given(range = new Range(3, 5));
+    when(range.moveHighTo(7));
+    thenReturned(new Range(5, 7));
+  }
+
+  @Test
   public void mul() throws Exception {
     given(range = new Range(3, 5));
     when(range.mul(2));
