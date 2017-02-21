@@ -35,27 +35,12 @@ public final class Vector2 {
     }
   }
 
-  @Deprecated
-  public Vector2 plus(Vector2 v) {
-    return add(v);
-  }
-
   public Vector2 add(Vector2 v) {
     return vector2(x + v.x, y + v.y);
   }
 
-  @Deprecated
-  public Vector2 minus(Vector2 v) {
-    return sub(v);
-  }
-
   public Vector2 sub(Vector2 v) {
     return vector2(x - v.x, y - v.y);
-  }
-
-  @Deprecated
-  public Vector2 negate() {
-    return neg();
   }
 
   public Vector2 neg() {
