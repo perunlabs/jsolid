@@ -223,34 +223,6 @@ public class RangeTest {
   }
 
   @Test
-  public void grow() throws Exception {
-    given(range = new Range(3, 5));
-    when(range.grow(2));
-    thenReturned(new Range(1, 7));
-  }
-
-  @Test
-  public void negative_grow_shrinks_range() throws Exception {
-    given(range = new Range(3, 13));
-    when(range.grow(-2));
-    thenReturned(new Range(5, 11));
-  }
-
-  @Test
-  public void negative_grow_greater_equal_to_half_of_size_shrinks_to_zero() throws Exception {
-    given(range = new Range(3, 5));
-    when(range.grow(-1));
-    thenReturned(new Range(4, 4));
-  }
-
-  @Test
-  public void negative_grow_greater_than_half_of_size_shrinks_to_zero() throws Exception {
-    given(range = new Range(3, 5));
-    when(range.grow(-3));
-    thenReturned(new Range(4, 4));
-  }
-
-  @Test
   public void equal_ranges() throws Exception {
     given(range = new Range(3, 5));
     when(range.equals(new Range(3, 5)));

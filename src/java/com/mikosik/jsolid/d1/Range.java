@@ -1,8 +1,5 @@
 package com.mikosik.jsolid.d1;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-
 import com.mikosik.jsolid.util.Check;
 import com.mikosik.jsolid.util.Hash;
 
@@ -63,11 +60,6 @@ public final class Range {
     double center = center();
     double newHalfSize = (value * size()) / 2;
     return new Range(center - newHalfSize, center + newHalfSize);
-  }
-
-  public Range grow(double value) {
-    double center = center();
-    return new Range(min(low - value, center), max(high + value, center));
   }
 
   public boolean equals(Object object) {
