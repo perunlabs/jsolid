@@ -25,7 +25,7 @@ public interface Solid {
 
   public Solid moveBy(Vector3 shift);
 
-  public Solid moveTo(Anchor<?> anchor, double position);
+  public Solid moveTo(Anchor3<?> anchor, double position);
 
   public Solid rotate(Axis<?> direction, double angle);
 

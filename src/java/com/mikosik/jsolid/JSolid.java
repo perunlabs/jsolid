@@ -15,8 +15,8 @@ import com.mikosik.jsolid.d2.Rectangle;
 import com.mikosik.jsolid.d2.RegularPolygon;
 import com.mikosik.jsolid.d2.Vector2;
 import com.mikosik.jsolid.d3.Alignment;
-import com.mikosik.jsolid.d3.Anchor;
-import com.mikosik.jsolid.d3.Anchor.EdgeAnchor;
+import com.mikosik.jsolid.d3.Anchor3;
+import com.mikosik.jsolid.d3.Anchor3.EdgeAnchor;
 import com.mikosik.jsolid.d3.Axis;
 import com.mikosik.jsolid.d3.Axis.XAxis;
 import com.mikosik.jsolid.d3.Axis.YAxis;
@@ -101,11 +101,11 @@ public class JSolid {
     return align(anchor, anchor.other());
   }
 
-  public static <A extends Axis<A>> Alignment align(Anchor<A> anchor) {
+  public static <A extends Axis<A>> Alignment align(Anchor3<A> anchor) {
     return align(anchor, anchor);
   }
 
-  public static <A extends Axis<A>> Alignment align(Anchor<A> anchor1, Anchor<A> anchor2) {
+  public static <A extends Axis<A>> Alignment align(Anchor3<A> anchor1, Anchor3<A> anchor2) {
     return new AxisAlignment<>(anchor1, anchor2);
   }
 

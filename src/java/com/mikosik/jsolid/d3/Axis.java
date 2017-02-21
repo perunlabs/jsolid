@@ -8,9 +8,9 @@ import java.util.function.BinaryOperator;
 
 import com.mikosik.jsolid.JSolid;
 import com.mikosik.jsolid.d1.Range;
-import com.mikosik.jsolid.d3.Anchor.CenterAnchor;
-import com.mikosik.jsolid.d3.Anchor.EdgeAnchor;
-import com.mikosik.jsolid.d3.Anchor.ZeroAnchor;
+import com.mikosik.jsolid.d3.Anchor3.CenterAnchor;
+import com.mikosik.jsolid.d3.Anchor3.EdgeAnchor;
+import com.mikosik.jsolid.d3.Anchor3.ZeroAnchor;
 
 public abstract class Axis<A extends Axis<A>> extends Vector3 {
   public static final XAxis X = new XAxis();
@@ -43,11 +43,11 @@ public abstract class Axis<A extends Axis<A>> extends Vector3 {
     return new EdgeAnchor<>(this, maxReduce(), MIN_VALUE, this::min);
   }
 
-  public Anchor<A> center() {
+  public Anchor3<A> center() {
     return new CenterAnchor<>(this, min(), max());
   }
 
-  public Anchor<A> zero() {
+  public Anchor3<A> zero() {
     return new ZeroAnchor<>(this);
   }
 

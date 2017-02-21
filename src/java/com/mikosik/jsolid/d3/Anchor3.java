@@ -3,10 +3,10 @@ package com.mikosik.jsolid.d3;
 import java.util.function.BinaryOperator;
 import java.util.function.Supplier;
 
-public abstract class Anchor<A extends Axis<A>> {
+public abstract class Anchor3<A extends Axis<A>> {
   public final Axis<A> axis;
 
-  private Anchor(Axis<A> axis) {
+  private Anchor3(Axis<A> axis) {
     this.axis = axis;
   }
 
@@ -16,7 +16,7 @@ public abstract class Anchor<A extends Axis<A>> {
     return axis.v(valueIn(solid));
   }
 
-  public static class EdgeAnchor<A extends Axis<A>> extends Anchor<A> {
+  public static class EdgeAnchor<A extends Axis<A>> extends Anchor3<A> {
     private final BinaryOperator<Double> reduceOperation;
     private final double reduceIdentity;
     private final Supplier<EdgeAnchor<A>> other;
@@ -40,11 +40,11 @@ public abstract class Anchor<A extends Axis<A>> {
     }
   }
 
-  public static class CenterAnchor<A extends Axis<A>> extends Anchor<A> {
-    private final Anchor<A> minAnchor;
-    private final Anchor<A> maxAnchor;
+  public static class CenterAnchor<A extends Axis<A>> extends Anchor3<A> {
+    private final Anchor3<A> minAnchor;
+    private final Anchor3<A> maxAnchor;
 
-    public CenterAnchor(Axis<A> axis, Anchor<A> minAnchor, Anchor<A> maxAnchor) {
+    public CenterAnchor(Axis<A> axis, Anchor3<A> minAnchor, Anchor3<A> maxAnchor) {
       super(axis);
       this.minAnchor = minAnchor;
       this.maxAnchor = maxAnchor;
@@ -55,7 +55,7 @@ public abstract class Anchor<A extends Axis<A>> {
     }
   }
 
-  public static class ZeroAnchor<A extends Axis<A>> extends Anchor<A> {
+  public static class ZeroAnchor<A extends Axis<A>> extends Anchor3<A> {
     public ZeroAnchor(Axis<A> axis) {
       super(axis);
     }

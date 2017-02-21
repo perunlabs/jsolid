@@ -6,7 +6,7 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 
 import com.mikosik.jsolid.d3.Alignment;
-import com.mikosik.jsolid.d3.Anchor;
+import com.mikosik.jsolid.d3.Anchor3;
 import com.mikosik.jsolid.d3.Axis;
 import com.mikosik.jsolid.d3.Matrix4;
 import com.mikosik.jsolid.d3.Solid;
@@ -77,7 +77,7 @@ public abstract class AbstractSolid implements Solid {
     return apply(Matrix4.move(shift));
   }
 
-  public Solid moveTo(Anchor<?> anchor, double position) {
+  public Solid moveTo(Anchor3<?> anchor, double position) {
     Vector3 desiredPosition = anchor.axis.v(position);
     Vector3 currentPosition = anchor.vectorIn(this);
     Vector3 shift = desiredPosition.sub(currentPosition);

@@ -1,10 +1,10 @@
 package com.mikosik.jsolid.d3;
 
 public class AxisAlignment<A extends Axis<A>> implements Alignment {
-  private final Anchor<A> anchor1;
-  private final Anchor<A> anchor2;
+  private final Anchor3<A> anchor1;
+  private final Anchor3<A> anchor2;
 
-  public AxisAlignment(Anchor<A> anchor1, Anchor<A> anchor2) {
+  public AxisAlignment(Anchor3<A> anchor1, Anchor3<A> anchor2) {
     this.anchor1 = anchor1;
     this.anchor2 = anchor2;
   }
