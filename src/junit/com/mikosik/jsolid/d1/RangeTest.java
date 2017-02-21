@@ -1,5 +1,8 @@
 package com.mikosik.jsolid.d1;
 
+import static com.mikosik.jsolid.d1.Anchor1.CENTER;
+import static com.mikosik.jsolid.d1.Anchor1.MAX;
+import static com.mikosik.jsolid.d1.Anchor1.MIN;
 import static org.testory.Testory.given;
 import static org.testory.Testory.thenReturned;
 import static org.testory.Testory.thenThrown;
@@ -185,23 +188,23 @@ public class RangeTest {
   }
 
   @Test
-  public void moveCenterTo() throws Exception {
+  public void move_to_center() throws Exception {
     given(range = new Range(3, 5));
-    when(range.moveCenterTo(7));
+    when(range.moveTo(CENTER, 7));
     thenReturned(new Range(6, 8));
   }
 
   @Test
-  public void moveLowTo() throws Exception {
+  public void move_to_min() throws Exception {
     given(range = new Range(3, 5));
-    when(range.moveLowTo(7));
+    when(range.moveTo(MIN, 7));
     thenReturned(new Range(7, 9));
   }
 
   @Test
-  public void moveHighTo() throws Exception {
+  public void move_to_max() throws Exception {
     given(range = new Range(3, 5));
-    when(range.moveHighTo(7));
+    when(range.moveTo(MAX, 7));
     thenReturned(new Range(5, 7));
   }
 

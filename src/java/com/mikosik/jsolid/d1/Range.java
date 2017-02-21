@@ -54,17 +54,8 @@ public final class Range {
     return new Range(low + value, high + value);
   }
 
-  public Range moveCenterTo(double center) {
-    double halfSize = size() / 2;
-    return new Range(center - halfSize, center + halfSize);
-  }
-
-  public Range moveLowTo(double low) {
-    return new Range(low, low + size());
-  }
-
-  public Range moveHighTo(double high) {
-    return new Range(high - size(), high);
+  public Range moveTo(Anchor1 anchor, double value) {
+    return anchor.moveTo(this, value);
   }
 
   public Range mul(double value) {
