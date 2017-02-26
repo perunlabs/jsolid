@@ -14,17 +14,17 @@ public class Anchor1Test {
   private Range range;
 
   @Test
-  public void move_to_center() throws Exception {
-    given(range = new Range(3, 5));
-    when(CENTER.moveTo(range, 7));
-    thenReturned(new Range(6, 8));
-  }
-
-  @Test
   public void move_to_min() throws Exception {
     given(range = new Range(3, 5));
     when(MIN.moveTo(range, 7));
     thenReturned(new Range(7, 9));
+  }
+
+  @Test
+  public void move_to_center() throws Exception {
+    given(range = new Range(3, 5));
+    when(CENTER.moveTo(range, 7));
+    thenReturned(new Range(6, 8));
   }
 
   @Test
