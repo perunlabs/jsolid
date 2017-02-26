@@ -5,6 +5,7 @@ import static com.mikosik.jsolid.d1.Anchor1.MAX;
 import static com.mikosik.jsolid.d1.Anchor1.MIN;
 import static org.testory.Testory.given;
 import static org.testory.Testory.thenReturned;
+import static org.testory.Testory.thenThrown;
 import static org.testory.Testory.when;
 
 import org.junit.Test;
@@ -31,5 +32,47 @@ public class Anchor1Test {
     given(range = new Range(3, 5));
     when(MAX.moveTo(range, 7));
     thenReturned(new Range(5, 7));
+  }
+
+  @Test
+  public void resize_to_min_fails_for_negative_size() throws Exception {
+    given(range = new Range(3, 5));
+    when(() -> MIN.resizeTo(range, -1));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void resize_to_min() throws Exception {
+    given(range = new Range(3, 5));
+    when(MIN.resizeTo(range, 6));
+    thenReturned(new Range(3, 9));
+  }
+
+  @Test
+  public void resize_to_max_fails_for_negative_size() throws Exception {
+    given(range = new Range(3, 5));
+    when(() -> MAX.resizeTo(range, -1));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void resize_to_max() throws Exception {
+    given(range = new Range(3, 5));
+    when(MAX.resizeTo(range, 6));
+    thenReturned(new Range(-1, 5));
+  }
+
+  @Test
+  public void resize_to_center_fails_for_negative_size() throws Exception {
+    given(range = new Range(3, 5));
+    when(() -> CENTER.resizeTo(range, -1));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void resize_to_center() throws Exception {
+    given(range = new Range(3, 5));
+    when(CENTER.resizeTo(range, 6));
+    thenReturned(new Range(1, 7));
   }
 }
