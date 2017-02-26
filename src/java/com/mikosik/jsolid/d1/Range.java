@@ -1,5 +1,7 @@
 package com.mikosik.jsolid.d1;
 
+import static com.mikosik.jsolid.d1.Anchor1.CENTER;
+
 import com.mikosik.jsolid.util.Check;
 import com.mikosik.jsolid.util.Hash;
 
@@ -36,11 +38,12 @@ public final class Range {
     return new Range(low, high);
   }
 
-  public Range resizeTo(double newSize) {
-    Check.notNegative(newSize);
-    double center = center();
-    double half = newSize / 2;
-    return new Range(center - half, center + half);
+  public Range resizeTo(double size) {
+    return resizeTo(size, CENTER);
+  }
+
+  public Range resizeTo(double size, Anchor1 anchor1) {
+    return anchor1.resizeTo(this, size);
   }
 
   public Range resizeBy(double delta) {

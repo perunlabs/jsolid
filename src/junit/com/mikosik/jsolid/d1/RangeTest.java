@@ -146,6 +146,69 @@ public class RangeTest {
   }
 
   @Test
+  public void resize_to_min() throws Exception {
+    given(range = new Range(3, 5));
+    when(range.resizeTo(10, MIN));
+    thenReturned(new Range(3, 13));
+  }
+
+  @Test
+  public void resize_to_zero_min() throws Exception {
+    given(range = new Range(3, 5));
+    when(range.resizeTo(0, MIN));
+    thenReturned(new Range(3, 3));
+  }
+
+  @Test
+  public void resize_to_min_fails_for_negative_value() throws Exception {
+    given(range = new Range(3, 5));
+    when(() -> range.resizeTo(-1, MIN));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void resize_to_max() throws Exception {
+    given(range = new Range(3, 5));
+    when(range.resizeTo(10, MAX));
+    thenReturned(new Range(-5, 5));
+  }
+
+  @Test
+  public void resize_to_zero_max() throws Exception {
+    given(range = new Range(3, 5));
+    when(range.resizeTo(0, MAX));
+    thenReturned(new Range(5, 5));
+  }
+
+  @Test
+  public void resize_to_max_fails_for_negative_value() throws Exception {
+    given(range = new Range(3, 5));
+    when(() -> range.resizeTo(-1, MAX));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void resize_to_center() throws Exception {
+    given(range = new Range(3, 5));
+    when(range.resizeTo(10, CENTER));
+    thenReturned(new Range(-1, 9));
+  }
+
+  @Test
+  public void resize_to_zero_center() throws Exception {
+    given(range = new Range(3, 5));
+    when(range.resizeTo(0, CENTER));
+    thenReturned(new Range(4, 4));
+  }
+
+  @Test
+  public void resize_to_center_fails_for_negative_value() throws Exception {
+    given(range = new Range(3, 5));
+    when(() -> range.resizeTo(-1, CENTER));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
   public void resize_by() throws Exception {
     given(range = new Range(3, 5));
     when(range.resizeBy(2));
