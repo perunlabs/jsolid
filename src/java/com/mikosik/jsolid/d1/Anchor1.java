@@ -42,4 +42,8 @@ public enum Anchor1 {
   public abstract Range moveTo(Range range, double value);
 
   public abstract Range resizeTo(Range range, double size);
+
+  public Range resizeBy(Range range, double delta) {
+    return resizeTo(range, range.size() + delta);
+  }
 }
