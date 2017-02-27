@@ -47,7 +47,11 @@ public final class Range {
   }
 
   public Range resizeBy(double delta) {
-    return resizeTo(size() + delta);
+    return resizeBy(delta, CENTER);
+  }
+
+  public Range resizeBy(double delta, Anchor1 anchor1) {
+    return resizeTo(size() + delta, anchor1);
   }
 
   public Range moveBy(double value) {
