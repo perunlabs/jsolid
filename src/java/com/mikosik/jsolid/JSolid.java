@@ -153,6 +153,22 @@ public class JSolid {
     return new ConvexPolygon(vertexes);
   }
 
+  public static Solid prismXZ(Polygon xzBase, double yRange) {
+    return prismXZ(xzBase, range(yRange));
+  }
+
+  public static Solid prismXZ(Polygon base, Range yRange) {
+    return prism(base, yRange).rotate(x(), 90);
+  }
+
+  public static Solid prismYZ(Polygon yzBase, double xRange) {
+    return prismYZ(yzBase, range(xRange));
+  }
+
+  public static Solid prismYZ(Polygon base, Range xRange) {
+    return prism(base, xRange).rotate(z(), 90).rotate(y(), 90);
+  }
+
   public static Prism prism(Polygon base, double zRange) {
     return new Prism(base, range(zRange));
   }
