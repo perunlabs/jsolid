@@ -145,6 +145,14 @@ public class JSolid {
     return rectangle(range(xRange), range(yRange));
   }
 
+  public static Rectangle rectangle(double xRange, Range yRange) {
+    return rectangle(range(xRange), yRange);
+  }
+
+  public static Rectangle rectangle(Range xRange, double yRange) {
+    return rectangle(xRange, range(yRange));
+  }
+
   public static Rectangle rectangle(Range xRange, Range yRange) {
     return new Rectangle(xRange, yRange, 0);
   }
