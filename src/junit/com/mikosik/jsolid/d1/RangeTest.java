@@ -14,44 +14,44 @@ public class RangeTest {
   private Range range;
 
   @Test
-  public void low_is_calculated_from_constructor_size_param() throws Exception {
+  public void min_is_calculated_from_constructor_size_param() throws Exception {
     given(range = new Range(10));
-    when(range.low);
+    when(range.min);
     thenReturned(-5.0);
   }
 
   @Test
-  public void high_is_calculated_from_constructor_size_param() throws Exception {
+  public void max_is_calculated_from_constructor_size_param() throws Exception {
     given(range = new Range(10));
-    when(range.high);
+    when(range.max);
     thenReturned(5.0);
   }
 
   @Test
-  public void low_returns_first_when_it_is_lower() throws Exception {
+  public void min_returns_first_when_it_is_miner() throws Exception {
     given(range = new Range(3, 5));
-    when(range.low);
+    when(range.min);
     thenReturned(3.0);
   }
 
   @Test
-  public void low_returns_second_when_it_is_lower() throws Exception {
+  public void min_returns_second_when_it_is_miner() throws Exception {
     given(range = new Range(5, 3));
-    when(range.low);
+    when(range.min);
     thenReturned(3.0);
   }
 
   @Test
-  public void high_returns_first_when_it_is_higher() throws Exception {
+  public void max_returns_first_when_it_is_maxer() throws Exception {
     given(range = new Range(5, 3));
-    when(range.high);
+    when(range.max);
     thenReturned(5.0);
   }
 
   @Test
-  public void high_returns_second_when_it_is_higher() throws Exception {
+  public void max_returns_second_when_it_is_maxer() throws Exception {
     given(range = new Range(3, 5));
-    when(range.high);
+    when(range.max);
     thenReturned(5.0);
   }
 
@@ -63,7 +63,7 @@ public class RangeTest {
   }
 
   @Test
-  public void size_for_v2_lower_than_v1() throws Exception {
+  public void size_for_v2_miner_than_v1() throws Exception {
     given(range = new Range(7, 3));
     when(range.size());
     thenReturned(4.0);
@@ -77,50 +77,50 @@ public class RangeTest {
   }
 
   @Test
-  public void center_for_v2_lower_than_v1() throws Exception {
+  public void center_for_v2_miner_than_v1() throws Exception {
     given(range = new Range(7, 3));
     when(range.center());
     thenReturned(5.0);
   }
 
   @Test
-  public void set_low() throws Exception {
+  public void set_min() throws Exception {
     given(range = new Range(3, 5));
-    when(range.low(1));
+    when(range.min(1));
     thenReturned(new Range(1, 5));
   }
 
   @Test
-  public void set_low_with_low_equal_to_high() throws Exception {
+  public void set_min_with_min_equal_to_max() throws Exception {
     given(range = new Range(3, 5));
-    when(range.low(5));
+    when(range.min(5));
     thenReturned(new Range(5, 5));
   }
 
   @Test
-  public void set_low_fails_when_it_is_greater_than_high() throws Exception {
+  public void set_min_fails_when_it_is_greater_than_max() throws Exception {
     given(range = new Range(3, 5));
-    when(() -> range.low(6));
+    when(() -> range.min(6));
     thenThrown(IllegalArgumentException.class);
   }
 
   @Test
-  public void set_high() throws Exception {
+  public void set_max() throws Exception {
     given(range = new Range(3, 5));
-    when(range.high(7));
+    when(range.max(7));
     thenReturned(new Range(3, 7));
   }
 
-  public void set_high_with_low_equal_to_high() throws Exception {
+  public void set_max_with_min_equal_to_max() throws Exception {
     given(range = new Range(3, 5));
-    when(range.high(3));
+    when(range.max(3));
     thenReturned(new Range(3, 3));
   }
 
   @Test
-  public void set_high_fails_when_it_is_lower_than_low() throws Exception {
+  public void set_max_fails_when_it_is_miner_than_min() throws Exception {
     given(range = new Range(3, 5));
-    when(() -> range.high(2));
+    when(() -> range.max(2));
     thenThrown(IllegalArgumentException.class);
   }
 
@@ -237,7 +237,7 @@ public class RangeTest {
   }
 
   @Test
-  public void resize_by_below_zero_fails() throws Exception {
+  public void resize_by_bemin_zero_fails() throws Exception {
     given(range = new Range(3, 5));
     when(() -> range.resizeBy(-3));
     thenThrown(IllegalArgumentException.class);
@@ -342,7 +342,7 @@ public class RangeTest {
   }
 
   @Test
-  public void mul_by_negative_not_allowed() throws Exception {
+  public void mul_by_negative_not_almined() throws Exception {
     given(range = new Range(3, 5));
     when(() -> range.mul(-1));
     thenThrown(IllegalArgumentException.class);
@@ -356,14 +356,14 @@ public class RangeTest {
   }
 
   @Test
-  public void not_equal_low_value() throws Exception {
+  public void not_equal_min_value() throws Exception {
     given(range = new Range(3, 5));
     when(range.equals(new Range(4, 5)));
     thenReturned(false);
   }
 
   @Test
-  public void not_equal_high_value() throws Exception {
+  public void not_equal_max_value() throws Exception {
     given(range = new Range(3, 5));
     when(range.equals(new Range(3, 6)));
     thenReturned(false);

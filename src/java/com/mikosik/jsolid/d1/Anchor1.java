@@ -12,7 +12,7 @@ public enum Anchor1 {
 
     public Range resizeTo(Range range, double size) {
       Check.notNegative(size);
-      return range(range.low, range.low + size);
+      return range(range.min, range.min + size);
     }
   },
   MAX() {
@@ -22,7 +22,7 @@ public enum Anchor1 {
 
     public Range resizeTo(Range range, double size) {
       Check.notNegative(size);
-      return range(range.high - size, range.high);
+      return range(range.max - size, range.max);
     }
   },
   CENTER() {

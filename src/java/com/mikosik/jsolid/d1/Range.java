@@ -6,36 +6,36 @@ import com.mikosik.jsolid.util.Check;
 import com.mikosik.jsolid.util.Hash;
 
 public final class Range {
-  public final double low;
-  public final double high;
+  public final double min;
+  public final double max;
 
   public Range(double size) {
     Check.positive(size);
-    this.low = -size / 2;
-    this.high = size / 2;
+    this.min = -size / 2;
+    this.max = size / 2;
   }
 
   public Range(double v1, double v2) {
-    this.low = v1 < v2 ? v1 : v2;
-    this.high = v1 < v2 ? v2 : v1;
+    this.min = v1 < v2 ? v1 : v2;
+    this.max = v1 < v2 ? v2 : v1;
   }
 
   public double size() {
-    return high - low;
+    return max - min;
   }
 
   public double center() {
-    return (high + low) / 2;
+    return (max + min) / 2;
   }
 
-  public Range low(double low) {
-    Check.notNegative(high - low);
-    return new Range(low, high);
+  public Range min(double min) {
+    Check.notNegative(max - min);
+    return new Range(min, max);
   }
 
-  public Range high(double high) {
-    Check.notNegative(high - low);
-    return new Range(low, high);
+  public Range max(double max) {
+    Check.notNegative(max - min);
+    return new Range(min, max);
   }
 
   public Range resizeTo(double size) {
@@ -55,7 +55,7 @@ public final class Range {
   }
 
   public Range moveBy(double value) {
-    return new Range(low + value, high + value);
+    return new Range(min + value, max + value);
   }
 
   public Range moveTo(Anchor1 anchor, double value) {
@@ -74,14 +74,14 @@ public final class Range {
   }
 
   private boolean equals(Range range) {
-    return this.low == range.low && this.high == range.high;
+    return this.min == range.min && this.max == range.max;
   }
 
   public int hashCode() {
-    return Hash.hash(low, high);
+    return Hash.hash(min, max);
   }
 
   public String toString() {
-    return "range(" + low + ", " + high + ")";
+    return "range(" + min + ", " + max + ")";
   }
 }

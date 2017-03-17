@@ -35,10 +35,10 @@ public final class Rectangle implements Polygon {
   }
 
   public List<Vector2> vertexes() {
-    double x1 = xRange.low;
-    double x2 = xRange.high;
-    double y1 = yRange.low;
-    double y2 = yRange.high;
+    double x1 = xRange.min;
+    double x2 = xRange.max;
+    double y1 = yRange.min;
+    double y2 = yRange.max;
     if (0 < cornerR) {
       return roundedVertexes(x1, y1, x2, y2);
     } else {
