@@ -2,6 +2,8 @@ package com.mikosik.jsolid.d3;
 
 import java.util.List;
 
+import com.mikosik.jsolid.d3.Anchor3.EdgeAnchor;
+
 import eu.mihosoft.vrl.v3d.Polygon;
 
 public interface Solid {
@@ -13,13 +15,19 @@ public interface Solid {
 
   public Solid add(Solid solid);
 
+  public Solid add(Solid solid, EdgeAnchor<?>... edges);
+
   public Solid add(Solid solid, Alignment... alignments);
 
   public Solid sub(Solid solid);
 
+  public Solid sub(Solid solid, EdgeAnchor<?>... edges);
+
   public Solid sub(Solid solid, Alignment... alignments);
 
   public Solid intersect(Solid solid);
+
+  public Solid intersect(Solid solid, EdgeAnchor<?>... edges);
 
   public Solid intersect(Solid solid, Alignment... alignments);
 
