@@ -42,4 +42,6 @@ public interface Solid {
   public Solid scale(Axis<?> direction, double factor);
 
   public Solid convexHull();
+
+  public Solid mirroredTwins(Vector3 shift);
 }

@@ -1,5 +1,8 @@
 package com.mikosik.jsolid.d3.op;
 
+import static com.mikosik.jsolid.JSolid.x;
+import static com.mikosik.jsolid.JSolid.y;
+import static com.mikosik.jsolid.JSolid.z;
 import static com.mikosik.jsolid.util.Lists.immutable;
 import static java.util.stream.Collectors.toList;
 
@@ -119,5 +122,30 @@ public abstract class AbstractSolid implements Solid {
 
   public Solid convexHull() {
     return new ConvexHullSolid(this);
+  }
+
+  public Solid mirroredTwins(Vector3 shift) {
+    Solid shifted = moveBy(shift);
+    return shifted
+        .add(shifted.mirror(getOnlyComponent(shift)));
+  }
+
+  private static Axis<?> getOnlyComponent(Vector3 shift) {
+    int nonZeroComponents = nonZeroToOne(shift.x) + nonZeroToOne(shift.y) + nonZeroToOne(shift.z);
+    if (nonZeroComponents != 1) {
+      throw new IllegalArgumentException(
+          "Shift should contain only one non zero component but is " + shift);
+    }
+    if (shift.x != 0) {
+      return x();
+    }
+    if (shift.y != 0) {
+      return y();
+    }
+    return z();
+  }
+
+  private static int nonZeroToOne(double x) {
+    return x == 0 ? 0 : 1;
   }
 }
