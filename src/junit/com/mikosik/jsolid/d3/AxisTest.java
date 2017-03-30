@@ -99,6 +99,20 @@ public class AxisTest {
   }
 
   @Test
+  public void minX_with_margin() throws Exception {
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.X.min(3).valueIn(cuboid));
+    thenReturned(-2.0);
+  }
+
+  @Test
+  public void minX_with_margin_other() throws Exception {
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.X.min(3).other().valueIn(cuboid));
+    thenReturned(5.0);
+  }
+
+  @Test
   public void centerX() {
     given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
     when(Axis.X.center().valueIn(cuboid));
@@ -120,6 +134,20 @@ public class AxisTest {
   }
 
   @Test
+  public void maxX_with_margin() throws Exception {
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.X.max(3).valueIn(cuboid));
+    thenReturned(5.0);
+  }
+
+  @Test
+  public void maxX_with_margin_other() throws Exception {
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.X.max(3).other().valueIn(cuboid));
+    thenReturned(-2.0);
+  }
+
+  @Test
   public void sizeX() throws Exception {
     given(cuboid = cuboid(range(1, 2), range(1, 3), range(1, 4)));
     when(Axis.X.size(cuboid));
@@ -131,6 +159,20 @@ public class AxisTest {
     given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
     when(Axis.Y.min().valueIn(cuboid));
     thenReturned(3.0);
+  }
+
+  @Test
+  public void minY_with_margin() throws Exception {
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Y.min(5).valueIn(cuboid));
+    thenReturned(-2.0);
+  }
+
+  @Test
+  public void minY_with_margin_other() throws Exception {
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Y.min(5).other().valueIn(cuboid));
+    thenReturned(9.0);
   }
 
   @Test
@@ -155,6 +197,20 @@ public class AxisTest {
   }
 
   @Test
+  public void maxY_with_margin() throws Exception {
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Y.max(3).valueIn(cuboid));
+    thenReturned(7.0);
+  }
+
+  @Test
+  public void maxY_with_margin_other() throws Exception {
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Y.max(3).other().valueIn(cuboid));
+    thenReturned(0.0);
+  }
+
+  @Test
   public void sizeY() throws Exception {
     given(cuboid = cuboid(range(1, 2), range(1, 3), range(1, 4)));
     when(Axis.Y.size(cuboid));
@@ -166,6 +222,20 @@ public class AxisTest {
     given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
     when(Axis.Z.min().valueIn(cuboid));
     thenReturned(5.0);
+  }
+
+  @Test
+  public void minZ_with_margin() throws Exception {
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Z.min(3).valueIn(cuboid));
+    thenReturned(2.0);
+  }
+
+  @Test
+  public void minZ_with_margin_other() throws Exception {
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Z.min(3).other().valueIn(cuboid));
+    thenReturned(9.0);
   }
 
   @Test
@@ -187,6 +257,20 @@ public class AxisTest {
     given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
     when(Axis.Z.max().valueIn(cuboid));
     thenReturned(6.0);
+  }
+
+  @Test
+  public void maxZ_with_margin() throws Exception {
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Z.max(3).valueIn(cuboid));
+    thenReturned(9.0);
+  }
+
+  @Test
+  public void maxZ_with_margin_other() throws Exception {
+    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
+    when(Axis.Z.max(3).other().valueIn(cuboid));
+    thenReturned(2.0);
   }
 
   @Test

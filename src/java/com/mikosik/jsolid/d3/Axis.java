@@ -36,11 +36,19 @@ public abstract class Axis<A extends Axis<A>> extends Vector3 {
   public abstract Matrix4 scaleMatrix(double factor);
 
   public EdgeAnchor<A> min() {
-    return new EdgeAnchor<>(this, minReduce(), MAX_VALUE, this::max);
+    return min(0);
+  }
+
+  public EdgeAnchor<A> min(double margin) {
+    return new EdgeAnchor<A>(this, -margin, minReduce(), MAX_VALUE, () -> max(margin));
   }
 
   public EdgeAnchor<A> max() {
-    return new EdgeAnchor<>(this, maxReduce(), MIN_VALUE, this::min);
+    return max(0);
+  }
+
+  public EdgeAnchor<A> max(double margin) {
+    return new EdgeAnchor<>(this, margin, maxReduce(), MIN_VALUE, () -> min(margin));
   }
 
   public Anchor3<A> center() {

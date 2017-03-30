@@ -17,13 +17,15 @@ public abstract class Anchor3<A extends Axis<A>> {
   }
 
   public static class EdgeAnchor<A extends Axis<A>> extends Anchor3<A> {
+    private final double margin;
     private final BinaryOperator<Double> reduceOperation;
     private final double reduceIdentity;
     private final Supplier<EdgeAnchor<A>> other;
 
-    public EdgeAnchor(Axis<A> axis, BinaryOperator<Double> reduceOperation,
+    public EdgeAnchor(Axis<A> axis, double margin, BinaryOperator<Double> reduceOperation,
         double reduceIdentity, Supplier<EdgeAnchor<A>> other) {
       super(axis);
+      this.margin = margin;
       this.reduceOperation = reduceOperation;
       this.reduceIdentity = reduceIdentity;
       this.other = other;
@@ -32,7 +34,8 @@ public abstract class Anchor3<A extends Axis<A>> {
     public double valueIn(Solid solid) {
       return solid.vertexes().stream()
           .map(v -> axis.coordinate(v))
-          .reduce(reduceIdentity, reduceOperation);
+          .reduce(reduceIdentity, reduceOperation)
+          + margin;
     }
 
     public EdgeAnchor<A> other() {

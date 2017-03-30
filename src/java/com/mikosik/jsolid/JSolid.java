@@ -110,27 +110,51 @@ public class JSolid {
   }
 
   public static EdgeAnchor<XAxis> maxX() {
-    return x().max();
+    return maxX(0);
+  }
+
+  public static EdgeAnchor<XAxis> maxX(double margin) {
+    return x().max(margin);
   }
 
   public static EdgeAnchor<XAxis> minX() {
-    return x().min();
+    return minX(0);
+  }
+
+  private static EdgeAnchor<XAxis> minX(double margin) {
+    return x().min(margin);
   }
 
   public static EdgeAnchor<YAxis> maxY() {
-    return y().max();
+    return maxY(0);
+  }
+
+  private static EdgeAnchor<YAxis> maxY(double margin) {
+    return y().max(margin);
   }
 
   public static EdgeAnchor<YAxis> minY() {
-    return y().min();
+    return minY(0);
+  }
+
+  private static EdgeAnchor<YAxis> minY(double margin) {
+    return y().min(margin);
   }
 
   public static EdgeAnchor<ZAxis> maxZ() {
-    return z().max();
+    return maxZ(0);
+  }
+
+  private static EdgeAnchor<ZAxis> maxZ(double margin) {
+    return z().max(margin);
   }
 
   public static EdgeAnchor<ZAxis> minZ() {
-    return z().min();
+    return minZ(0);
+  }
+
+  private static EdgeAnchor<ZAxis> minZ(double margin) {
+    return z().min(margin);
   }
 
   public static Polygon regularPolygon(double radius, int vertexCount) {
