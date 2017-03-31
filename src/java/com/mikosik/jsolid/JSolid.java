@@ -105,7 +105,7 @@ public class JSolid {
   }
 
   public static <A extends Axis<A>> Alignment align(Anchor3<A> anchor1, Anchor3<A> anchor2) {
-    return new Alignment(anchor1, anchor2);
+    return new Alignment(anchor1, anchor2, 0);
   }
 
   public static EdgeAnchor<XAxis> maxX() {
