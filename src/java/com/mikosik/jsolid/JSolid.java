@@ -98,11 +98,11 @@ public class JSolid {
   }
 
   public static <A extends Axis<A>> Alignment alignOutside(EdgeAnchor<A> anchor) {
-    return align(anchor, anchor.other());
+    return align(anchor, anchor.other().withoutMargin());
   }
 
-  public static <A extends Axis<A>> Alignment align(Anchor3<A> anchor) {
-    return align(anchor, anchor);
+  public static <A extends Axis<A>> Alignment align(EdgeAnchor<A> anchor) {
+    return align(anchor, anchor.withoutMargin());
   }
 
   public static <A extends Axis<A>> Alignment align(Anchor3<A> anchor1, Anchor3<A> anchor2) {

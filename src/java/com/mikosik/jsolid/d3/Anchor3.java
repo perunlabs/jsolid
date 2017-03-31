@@ -41,6 +41,10 @@ public abstract class Anchor3<A extends Axis<A>> {
     public EdgeAnchor<A> other() {
       return other.get();
     }
+
+    public EdgeAnchor<A> withoutMargin() {
+      return new EdgeAnchor<>(axis, 0, reduceOperation, reduceIdentity, other);
+    }
   }
 
   public static class CenterAnchor<A extends Axis<A>> extends Anchor3<A> {
