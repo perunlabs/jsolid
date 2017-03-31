@@ -121,7 +121,7 @@ public class JSolid {
     return minX(0);
   }
 
-  private static EdgeAnchor<XAxis> minX(double margin) {
+  public static EdgeAnchor<XAxis> minX(double margin) {
     return x().min(margin);
   }
 
@@ -129,7 +129,7 @@ public class JSolid {
     return maxY(0);
   }
 
-  private static EdgeAnchor<YAxis> maxY(double margin) {
+  public static EdgeAnchor<YAxis> maxY(double margin) {
     return y().max(margin);
   }
 
@@ -137,7 +137,7 @@ public class JSolid {
     return minY(0);
   }
 
-  private static EdgeAnchor<YAxis> minY(double margin) {
+  public static EdgeAnchor<YAxis> minY(double margin) {
     return y().min(margin);
   }
 
@@ -145,7 +145,7 @@ public class JSolid {
     return maxZ(0);
   }
 
-  private static EdgeAnchor<ZAxis> maxZ(double margin) {
+  public static EdgeAnchor<ZAxis> maxZ(double margin) {
     return z().max(margin);
   }
 
@@ -153,7 +153,7 @@ public class JSolid {
     return minZ(0);
   }
 
-  private static EdgeAnchor<ZAxis> minZ(double margin) {
+  public static EdgeAnchor<ZAxis> minZ(double margin) {
     return z().min(margin);
   }
 
