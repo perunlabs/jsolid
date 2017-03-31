@@ -1,5 +1,6 @@
 package com.mikosik.jsolid;
 
+import static com.mikosik.jsolid.JSolid.align;
 import static com.mikosik.jsolid.JSolid.alignOutside;
 import static com.mikosik.jsolid.JSolid.cuboid;
 import static com.mikosik.jsolid.JSolid.maxX;
@@ -8,6 +9,9 @@ import static com.mikosik.jsolid.JSolid.maxZ;
 import static com.mikosik.jsolid.JSolid.minX;
 import static com.mikosik.jsolid.JSolid.minY;
 import static com.mikosik.jsolid.JSolid.minZ;
+import static com.mikosik.jsolid.JSolid.x;
+import static com.mikosik.jsolid.JSolid.y;
+import static com.mikosik.jsolid.JSolid.z;
 import static org.testory.Testory.given;
 import static org.testory.Testory.thenReturned;
 import static org.testory.Testory.when;
@@ -124,7 +128,7 @@ public class AligningTest {
   @Test
   public void align_minx_with_margin() throws Exception {
     given(solid = cuboid(2, 2, 2));
-    given(solid = solid.add(cuboid(1, 1, 1), minX(3)));
+    given(solid = solid.add(cuboid(1, 1, 1), align(minX(), 3)));
     when(minX().valueIn(solid));
     thenReturned(-4.0);
   }
@@ -132,7 +136,7 @@ public class AligningTest {
   @Test
   public void align_maxx_with_margin() throws Exception {
     given(solid = cuboid(2, 2, 2));
-    given(solid = solid.add(cuboid(1, 1, 1), maxX(3)));
+    given(solid = solid.add(cuboid(1, 1, 1), align(maxX(), 3)));
     when(maxX().valueIn(solid));
     thenReturned(4.0);
   }
@@ -140,7 +144,7 @@ public class AligningTest {
   @Test
   public void align_miny_with_margin() throws Exception {
     given(solid = cuboid(2, 2, 2));
-    given(solid = solid.add(cuboid(1, 1, 1), minY(3)));
+    given(solid = solid.add(cuboid(1, 1, 1), align(minY(), 3)));
     when(minY().valueIn(solid));
     thenReturned(-4.0);
   }
@@ -148,7 +152,7 @@ public class AligningTest {
   @Test
   public void align_maxy_with_margin() throws Exception {
     given(solid = cuboid(2, 2, 2));
-    given(solid = solid.add(cuboid(1, 1, 1), maxY(3)));
+    given(solid = solid.add(cuboid(1, 1, 1), align(maxY(), 3)));
     when(maxY().valueIn(solid));
     thenReturned(4.0);
   }
@@ -156,7 +160,7 @@ public class AligningTest {
   @Test
   public void align_minz_with_margin() throws Exception {
     given(solid = cuboid(2, 2, 2));
-    given(solid = solid.add(cuboid(1, 1, 1), minZ(3)));
+    given(solid = solid.add(cuboid(1, 1, 1), align(minZ(), 3)));
     when(minZ().valueIn(solid));
     thenReturned(-4.0);
   }
@@ -164,7 +168,7 @@ public class AligningTest {
   @Test
   public void align_maxz_with_margin() throws Exception {
     given(solid = cuboid(2, 2, 2));
-    given(solid = solid.add(cuboid(1, 1, 1), maxZ(3)));
+    given(solid = solid.add(cuboid(1, 1, 1), align(maxZ(), 3)));
     when(maxZ().valueIn(solid));
     thenReturned(4.0);
   }
@@ -174,7 +178,7 @@ public class AligningTest {
   @Test
   public void alignOutside_minx_with_margin() throws Exception {
     given(solid = cuboid(2, 2, 2));
-    given(solid = solid.add(cuboid(1, 1, 1), alignOutside(minX(3))));
+    given(solid = solid.add(cuboid(1, 1, 1), alignOutside(minX(), 3)));
     when(minX().valueIn(solid));
     thenReturned(-5.0);
   }
@@ -182,7 +186,7 @@ public class AligningTest {
   @Test
   public void alignOutside_maxx_with_margin() throws Exception {
     given(solid = cuboid(2, 2, 2));
-    given(solid = solid.add(cuboid(1, 1, 1), alignOutside(maxX(3))));
+    given(solid = solid.add(cuboid(1, 1, 1), alignOutside(maxX(), 3)));
     when(maxX().valueIn(solid));
     thenReturned(5.0);
   }
@@ -190,7 +194,7 @@ public class AligningTest {
   @Test
   public void alignOutside_miny_with_margin() throws Exception {
     given(solid = cuboid(2, 2, 2));
-    given(solid = solid.add(cuboid(1, 1, 1), alignOutside(minY(3))));
+    given(solid = solid.add(cuboid(1, 1, 1), alignOutside(minY(), 3)));
     when(minY().valueIn(solid));
     thenReturned(-5.0);
   }
@@ -198,7 +202,7 @@ public class AligningTest {
   @Test
   public void alignOutside_maxy_with_margin() throws Exception {
     given(solid = cuboid(2, 2, 2));
-    given(solid = solid.add(cuboid(1, 1, 1), alignOutside(maxY(3))));
+    given(solid = solid.add(cuboid(1, 1, 1), alignOutside(maxY(), 3)));
     when(maxY().valueIn(solid));
     thenReturned(5.0);
   }
@@ -206,7 +210,7 @@ public class AligningTest {
   @Test
   public void alignOutside_minz_with_margin() throws Exception {
     given(solid = cuboid(2, 2, 2));
-    given(solid = solid.add(cuboid(1, 1, 1), alignOutside(minZ(3))));
+    given(solid = solid.add(cuboid(1, 1, 1), alignOutside(minZ(), 3)));
     when(minZ().valueIn(solid));
     thenReturned(-5.0);
   }
@@ -214,8 +218,58 @@ public class AligningTest {
   @Test
   public void alignOutside_maxz_with_margin() throws Exception {
     given(solid = cuboid(2, 2, 2));
-    given(solid = solid.add(cuboid(1, 1, 1), alignOutside(maxZ(3))));
+    given(solid = solid.add(cuboid(1, 1, 1), alignOutside(maxZ(), 3)));
     when(maxZ().valueIn(solid));
     thenReturned(5.0);
+  }
+
+  // align_???_with_margin
+
+  @Test
+  public void align_center_and_minx_with_margin() throws Exception {
+    given(solid = cuboid(2, 2, 2));
+    given(solid = solid.add(cuboid(1, 1, 1), align(x().center(), 3, minX())));
+    when(maxX().valueIn(solid));
+    thenReturned(4.0);
+  }
+
+  @Test
+  public void align_center_and_maxx_with_margin() throws Exception {
+    given(solid = cuboid(2, 2, 2));
+    given(solid = solid.add(cuboid(1, 1, 1), align(x().center(), 3, maxX())));
+    when(minX().valueIn(solid));
+    thenReturned(-4.0);
+  }
+
+  @Test
+  public void align_center_and_miny_with_margin() throws Exception {
+    given(solid = cuboid(2, 2, 2));
+    given(solid = solid.add(cuboid(1, 1, 1), align(y().center(), 3, minY())));
+    when(maxY().valueIn(solid));
+    thenReturned(4.0);
+  }
+
+  @Test
+  public void align_center_and_maxy_with_margin() throws Exception {
+    given(solid = cuboid(2, 2, 2));
+    given(solid = solid.add(cuboid(1, 1, 1), align(y().center(), 3, maxY())));
+    when(minY().valueIn(solid));
+    thenReturned(-4.0);
+  }
+
+  @Test
+  public void align_center_and_minz_with_margin() throws Exception {
+    given(solid = cuboid(2, 2, 2));
+    given(solid = solid.add(cuboid(1, 1, 1), align(z().center(), 3, minZ())));
+    when(maxZ().valueIn(solid));
+    thenReturned(4.0);
+  }
+
+  @Test
+  public void align_center_and_maxz_with_margin() throws Exception {
+    given(solid = cuboid(2, 2, 2));
+    given(solid = solid.add(cuboid(1, 1, 1), align(z().center(), 3, maxZ())));
+    when(minZ().valueIn(solid));
+    thenReturned(-4.0);
   }
 }

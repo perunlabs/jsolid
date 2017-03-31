@@ -97,63 +97,62 @@ public class JSolid {
   }
 
   public static <A extends Axis<A>> Alignment alignOutside(EdgeAnchor<A> anchor) {
-    return align(anchor, anchor.other().withoutMargin());
+    return align(anchor, anchor.other());
+  }
+
+  public static <A extends Axis<A>> Alignment alignOutside(EdgeAnchor<A> anchor, double margin) {
+    return align(anchor, margin, anchor.other());
   }
 
   public static <A extends Axis<A>> Alignment align(EdgeAnchor<A> anchor) {
-    return align(anchor, anchor.withoutMargin());
+    return align(anchor, anchor);
+  }
+
+  public static <A extends Axis<A>> Alignment align(EdgeAnchor<A> anchor, double margin) {
+    return align(anchor, margin, anchor);
   }
 
   public static <A extends Axis<A>> Alignment align(Anchor3<A> anchor1, Anchor3<A> anchor2) {
     return new Alignment(anchor1, anchor2, 0);
   }
 
-  public static EdgeAnchor<XAxis> maxX() {
-    return maxX(0);
+  public static <A extends Axis<A>> Alignment align(EdgeAnchor<A> anchor1, double margin,
+      EdgeAnchor<A> anchor2) {
+    return align(anchor1, margin, (Anchor3<A>) anchor2);
   }
 
-  public static EdgeAnchor<XAxis> maxX(double margin) {
-    return x().max(margin);
+  public static <A extends Axis<A>> Alignment align(EdgeAnchor<A> anchor1, double margin,
+      Anchor3<A> anchor2) {
+    return new Alignment(anchor1, anchor2, anchor1.sign() * margin);
+  }
+
+  public static <A extends Axis<A>> Alignment align(Anchor3<A> anchor1, double margin,
+      EdgeAnchor<A> anchor2) {
+    return new Alignment(anchor1, anchor2, -anchor2.sign() * margin);
+  }
+
+  public static EdgeAnchor<XAxis> maxX() {
+    return x().max();
   }
 
   public static EdgeAnchor<XAxis> minX() {
-    return minX(0);
-  }
-
-  public static EdgeAnchor<XAxis> minX(double margin) {
-    return x().min(margin);
+    return x().min();
   }
 
   public static EdgeAnchor<YAxis> maxY() {
-    return maxY(0);
-  }
-
-  public static EdgeAnchor<YAxis> maxY(double margin) {
-    return y().max(margin);
+    return y().max();
   }
 
   public static EdgeAnchor<YAxis> minY() {
-    return minY(0);
-  }
-
-  public static EdgeAnchor<YAxis> minY(double margin) {
-    return y().min(margin);
+    return y().min();
   }
 
   public static EdgeAnchor<ZAxis> maxZ() {
-    return maxZ(0);
-  }
-
-  public static EdgeAnchor<ZAxis> maxZ(double margin) {
-    return z().max(margin);
+    return z().max();
   }
 
   public static EdgeAnchor<ZAxis> minZ() {
-    return minZ(0);
-  }
-
-  public static EdgeAnchor<ZAxis> minZ(double margin) {
-    return z().min(margin);
+    return z().min();
   }
 
   public static Polygon regularPolygon(double radius, int vertexCount) {
