@@ -21,7 +21,6 @@ import com.mikosik.jsolid.d3.Axis;
 import com.mikosik.jsolid.d3.Axis.XAxis;
 import com.mikosik.jsolid.d3.Axis.YAxis;
 import com.mikosik.jsolid.d3.Axis.ZAxis;
-import com.mikosik.jsolid.d3.AxisAlignment;
 import com.mikosik.jsolid.d3.Cuboid;
 import com.mikosik.jsolid.d3.Cylinder;
 import com.mikosik.jsolid.d3.Matrix4;
@@ -106,7 +105,7 @@ public class JSolid {
   }
 
   public static <A extends Axis<A>> Alignment align(Anchor3<A> anchor1, Anchor3<A> anchor2) {
-    return new AxisAlignment<>(anchor1, anchor2);
+    return new Alignment(anchor1, anchor2);
   }
 
   public static EdgeAnchor<XAxis> maxX() {
