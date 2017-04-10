@@ -228,19 +228,19 @@ public class JSolid {
   }
 
   public static Cuboid cuboid(double xRange, Range yRange, Range zRange) {
-    return new Cuboid(range(xRange), yRange, zRange);
+    return cuboid(range(xRange), yRange, zRange);
   }
 
   public static Cuboid cuboid(Range xRange, double yRange, Range zRange) {
-    return new Cuboid(xRange, range(yRange), zRange);
+    return cuboid(xRange, range(yRange), zRange);
   }
 
   public static Cuboid cuboid(Range xRange, Range yRange, double zRange) {
-    return new Cuboid(xRange, yRange, range(zRange));
+    return cuboid(xRange, yRange, range(zRange));
   }
 
   public static Cuboid cuboid(Range xRange, Range yRange, Range zRange) {
-    return new Cuboid(xRange, yRange, zRange);
+    return new Cuboid(xRange, yRange, zRange, 0, 0, 0);
   }
 
   public static Solid convexHull(Vector3... vertexes) {
