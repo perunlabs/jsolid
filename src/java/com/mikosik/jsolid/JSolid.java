@@ -7,6 +7,7 @@ import static java.util.Arrays.asList;
 
 import java.util.List;
 
+import com.mikosik.jsolid.d1.Anchor1;
 import com.mikosik.jsolid.d1.Range;
 import com.mikosik.jsolid.d2.Circle;
 import com.mikosik.jsolid.d2.ConvexPolygon;
@@ -34,6 +35,18 @@ public class JSolid {
 
   public static Config config() {
     return CONFIG;
+  }
+
+  public static Anchor1 min() {
+    return Anchor1.MIN;
+  }
+
+  public static Anchor1 max() {
+    return Anchor1.MAX;
+  }
+
+  public static Anchor1 center() {
+    return Anchor1.CENTER;
   }
 
   public static Range range(double length) {

@@ -1,7 +1,6 @@
 package com.mikosik.jsolid.d1;
 
-import static com.mikosik.jsolid.d1.Anchor1.CENTER;
-
+import com.mikosik.jsolid.JSolid;
 import com.mikosik.jsolid.util.Check;
 import com.mikosik.jsolid.util.Hash;
 
@@ -39,7 +38,7 @@ public final class Range {
   }
 
   public Range resizeTo(double size) {
-    return resizeTo(size, CENTER);
+    return resizeTo(size, JSolid.center());
   }
 
   public Range resizeTo(double size, Anchor1 anchor1) {
@@ -47,7 +46,7 @@ public final class Range {
   }
 
   public Range resizeBy(double delta) {
-    return resizeBy(delta, CENTER);
+    return resizeBy(delta, JSolid.center());
   }
 
   public Range resizeBy(double delta, Anchor1 anchor1) {
