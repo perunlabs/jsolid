@@ -2,6 +2,7 @@ package com.mikosik.jsolid.d3;
 
 import static com.mikosik.jsolid.JSolid.prism;
 import static com.mikosik.jsolid.JSolid.rectangle;
+import static java.lang.Double.MAX_VALUE;
 
 import java.util.List;
 
@@ -28,8 +29,9 @@ public final class Cuboid extends AbstractSolid {
     return new Cuboid(base.cornerR(radius), zRange);
   }
 
+  @Deprecated
   public Cuboid zCornerRMax() {
-    return new Cuboid(base.cornerRMax(), zRange);
+    return zCornerR(MAX_VALUE);
   }
 
   protected List<Polygon> calculateSides() {

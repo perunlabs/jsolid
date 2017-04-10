@@ -1,6 +1,7 @@
 package com.mikosik.jsolid.d2;
 
 import static com.mikosik.jsolid.JSolid.v;
+import static java.lang.Double.MAX_VALUE;
 import static java.lang.Math.PI;
 import static java.lang.Math.cos;
 import static java.lang.Math.min;
@@ -30,8 +31,9 @@ public final class Rectangle implements Polygon {
     return new Rectangle(xRange, yRange, radius);
   }
 
+  @Deprecated
   public Rectangle cornerRMax() {
-    return new Rectangle(xRange, yRange, Double.MAX_VALUE);
+    return cornerR(MAX_VALUE);
   }
 
   public List<Vector2> vertexes() {

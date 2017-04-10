@@ -19,7 +19,7 @@ public class RectangleTest {
 
   @Test
   public void rounded_rectangle_vertexes_are_convex_and_counter_clockwise() throws Exception {
-    given(rectangle = new Rectangle(range(10), range(20), 0).cornerRMax());
+    given(rectangle = new Rectangle(range(10), range(20), 0).cornerR(100));
     when(Geometry.isConvexCounterClockwisePolygon(rectangle.vertexes()));
     thenReturned(true);
   }
