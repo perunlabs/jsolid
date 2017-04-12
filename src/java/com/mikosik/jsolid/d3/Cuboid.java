@@ -7,7 +7,6 @@ import static com.mikosik.jsolid.JSolid.rectangle;
 import static com.mikosik.jsolid.JSolid.x;
 import static com.mikosik.jsolid.JSolid.y;
 import static com.mikosik.jsolid.JSolid.z;
-import static java.lang.Double.MAX_VALUE;
 
 import java.util.List;
 
@@ -35,11 +34,6 @@ public final class Cuboid extends AbstractSolid {
     this.zRadius = zRadius;
   }
 
-  @Deprecated
-  public Cuboid zCornerR(double radius) {
-    return cornerR(z(), radius);
-  }
-
   public Cuboid cornerR(Axis<?> axis, double radius) {
     if (radius < 0) {
       throw new IllegalArgumentException("radius must be greater than 0, but is == " + radius);
@@ -53,11 +47,6 @@ public final class Cuboid extends AbstractSolid {
     } else {
       throw new IllegalArgumentException("Unknown axis: " + axis);
     }
-  }
-
-  @Deprecated
-  public Cuboid zCornerRMax() {
-    return zCornerR(MAX_VALUE);
   }
 
   protected List<Polygon> calculateSides() {
