@@ -68,6 +68,10 @@ public final class Range {
     return new Range(center - newHalfSize, center + newHalfSize);
   }
 
+  public Range neg() {
+    return new Range(-min, -max);
+  }
+
   public boolean equals(Object object) {
     return object instanceof Range && equals((Range) object);
   }

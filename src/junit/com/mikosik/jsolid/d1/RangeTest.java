@@ -350,6 +350,13 @@ public class RangeTest {
   }
 
   @Test
+  public void negate() throws Exception {
+    given(range = range(-3, 5));
+    when(() -> range.neg());
+    thenReturned(range(-5, 3));
+  }
+
+  @Test
   public void equal_ranges() throws Exception {
     given(range = range(3, 5));
     when(range.equals(range(3, 5)));
