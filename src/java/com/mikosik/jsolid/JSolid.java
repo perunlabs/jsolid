@@ -201,7 +201,7 @@ public class JSolid {
   }
 
   public static Solid prismXZ(Polygon base, Range yRange) {
-    return prism(base, yRange).rotate(x(), 90);
+    return prism(base, yRange.neg()).rotate(x(), 90);
   }
 
   public static Solid prismYZ(Polygon yzBase, double xRange) {
