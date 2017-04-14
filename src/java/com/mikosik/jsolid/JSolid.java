@@ -38,15 +38,15 @@ public class JSolid {
   }
 
   public static Anchor1 min() {
-    return Anchor1.MIN;
+    return Anchor1.min();
   }
 
   public static Anchor1 max() {
-    return Anchor1.MAX;
+    return Anchor1.max();
   }
 
   public static Anchor1 center() {
-    return Anchor1.CENTER;
+    return Anchor1.center();
   }
 
   public static Range range(double length) {
