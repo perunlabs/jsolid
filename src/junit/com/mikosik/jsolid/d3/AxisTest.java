@@ -92,31 +92,10 @@ public class AxisTest {
   }
 
   @Test
-  public void minX() throws Exception {
-    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.X.min().valueIn(cuboid));
-    thenReturned(1.0);
-  }
-
-  @Test
-  public void centerX() {
-    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.X.center().valueIn(cuboid));
-    thenReturned(1.5);
-  }
-
-  @Test
   public void zeroX() {
     given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
     when(Axis.X.zero().valueIn(cuboid));
     thenReturned(0.0);
-  }
-
-  @Test
-  public void maxX() throws Exception {
-    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.X.max().valueIn(cuboid));
-    thenReturned(2.0);
   }
 
   @Test
@@ -127,31 +106,10 @@ public class AxisTest {
   }
 
   @Test
-  public void minY() throws Exception {
-    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Y.min().valueIn(cuboid));
-    thenReturned(3.0);
-  }
-
-  @Test
-  public void centerY() {
-    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Y.center().valueIn(cuboid));
-    thenReturned(3.5);
-  }
-
-  @Test
   public void zeroY() {
     given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
     when(Axis.Y.zero().valueIn(cuboid));
     thenReturned(0.0);
-  }
-
-  @Test
-  public void maxY() throws Exception {
-    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Y.max().valueIn(cuboid));
-    thenReturned(4.0);
   }
 
   @Test
@@ -162,31 +120,10 @@ public class AxisTest {
   }
 
   @Test
-  public void minZ() throws Exception {
-    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Z.min().valueIn(cuboid));
-    thenReturned(5.0);
-  }
-
-  @Test
-  public void centerZ() {
-    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Z.center().valueIn(cuboid));
-    thenReturned(5.5);
-  }
-
-  @Test
   public void zeroZ() {
     given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
     when(Axis.Z.zero().valueIn(cuboid));
     thenReturned(0.0);
-  }
-
-  @Test
-  public void maxZ() throws Exception {
-    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Z.max().valueIn(cuboid));
-    thenReturned(6.0);
   }
 
   @Test

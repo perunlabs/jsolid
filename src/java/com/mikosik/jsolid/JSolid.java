@@ -148,6 +148,10 @@ public class JSolid {
     return x().max();
   }
 
+  public static Anchor3<XAxis> centerX() {
+    return x().center();
+  }
+
   public static EdgeAnchor3<XAxis> minX() {
     return x().min();
   }
@@ -156,12 +160,20 @@ public class JSolid {
     return y().max();
   }
 
+  public static Anchor3<YAxis> centerY() {
+    return y().center();
+  }
+
   public static EdgeAnchor3<YAxis> minY() {
     return y().min();
   }
 
   public static EdgeAnchor3<ZAxis> maxZ() {
     return z().max();
+  }
+
+  public static Anchor3<ZAxis> centerZ() {
+    return z().center();
   }
 
   public static EdgeAnchor3<ZAxis> minZ() {
