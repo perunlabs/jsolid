@@ -1,10 +1,6 @@
 package com.mikosik.jsolid.d3;
 
 import static com.mikosik.jsolid.JSolid.matrix;
-import static java.lang.Double.MAX_VALUE;
-import static java.lang.Double.MIN_VALUE;
-
-import java.util.function.BinaryOperator;
 
 import com.mikosik.jsolid.JSolid;
 import com.mikosik.jsolid.d1.Range;
@@ -36,11 +32,11 @@ public abstract class Axis<A extends Axis<A>> extends Vector3 {
   public abstract Matrix4 scaleMatrix(double factor);
 
   public EdgeAnchor3<A> min() {
-    return new EdgeAnchor3<A>(this, minReduce(), MAX_VALUE, this::max);
+    return new EdgeAnchor3<A>(this, JSolid.min(), this::max);
   }
 
   public EdgeAnchor3<A> max() {
-    return new EdgeAnchor3<>(this, maxReduce(), MIN_VALUE, this::min);
+    return new EdgeAnchor3<>(this, JSolid.max(), this::min);
   }
 
   public Anchor3<A> center() {
@@ -177,13 +173,5 @@ public abstract class Axis<A extends Axis<A>> extends Vector3 {
           0, 0, 0, 1);
     }
 
-  }
-
-  private static BinaryOperator<Double> minReduce() {
-    return (a, b) -> a < b ? a : b;
-  }
-
-  private static BinaryOperator<Double> maxReduce() {
-    return (a, b) -> a < b ? b : a;
   }
 }
