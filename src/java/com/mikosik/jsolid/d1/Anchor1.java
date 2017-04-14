@@ -2,6 +2,9 @@ package com.mikosik.jsolid.d1;
 
 import static com.mikosik.jsolid.JSolid.range;
 
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
 import com.mikosik.jsolid.util.Check;
 
 public abstract class Anchor1 {
@@ -15,7 +18,17 @@ public abstract class Anchor1 {
         Check.notNegative(size);
         return range(range.min, range.min + size);
       }
+
+      public double of(Iterable<Double> values) {
+        return stream(values)
+            .reduce((a, b) -> a < b ? a : b)
+            .orElseThrow(() -> new IllegalArgumentException());
+      }
     };
+  }
+
+  private static <T> Stream<T> stream(Iterable<T> iterable) {
+    return StreamSupport.stream(iterable.spliterator(), false);
   }
 
   public static Anchor1 max() {
@@ -27,6 +40,12 @@ public abstract class Anchor1 {
       public Range resizeTo(Range range, double size) {
         Check.notNegative(size);
         return range(range.max - size, range.max);
+      }
+
+      public double of(Iterable<Double> values) {
+        return stream(values)
+            .reduce((a, b) -> a < b ? b : a)
+            .orElseThrow(() -> new IllegalArgumentException());
       }
     };
   }
@@ -44,12 +63,20 @@ public abstract class Anchor1 {
         double halfSize = size / 2;
         return range(center - halfSize, center + halfSize);
       }
+
+      public double of(Iterable<Double> values) {
+        double min = min().of(values);
+        double max = max().of(values);
+        return (min + max) / 2;
+      }
     };
   }
 
   public abstract Range moveTo(Range range, double value);
 
   public abstract Range resizeTo(Range range, double size);
+
+  public abstract double of(Iterable<Double> values);
 
   public Range resizeBy(Range range, double delta) {
     return resizeTo(range, range.size() + delta);

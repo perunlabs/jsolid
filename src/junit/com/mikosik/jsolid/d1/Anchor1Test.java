@@ -3,6 +3,7 @@ package com.mikosik.jsolid.d1;
 import static com.mikosik.jsolid.JSolid.center;
 import static com.mikosik.jsolid.JSolid.max;
 import static com.mikosik.jsolid.JSolid.min;
+import static java.util.Arrays.asList;
 import static org.testory.Testory.given;
 import static org.testory.Testory.thenReturned;
 import static org.testory.Testory.thenThrown;
@@ -12,6 +13,7 @@ import org.junit.Test;
 
 public class Anchor1Test {
   private Range range;
+  private Iterable<Double> stream;
 
   @Test
   public void move_to_min() throws Exception {
@@ -137,5 +139,68 @@ public class Anchor1Test {
     given(range = new Range(3, 5));
     when(center().resizeBy(range, 2));
     thenReturned(new Range(2, 6));
+  }
+
+  @Test
+  public void min_of_many_values() throws Exception {
+    given(stream = asList(-3.0, 0.0, 3.0));
+    when(() -> min().of(stream));
+    thenReturned(-3.0);
+  }
+
+  @Test
+  public void min_of_one_value() throws Exception {
+    given(stream = asList(3.0));
+    when(() -> min().of(stream));
+    thenReturned(3.0);
+  }
+
+  @Test
+  public void min_of_empty_throws_exception() throws Exception {
+    given(stream = asList());
+    when(() -> min().of(stream));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void max_of_many_values() throws Exception {
+    given(stream = asList(-3.0, 0.0, 3.0));
+    when(() -> max().of(stream));
+    thenReturned(3.0);
+  }
+
+  @Test
+  public void max_of_one_value() throws Exception {
+    given(stream = asList(3.0));
+    when(() -> min().of(stream));
+    thenReturned(3.0);
+  }
+
+  @Test
+  public void max_of_empty_throws_exception() throws Exception {
+    given(stream = asList());
+    when(() -> max().of(stream));
+    thenThrown(IllegalArgumentException.class);
+  }
+
+  @Test
+  public void center_of_many_values() throws Exception {
+    given(stream = asList(-3.0, 0.0, 7.0));
+    when(() -> center().of(stream));
+    thenReturned(2.0);
+  }
+
+  @Test
+  public void center_of_one_value() throws Exception {
+    given(stream = asList(3.0));
+    when(() -> center().of(stream));
+    thenReturned(3.0);
+  }
+
+  @Test
+  public void center_of_empty_throws_exception() throws Exception {
+    given(stream = asList());
+    when(() -> center().of(stream));
+    thenThrown(IllegalArgumentException.class);
   }
 }
