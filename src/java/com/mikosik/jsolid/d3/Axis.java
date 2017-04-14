@@ -9,7 +9,7 @@ import java.util.function.BinaryOperator;
 import com.mikosik.jsolid.JSolid;
 import com.mikosik.jsolid.d1.Range;
 import com.mikosik.jsolid.d3.Anchor3.CenterAnchor;
-import com.mikosik.jsolid.d3.Anchor3.EdgeAnchor;
+import com.mikosik.jsolid.d3.Anchor3.EdgeAnchor3;
 import com.mikosik.jsolid.d3.Anchor3.ZeroAnchor;
 
 public abstract class Axis<A extends Axis<A>> extends Vector3 {
@@ -35,12 +35,12 @@ public abstract class Axis<A extends Axis<A>> extends Vector3 {
 
   public abstract Matrix4 scaleMatrix(double factor);
 
-  public EdgeAnchor<A> min() {
-    return new EdgeAnchor<A>(this, minReduce(), MAX_VALUE, () -> max());
+  public EdgeAnchor3<A> min() {
+    return new EdgeAnchor3<A>(this, minReduce(), MAX_VALUE, () -> max());
   }
 
-  public EdgeAnchor<A> max() {
-    return new EdgeAnchor<>(this, maxReduce(), MIN_VALUE, () -> min());
+  public EdgeAnchor3<A> max() {
+    return new EdgeAnchor3<>(this, maxReduce(), MIN_VALUE, () -> min());
   }
 
   public Anchor3<A> center() {

@@ -11,7 +11,7 @@ import java.util.List;
 import com.mikosik.jsolid.JSolid;
 import com.mikosik.jsolid.d3.Alignment;
 import com.mikosik.jsolid.d3.Anchor3;
-import com.mikosik.jsolid.d3.Anchor3.EdgeAnchor;
+import com.mikosik.jsolid.d3.Anchor3.EdgeAnchor3;
 import com.mikosik.jsolid.d3.Axis;
 import com.mikosik.jsolid.d3.Matrix4;
 import com.mikosik.jsolid.d3.Solid;
@@ -51,7 +51,7 @@ public abstract class AbstractSolid implements Solid {
     return new AddSolid(this, solid);
   }
 
-  public Solid add(Solid solid, EdgeAnchor<?>... edges) {
+  public Solid add(Solid solid, EdgeAnchor3<?>... edges) {
     return add(align(solid, edges));
   }
 
@@ -63,7 +63,7 @@ public abstract class AbstractSolid implements Solid {
     return new SubSolid(this, solid);
   }
 
-  public Solid sub(Solid solid, EdgeAnchor<?>... edges) {
+  public Solid sub(Solid solid, EdgeAnchor3<?>... edges) {
     return sub(align(solid, edges));
   }
 
@@ -75,7 +75,7 @@ public abstract class AbstractSolid implements Solid {
     return new IntersectSolid(this, solid);
   }
 
-  public Solid intersect(Solid solid, EdgeAnchor<?>... edges) {
+  public Solid intersect(Solid solid, EdgeAnchor3<?>... edges) {
     return intersect(align(solid, edges));
   }
 
@@ -83,8 +83,8 @@ public abstract class AbstractSolid implements Solid {
     return intersect(align(solid, alignments));
   }
 
-  private Solid align(Solid solid, EdgeAnchor<?>[] edges) {
-    for (EdgeAnchor<?> edge : edges) {
+  private Solid align(Solid solid, EdgeAnchor3<?>[] edges) {
+    for (EdgeAnchor3<?> edge : edges) {
       solid = JSolid.align(edge).align(this, solid);
     }
     return solid;
