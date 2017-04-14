@@ -130,10 +130,10 @@ public class JSolid {
 
   public static <A extends Axis<A>> Alignment align(Anchor3<A> anchorA, double margin,
       Anchor3<A> anchorB) {
-    if (anchorA.sign() != 0) {
-      return new Alignment(anchorA, anchorB, anchorA.sign() * margin);
-    } else if (anchorB.sign() != 0) {
-      return new Alignment(anchorA, anchorB, -anchorB.sign() * margin);
+    if (anchorA.edge() != 0) {
+      return new Alignment(anchorA, anchorB, anchorA.edge() * margin);
+    } else if (anchorB.edge() != 0) {
+      return new Alignment(anchorA, anchorB, -anchorB.edge() * margin);
     } else {
       throw new IllegalArgumentException("Cannot align using two anchors without sign.");
     }

@@ -26,7 +26,7 @@ public class Anchor3<A extends Axis<A>> {
     return new Anchor3<>(axis, anchor.opposite());
   }
 
-  public double sign() {
+  public double edge() {
     return anchor.edge;
   }
 
