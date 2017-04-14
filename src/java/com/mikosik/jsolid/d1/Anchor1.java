@@ -8,8 +8,14 @@ import java.util.stream.StreamSupport;
 import com.mikosik.jsolid.util.Check;
 
 public abstract class Anchor1 {
+  public final double edge;
+
+  private Anchor1(double edge) {
+    this.edge = edge;
+  }
+
   public static Anchor1 min() {
-    return new Anchor1() {
+    return new Anchor1(-1.0) {
       public Range moveTo(Range range, double value) {
         return range(value, value + range.size());
       }
@@ -24,6 +30,10 @@ public abstract class Anchor1 {
             .reduce((a, b) -> a < b ? a : b)
             .orElseThrow(() -> new IllegalArgumentException());
       }
+
+      public Anchor1 opposite() {
+        return max();
+      }
     };
   }
 
@@ -32,7 +42,7 @@ public abstract class Anchor1 {
   }
 
   public static Anchor1 max() {
-    return new Anchor1() {
+    return new Anchor1(1.0) {
       public Range moveTo(Range range, double value) {
         return range(value - range.size(), value);
       }
@@ -47,11 +57,15 @@ public abstract class Anchor1 {
             .reduce((a, b) -> a < b ? b : a)
             .orElseThrow(() -> new IllegalArgumentException());
       }
+
+      public Anchor1 opposite() {
+        return min();
+      }
     };
   }
 
   public static Anchor1 center() {
-    return new Anchor1() {
+    return new Anchor1(0.0) {
       public Range moveTo(Range range, double value) {
         double halfSize = range.size() / 2;
         return range(value - halfSize, value + halfSize);
@@ -69,10 +83,16 @@ public abstract class Anchor1 {
         double max = max().of(values);
         return (min + max) / 2;
       }
+
+      public Anchor1 opposite() {
+        return this;
+      }
     };
   }
 
   public abstract double of(Iterable<Double> values);
+
+  public abstract Anchor1 opposite();
 
   public abstract Range moveTo(Range range, double value);
 

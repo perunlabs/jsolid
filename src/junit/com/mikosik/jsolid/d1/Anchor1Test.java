@@ -16,6 +16,24 @@ public class Anchor1Test {
   private Iterable<Double> stream;
 
   @Test
+  public void min_edge() throws Exception {
+    when(min().edge);
+    thenReturned(-1.0);
+  }
+
+  @Test
+  public void center_edge() throws Exception {
+    when(center().edge);
+    thenReturned(0.0);
+  }
+
+  @Test
+  public void max_edge() throws Exception {
+    when(max().edge);
+    thenReturned(1.0);
+  }
+
+  @Test
   public void move_to_min() throws Exception {
     given(range = new Range(3, 5));
     when(min().moveTo(range, 7));
