@@ -1,13 +1,13 @@
 package com.mikosik.jsolid.d3;
 
 public class Alignment {
-  private final Anchor3<?> anchor1;
-  private final Anchor3<?> anchor2;
+  private final Anchor3<?> anchorA;
+  private final Anchor3<?> anchorB;
   private final double shift;
 
-  public <A extends Axis<A>> Alignment(Anchor3<A> anchor1, Anchor3<A> anchor2, double shift) {
-    this.anchor1 = anchor1;
-    this.anchor2 = anchor2;
+  public <A extends Axis<A>> Alignment(Anchor3<A> anchorA, Anchor3<A> anchorB, double shift) {
+    this.anchorA = anchorA;
+    this.anchorB = anchorB;
     this.shift = shift;
   }
 
@@ -16,6 +16,6 @@ public class Alignment {
   }
 
   public Vector3 alignShiftFor(Solid solid1, Solid solid2) {
-    return anchor1.vectorIn(solid1).sub(anchor2.vectorIn(solid2)).add(anchor1.axis.v(shift));
+    return anchorA.vectorIn(solid1).sub(anchorB.vectorIn(solid2)).add(anchorA.axis.v(shift));
   }
 }

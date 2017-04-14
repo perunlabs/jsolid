@@ -41,16 +41,16 @@ public final class Range {
     return resizeTo(size, JSolid.center());
   }
 
-  public Range resizeTo(double size, Anchor1 anchor1) {
-    return anchor1.resizeTo(this, size);
+  public Range resizeTo(double size, Anchor1 anchor) {
+    return anchor.resizeTo(this, size);
   }
 
   public Range resizeBy(double delta) {
     return resizeBy(delta, JSolid.center());
   }
 
-  public Range resizeBy(double delta, Anchor1 anchor1) {
-    return resizeTo(size() + delta, anchor1);
+  public Range resizeBy(double delta, Anchor1 anchor) {
+    return resizeTo(size() + delta, anchor);
   }
 
   public Range moveBy(double value) {

@@ -125,23 +125,23 @@ public class JSolid {
     return align(anchor, margin, anchor);
   }
 
-  public static <A extends Axis<A>> Alignment align(Anchor3<A> anchor1, Anchor3<A> anchor2) {
-    return new Alignment(anchor1, anchor2, 0);
+  public static <A extends Axis<A>> Alignment align(Anchor3<A> anchorA, Anchor3<A> anchorB) {
+    return new Alignment(anchorA, anchorB, 0);
   }
 
-  public static <A extends Axis<A>> Alignment align(EdgeAnchor3<A> anchor1, double margin,
-      EdgeAnchor3<A> anchor2) {
-    return align(anchor1, margin, (Anchor3<A>) anchor2);
+  public static <A extends Axis<A>> Alignment align(EdgeAnchor3<A> anchorA, double margin,
+      EdgeAnchor3<A> anchorB) {
+    return align(anchorA, margin, (Anchor3<A>) anchorB);
   }
 
-  public static <A extends Axis<A>> Alignment align(EdgeAnchor3<A> anchor1, double margin,
-      Anchor3<A> anchor2) {
-    return new Alignment(anchor1, anchor2, anchor1.sign() * margin);
+  public static <A extends Axis<A>> Alignment align(EdgeAnchor3<A> anchorA, double margin,
+      Anchor3<A> anchorB) {
+    return new Alignment(anchorA, anchorB, anchorA.sign() * margin);
   }
 
-  public static <A extends Axis<A>> Alignment align(Anchor3<A> anchor1, double margin,
-      EdgeAnchor3<A> anchor2) {
-    return new Alignment(anchor1, anchor2, -anchor2.sign() * margin);
+  public static <A extends Axis<A>> Alignment align(Anchor3<A> anchorA, double margin,
+      EdgeAnchor3<A> anchorB) {
+    return new Alignment(anchorA, anchorB, -anchorB.sign() * margin);
   }
 
   public static EdgeAnchor3<XAxis> maxX() {
