@@ -5,6 +5,8 @@ import static com.mikosik.jsolid.JSolid.range;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import com.mikosik.jsolid.d3.Anchor3;
+import com.mikosik.jsolid.d3.Axis;
 import com.mikosik.jsolid.util.Check;
 
 public abstract class Anchor1 {
@@ -93,6 +95,10 @@ public abstract class Anchor1 {
   public abstract double of(Iterable<Double> values);
 
   public abstract Anchor1 opposite();
+
+  public <A extends Axis<A>> Anchor3<A> on(Axis<A> axis) {
+    return new Anchor3<A>(axis, this);
+  }
 
   public abstract Range moveTo(Range range, double value);
 

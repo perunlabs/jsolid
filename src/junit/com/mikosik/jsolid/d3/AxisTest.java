@@ -1,6 +1,7 @@
 package com.mikosik.jsolid.d3;
 
 import static com.mikosik.jsolid.JSolid.cuboid;
+import static com.mikosik.jsolid.JSolid.maxZ;
 import static com.mikosik.jsolid.JSolid.range;
 import static com.mikosik.jsolid.JSolid.v;
 import static com.mikosik.jsolid.JSolid.x;
@@ -92,13 +93,6 @@ public class AxisTest {
   }
 
   @Test
-  public void zeroX() {
-    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.X.zero().valueIn(cuboid));
-    thenReturned(0.0);
-  }
-
-  @Test
   public void sizeX() throws Exception {
     given(cuboid = cuboid(range(1, 2), range(1, 3), range(1, 4)));
     when(Axis.X.size(cuboid));
@@ -106,24 +100,10 @@ public class AxisTest {
   }
 
   @Test
-  public void zeroY() {
-    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Y.zero().valueIn(cuboid));
-    thenReturned(0.0);
-  }
-
-  @Test
   public void sizeY() throws Exception {
     given(cuboid = cuboid(range(1, 2), range(1, 3), range(1, 4)));
     when(Axis.Y.size(cuboid));
     thenReturned(2.0);
-  }
-
-  @Test
-  public void zeroZ() {
-    given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Z.zero().valueIn(cuboid));
-    thenReturned(0.0);
   }
 
   @Test
@@ -290,7 +270,7 @@ public class AxisTest {
   @Test
   public void vectorIn() throws Exception {
     given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Z.max().vectorIn(cuboid));
+    when(maxZ().vectorIn(cuboid));
     thenReturned(v(0, 0, 6));
   }
 }

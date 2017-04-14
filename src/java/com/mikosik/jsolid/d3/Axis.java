@@ -1,12 +1,11 @@
 package com.mikosik.jsolid.d3;
 
 import static com.mikosik.jsolid.JSolid.matrix;
+import static com.mikosik.jsolid.JSolid.max;
+import static com.mikosik.jsolid.JSolid.min;
 
 import com.mikosik.jsolid.JSolid;
 import com.mikosik.jsolid.d1.Range;
-import com.mikosik.jsolid.d3.Anchor3.CenterAnchor;
-import com.mikosik.jsolid.d3.Anchor3.EdgeAnchor3;
-import com.mikosik.jsolid.d3.Anchor3.ZeroAnchor;
 
 public abstract class Axis<A extends Axis<A>> extends Vector3 {
   public static final XAxis X = new XAxis();
@@ -22,7 +21,7 @@ public abstract class Axis<A extends Axis<A>> extends Vector3 {
   public abstract Vector3 v(double coordinate);
 
   public Range range(Solid solid) {
-    return JSolid.range(min().valueIn(solid), max().valueIn(solid));
+    return JSolid.range(min().on(this).valueIn(solid), max().on(this).valueIn(solid));
   }
 
   public abstract Matrix4 rotateMatrix(double angle);
@@ -31,24 +30,8 @@ public abstract class Axis<A extends Axis<A>> extends Vector3 {
 
   public abstract Matrix4 scaleMatrix(double factor);
 
-  public EdgeAnchor3<A> min() {
-    return new EdgeAnchor3<A>(this, JSolid.min(), this::max);
-  }
-
-  public EdgeAnchor3<A> max() {
-    return new EdgeAnchor3<>(this, JSolid.max(), this::min);
-  }
-
-  public Anchor3<A> center() {
-    return new CenterAnchor<>(this, min(), max());
-  }
-
-  public Anchor3<A> zero() {
-    return new ZeroAnchor<>(this);
-  }
-
   public double size(Solid solid) {
-    return max().valueIn(solid) - min().valueIn(solid);
+    return max().on(this).valueIn(solid) - min().on(this).valueIn(solid);
   }
 
   public static class XAxis extends Axis<XAxis> {

@@ -17,7 +17,6 @@ import com.mikosik.jsolid.d2.RegularPolygon;
 import com.mikosik.jsolid.d2.Vector2;
 import com.mikosik.jsolid.d3.Alignment;
 import com.mikosik.jsolid.d3.Anchor3;
-import com.mikosik.jsolid.d3.Anchor3.EdgeAnchor3;
 import com.mikosik.jsolid.d3.Axis;
 import com.mikosik.jsolid.d3.Axis.XAxis;
 import com.mikosik.jsolid.d3.Axis.YAxis;
@@ -109,19 +108,19 @@ public class JSolid {
         m41, m42, m43, m44);
   }
 
-  public static <A extends Axis<A>> Alignment alignOutside(EdgeAnchor3<A> anchor) {
+  public static <A extends Axis<A>> Alignment alignOutside(Anchor3<A> anchor) {
     return align(anchor, anchor.other());
   }
 
-  public static <A extends Axis<A>> Alignment alignOutside(EdgeAnchor3<A> anchor, double margin) {
+  public static <A extends Axis<A>> Alignment alignOutside(Anchor3<A> anchor, double margin) {
     return align(anchor, margin, anchor.other());
   }
 
-  public static <A extends Axis<A>> Alignment align(EdgeAnchor3<A> anchor) {
+  public static <A extends Axis<A>> Alignment align(Anchor3<A> anchor) {
     return align(anchor, anchor);
   }
 
-  public static <A extends Axis<A>> Alignment align(EdgeAnchor3<A> anchor, double margin) {
+  public static <A extends Axis<A>> Alignment align(Anchor3<A> anchor, double margin) {
     return align(anchor, margin, anchor);
   }
 
@@ -129,55 +128,51 @@ public class JSolid {
     return new Alignment(anchorA, anchorB, 0);
   }
 
-  public static <A extends Axis<A>> Alignment align(EdgeAnchor3<A> anchorA, double margin,
-      EdgeAnchor3<A> anchorB) {
-    return align(anchorA, margin, (Anchor3<A>) anchorB);
-  }
-
-  public static <A extends Axis<A>> Alignment align(EdgeAnchor3<A> anchorA, double margin,
-      Anchor3<A> anchorB) {
-    return new Alignment(anchorA, anchorB, anchorA.sign() * margin);
-  }
-
   public static <A extends Axis<A>> Alignment align(Anchor3<A> anchorA, double margin,
-      EdgeAnchor3<A> anchorB) {
-    return new Alignment(anchorA, anchorB, -anchorB.sign() * margin);
+      Anchor3<A> anchorB) {
+    if (anchorA.sign() != 0) {
+      return new Alignment(anchorA, anchorB, anchorA.sign() * margin);
+    } else if (anchorB.sign() != 0) {
+      return new Alignment(anchorA, anchorB, -anchorB.sign() * margin);
+    } else {
+      throw new IllegalArgumentException("Cannot align using two anchors without sign.");
+    }
   }
 
-  public static EdgeAnchor3<XAxis> maxX() {
-    return x().max();
+  public static Anchor3<XAxis> maxX() {
+    return max().on(x());
   }
 
   public static Anchor3<XAxis> centerX() {
-    return x().center();
+    return center().on(x());
   }
 
-  public static EdgeAnchor3<XAxis> minX() {
-    return x().min();
+  public static Anchor3<XAxis> minX() {
+    return min().on(x());
   }
 
-  public static EdgeAnchor3<YAxis> maxY() {
-    return y().max();
+  public static Anchor3<YAxis> maxY() {
+    return max().on(y());
   }
 
   public static Anchor3<YAxis> centerY() {
-    return y().center();
+    return center().on(y());
   }
 
-  public static EdgeAnchor3<YAxis> minY() {
-    return y().min();
+  public static Anchor3<YAxis> minY() {
+    return min().on(y());
   }
 
-  public static EdgeAnchor3<ZAxis> maxZ() {
-    return z().max();
+  public static Anchor3<ZAxis> maxZ() {
+    return max().on(z());
   }
 
   public static Anchor3<ZAxis> centerZ() {
-    return z().center();
+    return center().on(z());
   }
 
-  public static EdgeAnchor3<ZAxis> minZ() {
-    return z().min();
+  public static Anchor3<ZAxis> minZ() {
+    return min().on(z());
   }
 
   public static Polygon regularPolygon(double radius, int vertexCount) {
