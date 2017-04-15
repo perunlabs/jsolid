@@ -4,6 +4,8 @@ import static com.mikosik.jsolid.JSolid.x;
 import static com.mikosik.jsolid.JSolid.y;
 import static com.mikosik.jsolid.JSolid.z;
 import static com.mikosik.jsolid.util.Lists.immutable;
+import static java.util.Arrays.asList;
+import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
@@ -51,10 +53,13 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid add(Solid solid, Anchor3<?>... edges) {
-    return add(align(solid, edges));
+    return add(solid, edgesToAlignments(edges));
   }
 
   public Solid add(Solid solid, Alignment... alignments) {
+    if (sides().isEmpty()) {
+      throw new IllegalArgumentException("It is not possible to align against empty Solid.");
+    }
     return add(align(solid, alignments));
   }
 
@@ -63,7 +68,7 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid sub(Solid solid, Anchor3<?>... edges) {
-    return sub(align(solid, edges));
+    return sub(solid, edgesToAlignments(edges));
   }
 
   public Solid sub(Solid solid, Alignment... alignments) {
@@ -75,25 +80,21 @@ public abstract class AbstractSolid implements Solid {
   }
 
   public Solid intersect(Solid solid, Anchor3<?>... edges) {
-    return intersect(align(solid, edges));
+    return intersect(solid, edgesToAlignments(edges));
   }
 
   public Solid intersect(Solid solid, Alignment... alignments) {
     return intersect(align(solid, alignments));
   }
 
-  private Solid align(Solid solid, Anchor3<?>[] edges) {
-    for (Anchor3<?> edge : edges) {
-      solid = JSolid.align(edge).align(this, solid);
-    }
-    return solid;
+  private Solid align(Solid solid, Alignment[] alignments) {
+    return new AlignSolid(solid, this, asList(alignments));
   }
 
-  private Solid align(Solid solid, Alignment[] alignments) {
-    for (Alignment alignment : alignments) {
-      solid = alignment.align(this, solid);
-    }
-    return solid;
+  private static Alignment[] edgesToAlignments(Anchor3<?>[] edges) {
+    return stream(edges)
+        .map(e -> JSolid.align(e))
+        .toArray(size -> new Alignment[size]);
   }
 
   public Solid moveBy(Vector3 shift) {
