@@ -27,7 +27,7 @@ public class AlignSolid extends AbstractSolid {
     }
     Solid result = solid;
     for (Alignment alignment : alignments) {
-      result = alignment.align(aligning, solid);
+      result = alignment.align(aligning, result);
     }
     return result.sides();
   }
