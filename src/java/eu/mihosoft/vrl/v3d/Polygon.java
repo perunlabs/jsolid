@@ -33,14 +33,18 @@
  */
 package eu.mihosoft.vrl.v3d;
 
+import static com.mikosik.jsolid.JSolid.edge;
 import static com.mikosik.jsolid.util.Lists.immutable;
 import static com.mikosik.jsolid.util.Lists.reverse;
+import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
+import com.mikosik.jsolid.d3.Edge;
 import com.mikosik.jsolid.d3.Matrix4;
 import com.mikosik.jsolid.d3.Vector3;
 
@@ -90,6 +94,12 @@ public final class Polygon {
    */
   public Polygon(Vector3... vertices) {
     this(Arrays.asList(vertices));
+  }
+
+  public List<Edge> edges() {
+    return IntStream.range(0, vertices.size())
+        .mapToObj(i -> edge(vertices.get(i), vertices.get((i + 1) % vertices.size())))
+        .collect(toList());
   }
 
   @Override
