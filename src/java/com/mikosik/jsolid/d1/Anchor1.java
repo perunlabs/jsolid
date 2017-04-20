@@ -29,8 +29,8 @@ public abstract class Anchor1 {
 
       public double of(Iterable<Double> values) {
         return stream(values)
-            .reduce((a, b) -> a < b ? a : b)
-            .orElseThrow(() -> new IllegalArgumentException());
+            .reduce(Math::min)
+            .orElseThrow(IllegalArgumentException::new);
       }
 
       public Anchor1 opposite() {
@@ -56,8 +56,8 @@ public abstract class Anchor1 {
 
       public double of(Iterable<Double> values) {
         return stream(values)
-            .reduce((a, b) -> a < b ? b : a)
-            .orElseThrow(() -> new IllegalArgumentException());
+            .reduce(Math::max)
+            .orElseThrow(IllegalArgumentException::new);
       }
 
       public Anchor1 opposite() {
