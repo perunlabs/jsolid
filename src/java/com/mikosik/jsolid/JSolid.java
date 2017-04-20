@@ -23,6 +23,7 @@ import com.mikosik.jsolid.d3.Axis.YAxis;
 import com.mikosik.jsolid.d3.Axis.ZAxis;
 import com.mikosik.jsolid.d3.Cuboid;
 import com.mikosik.jsolid.d3.Cylinder;
+import com.mikosik.jsolid.d3.Edge;
 import com.mikosik.jsolid.d3.Matrix4;
 import com.mikosik.jsolid.d3.Prism;
 import com.mikosik.jsolid.d3.Solid;
@@ -94,6 +95,10 @@ public class JSolid {
 
   public static Vector3 vz(double z) {
     return v(0, 0, z);
+  }
+
+  public static Edge edge(Vector3 pointA, Vector3 pointB) {
+    return new Edge(pointA, pointB);
   }
 
   public static Matrix4 matrix(
