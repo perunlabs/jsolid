@@ -44,8 +44,6 @@ import java.util.stream.Collectors;
 import com.mikosik.jsolid.d3.Matrix4;
 import com.mikosik.jsolid.d3.Vector3;
 
-import eu.mihosoft.vrl.v3d.ext.org.poly2tri.PolygonUtil;
-
 /**
  * Represents a convex polygon.
  */
@@ -57,28 +55,6 @@ public final class Polygon {
    * <b>Note:</b> uses first three vertices to define the plane.
    */
   public final Plane plane;
-
-  /**
-   * Decomposes the specified concave polygon into convex polygons.
-   *
-   * @param points
-   *          the points that define the polygon
-   * @return the decomposed concave polygon (list of convex polygons)
-   */
-  public static List<Polygon> fromConcavePoints(Vector3... points) {
-    return PolygonUtil.concaveToConvex(fromPoints(points));
-  }
-
-  /**
-   * Decomposes the specified concave polygon into convex polygons.
-   *
-   * @param points
-   *          the points that define the polygon
-   * @return the decomposed concave polygon (list of convex polygons)
-   */
-  public static List<Polygon> fromConcavePoints(List<Vector3> points) {
-    return PolygonUtil.concaveToConvex(fromPoints(points));
-  }
 
   /**
    * Constructor. Creates a new polygon that consists of the specified vertices.
