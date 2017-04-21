@@ -28,7 +28,7 @@ import com.mikosik.jsolid.d3.Matrix4;
 import com.mikosik.jsolid.d3.Prism;
 import com.mikosik.jsolid.d3.Solid;
 import com.mikosik.jsolid.d3.Vector3;
-import com.mikosik.jsolid.d3.op.SolidImpl;
+import com.mikosik.jsolid.d3.op.PolygonsSolid;
 
 public class JSolid {
   private static final Config CONFIG = new Config();
@@ -233,7 +233,7 @@ public class JSolid {
   }
 
   public static Solid nothing() {
-    return new SolidImpl(asList());
+    return new PolygonsSolid(asList());
   }
 
   public static Cuboid cuboid(double xRange, double yRange, double zRange) {
@@ -273,7 +273,7 @@ public class JSolid {
   }
 
   public static Solid convexHull(List<Vector3> vertexes) {
-    return new SolidImpl(hullPolygons(vertexes));
+    return new PolygonsSolid(hullPolygons(vertexes));
   }
 
   public static Cylinder cylinder(double radius, double length) {

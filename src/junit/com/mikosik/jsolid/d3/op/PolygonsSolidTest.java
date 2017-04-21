@@ -15,18 +15,18 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.mikosik.jsolid.d3.op.SolidImpl;
+import com.mikosik.jsolid.d3.op.PolygonsSolid;
 
 import eu.mihosoft.vrl.v3d.Polygon;
 
-public class SolidImplTest {
+public class PolygonsSolidTest {
   private List<Polygon> sides;
-  private SolidImpl solid;
+  private PolygonsSolid solid;
 
   @Test
   public void sides_returns_list_passed_to_constructor() throws Exception {
     given(sides = asList(new Polygon(x(), y(), z())));
-    given(solid = new SolidImpl(sides));
+    given(solid = new PolygonsSolid(sides));
     when(solid).sides();
     thenReturned(sides);
   }
@@ -34,7 +34,7 @@ public class SolidImplTest {
   @Test
   public void sides_are_defensive_copied() throws Exception {
     given(sides = new ArrayList<>(asList(new Polygon(x(), y(), z()))));
-    given(solid = new SolidImpl(sides));
+    given(solid = new PolygonsSolid(sides));
     given(sides).add(new Polygon(z(), y(), x()));
     when(solid).sides();
     thenReturned(not(equalTo(sides)));
