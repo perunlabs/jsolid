@@ -1,7 +1,9 @@
 package com.mikosik.jsolid.d3;
 
 import static com.mikosik.jsolid.JSolid.v;
+import static com.mikosik.jsolid.util.Lists.reverse;
 import static java.util.Objects.requireNonNull;
+import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,26 +30,13 @@ public final class Prism extends AbstractSolid {
     double bottom = zRange.min;
     double top = zRange.max;
     List<eu.mihosoft.vrl.v3d.Polygon> polygons = new ArrayList<>();
+    polygons.add(base(reverse(base.vertexes()), bottom));
+    polygons.add(base(base.vertexes(), top));
     List<Vector2> vertexes = base.vertexes();
-    Vector2 last = vertexes.get(vertexes.size() - 1);
-    for (int i = 0; i < vertexes.size() - 2; i++) {
-      polygons.add(poly(
-          v(vertexes.get(i), bottom),
-          v(last, bottom),
-          v(vertexes.get(i + 1), bottom)));
-      polygons.add(poly(
-          v(vertexes.get(i + 1), top),
-          v(last, top),
-          v(vertexes.get(i), top)));
-    }
-
     for (int i = 0; i < vertexes.size(); i++) {
       int next = (i + 1) % vertexes.size();
       polygons.add(poly(
           v(vertexes.get(i), bottom),
-          v(vertexes.get(next), bottom),
-          v(vertexes.get(i), top)));
-      polygons.add(poly(
           v(vertexes.get(next), bottom),
           v(vertexes.get(next), top),
           v(vertexes.get(i), top)));
@@ -55,7 +44,15 @@ public final class Prism extends AbstractSolid {
     return polygons;
   }
 
-  private eu.mihosoft.vrl.v3d.Polygon poly(Vector3 p1, Vector3 p2, Vector3 p3) {
-    return eu.mihosoft.vrl.v3d.Polygon.fromPoints(p1, p2, p3);
+  private eu.mihosoft.vrl.v3d.Polygon base(List<Vector2> vertexes, double bottom) {
+    return new eu.mihosoft.vrl.v3d.Polygon(
+        vertexes
+            .stream()
+            .map(v2 -> v(v2.x, v2.y, bottom))
+            .collect(toList()));
+  }
+
+  private static eu.mihosoft.vrl.v3d.Polygon poly(Vector3... points) {
+    return eu.mihosoft.vrl.v3d.Polygon.fromPoints(points);
   }
 }
