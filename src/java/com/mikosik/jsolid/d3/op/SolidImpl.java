@@ -4,7 +4,6 @@ import static com.mikosik.jsolid.util.Lists.immutable;
 
 import java.util.List;
 
-import eu.mihosoft.vrl.v3d.CSG;
 import eu.mihosoft.vrl.v3d.Polygon;
 
 public class SolidImpl extends AbstractSolid {
@@ -16,9 +15,5 @@ public class SolidImpl extends AbstractSolid {
 
   protected List<Polygon> calculateSides() {
     return sides;
-  }
-
-  public CSG toCsg() {
-    return CSG.fromPolygons(sides);
   }
 }
