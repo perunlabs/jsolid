@@ -1,4 +1,4 @@
-package com.mikosik.jsolid.d3;
+package com.mikosik.jsolid.d3.op;
 
 import static com.mikosik.jsolid.JSolid.align;
 import static com.mikosik.jsolid.JSolid.cuboid;
@@ -14,6 +14,8 @@ import static org.testory.Testory.thenThrown;
 import static org.testory.Testory.when;
 
 import org.junit.Test;
+
+import com.mikosik.jsolid.d3.Cuboid;
 
 public class AddTest {
   private Cuboid solid;
