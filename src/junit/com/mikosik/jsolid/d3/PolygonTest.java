@@ -24,4 +24,11 @@ public class PolygonTest {
         edge(v(2, 2, 2), v(3, 3, 3)),
         edge(v(3, 3, 3), v(1, 1, 1))));
   }
+
+  @Test
+  public void to_string() throws Exception {
+    given(polygon = fromPoints(v(1, 1, 1), v(2, 2, 2), v(3, 3, 3)));
+    when(() -> polygon.toString());
+    thenReturned("side(v(1.0, 1.0, 1.0), v(2.0, 2.0, 2.0), v(3.0, 3.0, 3.0))");
+  }
 }

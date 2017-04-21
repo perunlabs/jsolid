@@ -36,6 +36,7 @@ package eu.mihosoft.vrl.v3d;
 import static com.mikosik.jsolid.JSolid.edge;
 import static com.mikosik.jsolid.util.Lists.immutable;
 import static com.mikosik.jsolid.util.Lists.reverse;
+import static java.lang.String.join;
 import static java.util.stream.Collectors.toList;
 
 import java.util.ArrayList;
@@ -202,5 +203,12 @@ public final class Polygon {
 
   public int hashCode() {
     return 31 * vertices.hashCode() + plane.hashCode();
+  }
+
+  public String toString() {
+    List<String> points = vertices.stream()
+        .map(Vector3::toString)
+        .collect(toList());
+    return "side(" + join(", ", points) + ")";
   }
 }
