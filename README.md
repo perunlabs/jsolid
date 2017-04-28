@@ -10,7 +10,8 @@ To use jsolid you need download latest [release jar](https://github.com/perunlab
 Whole API is available via static methods of
 [JSolid](https://github.com/perunlabs/jsolid/blob/master/src/java/com/perunlabs/jsolid/JSolid.java)
 class so all you need is to import it by adding following line
-(which is omitted for simplicity in all following examples):
+(which is omitted for simplicity in all following examples).
+You may also want to add this line to favorites in your IDE.
 
 ```
 import static com.perunlabs.jsolid.JSolid.*;
@@ -22,6 +23,12 @@ and closest point of approximated solid.
 
 ```
 config().setCircleToPolygonPrecision(0.1);
+```
+
+Once you build your solid you can store it as STL file using
+
+```
+com.perunlabs.jsolid.d3.Stl.toStl(solid, "path/on/disk");
 ```
 
 ### Examples
