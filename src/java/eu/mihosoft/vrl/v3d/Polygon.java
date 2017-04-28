@@ -33,9 +33,9 @@
  */
 package eu.mihosoft.vrl.v3d;
 
-import static com.mikosik.jsolid.JSolid.edge;
-import static com.mikosik.jsolid.util.Lists.immutable;
-import static com.mikosik.jsolid.util.Lists.reverse;
+import static com.perunlabs.jsolid.JSolid.edge;
+import static com.perunlabs.jsolid.util.Lists.immutable;
+import static com.perunlabs.jsolid.util.Lists.reverse;
 import static java.lang.String.join;
 import static java.util.stream.Collectors.toList;
 
@@ -45,9 +45,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import com.mikosik.jsolid.d3.Edge;
-import com.mikosik.jsolid.d3.Matrix4;
-import com.mikosik.jsolid.d3.Vector3;
+import com.perunlabs.jsolid.d3.Edge;
+import com.perunlabs.jsolid.d3.Matrix4;
+import com.perunlabs.jsolid.d3.Vector3;
 
 /**
  * Represents a convex polygon.

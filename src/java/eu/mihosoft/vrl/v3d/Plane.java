@@ -37,8 +37,8 @@ package eu.mihosoft.vrl.v3d;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mikosik.jsolid.d3.Vector3;
-import com.mikosik.jsolid.util.Hash;
+import com.perunlabs.jsolid.d3.Vector3;
+import com.perunlabs.jsolid.util.Hash;
 
 /**
  * Represents a plane in 3D space.

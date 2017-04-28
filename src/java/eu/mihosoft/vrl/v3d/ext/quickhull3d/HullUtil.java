@@ -8,7 +8,7 @@ package eu.mihosoft.vrl.v3d.ext.quickhull3d;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mikosik.jsolid.d3.Vector3;
+import com.perunlabs.jsolid.d3.Vector3;
 
 import eu.mihosoft.vrl.v3d.CSG;
 import eu.mihosoft.vrl.v3d.Polygon;

@@ -33,13 +33,13 @@
  */
 package eu.mihosoft.vrl.v3d;
 
-import static com.mikosik.jsolid.JSolid.v;
-import static com.mikosik.jsolid.JSolid.v0;
+import static com.perunlabs.jsolid.JSolid.v;
+import static com.perunlabs.jsolid.JSolid.v0;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mikosik.jsolid.d3.Vector3;
+import com.perunlabs.jsolid.d3.Vector3;
 
 /**
  * A solid sphere.

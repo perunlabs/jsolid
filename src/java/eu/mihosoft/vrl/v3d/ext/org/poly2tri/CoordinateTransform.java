@@ -62,8 +62,6 @@ package eu.mihosoft.vrl.v3d.ext.org.poly2tri;
  */
 import java.util.List;
 
-import eu.mihosoft.vrl.v3d.ext.org.poly2tri.Point;
-
 abstract interface CoordinateTransform {
   public abstract void transform(Point p, Point store);
 

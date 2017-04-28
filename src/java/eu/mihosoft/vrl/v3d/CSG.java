@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.mikosik.jsolid.d3.Matrix4;
+import com.perunlabs.jsolid.d3.Matrix4;
 
 import eu.mihosoft.vrl.v3d.ext.quickhull3d.HullUtil;
 
