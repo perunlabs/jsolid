@@ -36,9 +36,9 @@ public interface Solid {
   public Solid moveTo(Anchor3<?> anchor, double position);
 
   @Deprecated
-  public Solid rotate(Axis<?> direction, double angle);
+  public Solid rotate(Axis<?> axis, double angle);
 
-  public Solid rotate(Axis<?> direction, Angle angle);
+  public Solid rotate(Axis<?> axis, Angle angle);
 
   public Solid mirror(Axis<?> planNormal);
 

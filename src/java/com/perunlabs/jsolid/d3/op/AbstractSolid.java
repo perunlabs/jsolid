@@ -110,13 +110,13 @@ public abstract class AbstractSolid implements Solid {
     return moveBy(shift);
   }
 
-  public Solid rotate(Axis<?> direction, Angle angle) {
-    return apply(direction.rotateMatrix(angle));
+  public Solid rotate(Axis<?> axis, Angle angle) {
+    return apply(axis.rotateMatrix(angle));
   }
 
   @Deprecated
-  public Solid rotate(Axis<?> direction, double angle) {
-    return rotate(direction, degrees(angle));
+  public Solid rotate(Axis<?> axis, double angle) {
+    return rotate(axis, degrees(angle));
   }
 
   public Solid mirror(Axis<?> direction) {
