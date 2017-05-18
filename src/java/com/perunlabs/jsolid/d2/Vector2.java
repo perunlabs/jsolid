@@ -1,9 +1,11 @@
 package com.perunlabs.jsolid.d2;
 
+import static com.perunlabs.jsolid.d1.Angle.radians;
 import static java.lang.Math.PI;
 import static java.lang.Math.sqrt;
 import static java.lang.String.format;
 
+import com.perunlabs.jsolid.d1.Angle;
 import com.perunlabs.jsolid.util.Check;
 import com.perunlabs.jsolid.util.Hash;
 
@@ -26,7 +28,11 @@ public final class Vector2 {
     return sqrt(x * x + y * y);
   }
 
-  public double angle() {
+  public Angle angle() {
+    return radians(angleInRadians());
+  }
+
+  private double angleInRadians() {
     double result = Math.atan2(y, x);
     if (result < 0) {
       return result + PI * 2;

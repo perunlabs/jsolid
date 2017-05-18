@@ -1,9 +1,9 @@
 package com.perunlabs.jsolid.d2;
 
+import static com.perunlabs.jsolid.d1.Angle.degrees;
 import static com.perunlabs.jsolid.d2.Vector2.vector2;
 import static java.lang.Double.NaN;
 import static java.lang.Double.POSITIVE_INFINITY;
-import static java.lang.Math.PI;
 import static java.lang.Math.sqrt;
 import static org.testory.Testory.given;
 import static org.testory.Testory.then;
@@ -72,49 +72,49 @@ public class Vector2Test {
   @Test
   public void angle_0() throws Exception {
     when(vector2(1, 0).angle());
-    thenReturned((0.0 / 4) * PI);
+    thenReturned(degrees(0));
   }
 
   @Test
   public void angle_45() throws Exception {
     when(vector2(1, 1).angle());
-    thenReturned((1.0 / 4) * PI);
+    thenReturned(degrees(45));
   }
 
   @Test
   public void angle_90() throws Exception {
     when(vector2(0, 1).angle());
-    thenReturned((2.0 / 4) * PI);
+    thenReturned(degrees(90));
   }
 
   @Test
   public void angle_135() throws Exception {
     when(vector2(-1, 1).angle());
-    thenReturned((3.0 / 4) * PI);
+    thenReturned(degrees(135));
   }
 
   @Test
   public void angle_180() throws Exception {
     when(vector2(-1, 0).angle());
-    thenReturned((4.0 / 4) * PI);
+    thenReturned(degrees(180));
   }
 
   @Test
   public void angle_225() throws Exception {
     when(vector2(-1, -1).angle());
-    thenReturned((5.0 / 4) * PI);
+    thenReturned(degrees(225));
   }
 
   @Test
   public void angle_270() throws Exception {
     when(vector2(0, -1).angle());
-    thenReturned((6.0 / 4) * PI);
+    thenReturned(degrees(270));
   }
 
   @Test
   public void angle_315() throws Exception {
     when(vector2(1, -1).angle());
-    thenReturned((7.0 / 4) * PI);
+    thenReturned(degrees(315));
   }
 
   @Test
