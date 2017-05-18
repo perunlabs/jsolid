@@ -1,5 +1,6 @@
 package com.perunlabs.jsolid;
 
+import static com.perunlabs.jsolid.d1.Angle.degrees;
 import static com.perunlabs.jsolid.d2.Vector2.vector2;
 import static com.perunlabs.jsolid.d3.Vector3.vector3;
 import static eu.mihosoft.vrl.v3d.ext.quickhull3d.HullUtil.hullPolygons;
@@ -213,7 +214,8 @@ public class JSolid {
   }
 
   public static Solid prismXZ(Polygon xzBase, Range yRange) {
-    return prism(xzBase, yRange.neg()).rotate(x(), 90);
+    return prism(xzBase, yRange.neg())
+        .rotate(x(), degrees(90));
   }
 
   public static Solid prismYZ(Polygon yzBase, double xRange) {
@@ -221,7 +223,9 @@ public class JSolid {
   }
 
   public static Solid prismYZ(Polygon yzBase, Range xRange) {
-    return prism(yzBase, xRange).rotate(z(), 90).rotate(y(), 90);
+    return prism(yzBase, xRange)
+        .rotate(z(), degrees(90))
+        .rotate(y(), degrees(90));
   }
 
   public static Prism prism(Polygon base, double zRange) {

@@ -2,6 +2,8 @@ package com.perunlabs.jsolid.d3;
 
 import java.util.List;
 
+import com.perunlabs.jsolid.d1.Angle;
+
 import eu.mihosoft.vrl.v3d.Polygon;
 
 public interface Solid {
@@ -33,7 +35,10 @@ public interface Solid {
 
   public Solid moveTo(Anchor3<?> anchor, double position);
 
+  @Deprecated
   public Solid rotate(Axis<?> direction, double angle);
+
+  public Solid rotate(Axis<?> direction, Angle angle);
 
   public Solid mirror(Axis<?> planNormal);
 

@@ -5,6 +5,7 @@ import static com.perunlabs.jsolid.JSolid.max;
 import static com.perunlabs.jsolid.JSolid.min;
 
 import com.perunlabs.jsolid.JSolid;
+import com.perunlabs.jsolid.d1.Angle;
 import com.perunlabs.jsolid.d1.Range;
 
 public abstract class Axis<A extends Axis<A>> extends Vector3 {
@@ -24,7 +25,7 @@ public abstract class Axis<A extends Axis<A>> extends Vector3 {
     return JSolid.range(min().on(this).valueIn(solid), max().on(this).valueIn(solid));
   }
 
-  public abstract Matrix4 rotateMatrix(double angle);
+  public abstract Matrix4 rotateMatrix(Angle angle);
 
   public abstract Matrix4 mirrorMatrix();
 
@@ -47,10 +48,9 @@ public abstract class Axis<A extends Axis<A>> extends Vector3 {
       return JSolid.v(coordinate, 0, 0);
     }
 
-    public Matrix4 rotateMatrix(double angle) {
-      double angleRadians = (angle / 360) * 2 * Math.PI;
-      double sin = Math.sin(angleRadians);
-      double cos = Math.cos(angleRadians);
+    public Matrix4 rotateMatrix(Angle angle) {
+      double sin = Math.sin(angle.radians());
+      double cos = Math.cos(angle.radians());
       return matrix(
           1, 0, 0, 0,
           0, cos, -sin, 0,
@@ -88,10 +88,9 @@ public abstract class Axis<A extends Axis<A>> extends Vector3 {
       return JSolid.v(0, coordinate, 0);
     }
 
-    public Matrix4 rotateMatrix(double angle) {
-      double angleRadians = (angle / 360) * 2 * Math.PI;
-      double sin = Math.sin(angleRadians);
-      double cos = Math.cos(angleRadians);
+    public Matrix4 rotateMatrix(Angle angle) {
+      double sin = Math.sin(angle.radians());
+      double cos = Math.cos(angle.radians());
       return matrix(
           cos, 0, sin, 0,
           0, 1, 0, 0,
@@ -129,10 +128,9 @@ public abstract class Axis<A extends Axis<A>> extends Vector3 {
       return JSolid.v(0, 0, coordinate);
     }
 
-    public Matrix4 rotateMatrix(double angle) {
-      double angleRadians = (angle / 360) * 2 * Math.PI;
-      double sin = Math.sin(angleRadians);
-      double cos = Math.cos(angleRadians);
+    public Matrix4 rotateMatrix(Angle angle) {
+      double sin = Math.sin(angle.radians());
+      double cos = Math.cos(angle.radians());
       return matrix(
           cos, -sin, 0, 0,
           sin, cos, 0, 0,

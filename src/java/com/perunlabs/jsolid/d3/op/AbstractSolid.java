@@ -3,6 +3,7 @@ package com.perunlabs.jsolid.d3.op;
 import static com.perunlabs.jsolid.JSolid.x;
 import static com.perunlabs.jsolid.JSolid.y;
 import static com.perunlabs.jsolid.JSolid.z;
+import static com.perunlabs.jsolid.d1.Angle.degrees;
 import static com.perunlabs.jsolid.util.Lists.immutable;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
@@ -11,6 +12,7 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 
 import com.perunlabs.jsolid.JSolid;
+import com.perunlabs.jsolid.d1.Angle;
 import com.perunlabs.jsolid.d3.Alignment;
 import com.perunlabs.jsolid.d3.Anchor3;
 import com.perunlabs.jsolid.d3.Axis;
@@ -108,8 +110,13 @@ public abstract class AbstractSolid implements Solid {
     return moveBy(shift);
   }
 
-  public Solid rotate(Axis<?> direction, double angle) {
+  public Solid rotate(Axis<?> direction, Angle angle) {
     return apply(direction.rotateMatrix(angle));
+  }
+
+  @Deprecated
+  public Solid rotate(Axis<?> direction, double angle) {
+    return rotate(direction, degrees(angle));
   }
 
   public Solid mirror(Axis<?> direction) {

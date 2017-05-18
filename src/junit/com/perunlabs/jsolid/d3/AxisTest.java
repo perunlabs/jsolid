@@ -7,6 +7,7 @@ import static com.perunlabs.jsolid.JSolid.v;
 import static com.perunlabs.jsolid.JSolid.x;
 import static com.perunlabs.jsolid.JSolid.y;
 import static com.perunlabs.jsolid.JSolid.z;
+import static com.perunlabs.jsolid.d1.Angle.degrees;
 import static com.perunlabs.jsolid.d3.Vector3Matchers.closeTo;
 import static org.testory.Testory.given;
 import static org.testory.Testory.thenEqual;
@@ -137,111 +138,112 @@ public class AxisTest {
   @Test
   public void rotate_x_by_0() throws Exception {
     given(v = v(1, 2, 3));
-    when(x().rotateMatrix(0)).mul(v);
+    when(x().rotateMatrix(degrees(0))).mul(v);
     thenReturned(closeTo(v(1, 2, 3)));
   }
 
   @Test
   public void rotate_x_by_90() throws Exception {
     given(v = v(1, 2, 3));
-    when(x().rotateMatrix(90)).mul(v);
+    when(x().rotateMatrix(degrees(90))).mul(v);
     thenReturned(closeTo(v(1, -3, 2)));
   }
 
   @Test
   public void rotate_x_by_180() throws Exception {
     given(v = v(1, 2, 3));
-    when(x().rotateMatrix(180)).mul(v);
+    when(x().rotateMatrix(degrees(180))).mul(v);
     thenReturned(closeTo(v(1, -2, -3)));
   }
 
   @Test
   public void rotate_x_by_270() throws Exception {
     given(v = v(1, 2, 3));
-    when(x().rotateMatrix(270)).mul(v);
+    when(x().rotateMatrix(degrees(270))).mul(v);
     thenReturned(closeTo(v(1, 3, -2)));
   }
 
   @Test
   public void rotate_x_by_360() throws Exception {
     given(v = v(1, 2, 3));
-    when(x().rotateMatrix(360)).mul(v);
+    when(x().rotateMatrix(degrees(360))).mul(v);
     thenReturned(closeTo(v(1, 2, 3)));
   }
 
   @Test
   public void rotate_y_by_0() throws Exception {
     given(v = v(1, 2, 3));
-    when(y().rotateMatrix(0)).mul(v);
+    when(y().rotateMatrix(degrees(0))).mul(v);
     thenReturned(closeTo(v(1, 2, 3)));
   }
 
   @Test
   public void rotate_y_by_90() throws Exception {
     given(v = v(1, 2, 3));
-    when(y().rotateMatrix(90)).mul(v);
+    when(y().rotateMatrix(degrees(90))).mul(v);
     thenReturned(closeTo(v(3, 2, -1)));
   }
 
   @Test
   public void rotate_y_by_180() throws Exception {
     given(v = v(1, 2, 3));
-    when(y().rotateMatrix(180)).mul(v);
+    when(y().rotateMatrix(degrees(180))).mul(v);
     thenReturned(closeTo(v(-1, 2, -3)));
   }
 
   @Test
   public void rotate_y_by_270() throws Exception {
     given(v = v(1, 2, 3));
-    when(y().rotateMatrix(270)).mul(v);
+    when(y().rotateMatrix(degrees(270))).mul(v);
     thenReturned(closeTo(v(-3, 2, 1)));
   }
 
   @Test
   public void rotate_y_by_360() throws Exception {
     given(v = v(1, 2, 3));
-    when(y().rotateMatrix(360)).mul(v);
+    when(y().rotateMatrix(degrees(360))).mul(v);
     thenReturned(closeTo(v(1, 2, 3)));
   }
 
   @Test
   public void rotate_z_by_0() throws Exception {
     given(v = v(1, 2, 3));
-    when(z().rotateMatrix(0)).mul(v);
+    when(z().rotateMatrix(degrees(0))).mul(v);
     thenReturned(closeTo(v(1, 2, 3)));
   }
 
   @Test
   public void rotate_z_by_90() throws Exception {
     given(v = v(1, 2, 3));
-    when(z().rotateMatrix(90)).mul(v);
+    when(z().rotateMatrix(degrees(90))).mul(v);
     thenReturned(closeTo(v(-2, 1, 3)));
   }
 
   @Test
   public void rotate_z_by_180() throws Exception {
     given(v = v(1, 2, 3));
-    when(z().rotateMatrix(180)).mul(v);
+    when(z().rotateMatrix(degrees(180))).mul(v);
     thenReturned(closeTo(v(-1, -2, 3)));
   }
 
   @Test
   public void rotate_z_by_270() throws Exception {
     given(v = v(1, 2, 3));
-    when(z().rotateMatrix(270)).mul(v);
+    when(z().rotateMatrix(degrees(270))).mul(v);
     thenReturned(closeTo(v(2, -1, 3)));
   }
 
   @Test
   public void rotate_z_by_360() throws Exception {
     given(v = v(1, 2, 3));
-    when(z().rotateMatrix(360)).mul(v);
+    when(z().rotateMatrix(degrees(360))).mul(v);
     thenReturned(closeTo(v(1, 2, 3)));
   }
 
   @Test
   public void rotate_multiple_times_with_multiplied_matrixes() throws Exception {
-    given(matrix = z().rotateMatrix(90).mul(y().rotateMatrix(90)).mul(x().rotateMatrix(90)));
+    given(matrix = z().rotateMatrix(degrees(90)).mul(y().rotateMatrix(degrees(90))).mul(x()
+        .rotateMatrix(degrees(90))));
     when(matrix.mul(y()));
     thenReturned(closeTo(y()));
   }

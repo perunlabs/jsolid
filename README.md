@@ -64,7 +64,7 @@ rotated ([preview](./doc/rotated.stl))
 
 ```
 cylinder(2, 10)
-  .rotate(y(), 45);
+  .rotate(y(), degrees(45));
 ```
 
 adding solids ([preview](./doc/addingSolids.stl))

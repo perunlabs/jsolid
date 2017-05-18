@@ -10,6 +10,7 @@ import static com.perunlabs.jsolid.JSolid.regularPolygon;
 import static com.perunlabs.jsolid.JSolid.vx;
 import static com.perunlabs.jsolid.JSolid.y;
 import static com.perunlabs.jsolid.JSolid.z;
+import static com.perunlabs.jsolid.d1.Angle.degrees;
 
 import com.perunlabs.jsolid.d3.Solid;
 
@@ -37,7 +38,7 @@ public class Examples {
 
   public static Solid rotated() {
     return cylinder(2, 10)
-        .rotate(y(), 45);
+        .rotate(y(), degrees(45));
   }
 
   public static Solid addingSolids() {
