@@ -1,9 +1,9 @@
 package com.perunlabs.jsolid.d3.op;
 
+import static com.perunlabs.jsolid.JSolid.degrees;
 import static com.perunlabs.jsolid.JSolid.x;
 import static com.perunlabs.jsolid.JSolid.y;
 import static com.perunlabs.jsolid.JSolid.z;
-import static com.perunlabs.jsolid.d1.Angle.degrees;
 import static com.perunlabs.jsolid.util.Lists.immutable;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;

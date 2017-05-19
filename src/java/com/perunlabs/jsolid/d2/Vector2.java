@@ -1,6 +1,6 @@
 package com.perunlabs.jsolid.d2;
 
-import static com.perunlabs.jsolid.d1.Angle.radians;
+import static com.perunlabs.jsolid.JSolid.radians;
 import static java.lang.Math.PI;
 import static java.lang.Math.sqrt;
 import static java.lang.String.format;

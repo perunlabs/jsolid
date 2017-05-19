@@ -2,6 +2,7 @@ import static com.perunlabs.jsolid.JSolid.align;
 import static com.perunlabs.jsolid.JSolid.alignOutside;
 import static com.perunlabs.jsolid.JSolid.cuboid;
 import static com.perunlabs.jsolid.JSolid.cylinder;
+import static com.perunlabs.jsolid.JSolid.degrees;
 import static com.perunlabs.jsolid.JSolid.maxX;
 import static com.perunlabs.jsolid.JSolid.maxZ;
 import static com.perunlabs.jsolid.JSolid.minY;
@@ -10,7 +11,6 @@ import static com.perunlabs.jsolid.JSolid.regularPolygon;
 import static com.perunlabs.jsolid.JSolid.vx;
 import static com.perunlabs.jsolid.JSolid.y;
 import static com.perunlabs.jsolid.JSolid.z;
-import static com.perunlabs.jsolid.d1.Angle.degrees;
 
 import com.perunlabs.jsolid.d3.Solid;
 

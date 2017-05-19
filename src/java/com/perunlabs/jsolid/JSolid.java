@@ -1,6 +1,5 @@
 package com.perunlabs.jsolid;
 
-import static com.perunlabs.jsolid.d1.Angle.degrees;
 import static com.perunlabs.jsolid.d2.Vector2.vector2;
 import static com.perunlabs.jsolid.d3.Vector3.vector3;
 import static eu.mihosoft.vrl.v3d.ext.quickhull3d.HullUtil.hullPolygons;
@@ -9,6 +8,7 @@ import static java.util.Arrays.asList;
 import java.util.List;
 
 import com.perunlabs.jsolid.d1.Anchor1;
+import com.perunlabs.jsolid.d1.Angle;
 import com.perunlabs.jsolid.d1.Range;
 import com.perunlabs.jsolid.d2.Circle;
 import com.perunlabs.jsolid.d2.ConvexPolygon;
@@ -44,6 +44,18 @@ public class JSolid {
 
   public static Anchor1 max() {
     return Anchor1.max();
+  }
+
+  public static Angle perigons(double perigons) {
+    return Angle.perigons(perigons);
+  }
+
+  public static Angle degrees(double degrees) {
+    return Angle.degrees(degrees);
+  }
+
+  public static Angle radians(double radians) {
+    return Angle.radians(radians);
   }
 
   public static Anchor1 center() {

@@ -1,13 +1,13 @@
 package com.perunlabs.jsolid.d3;
 
 import static com.perunlabs.jsolid.JSolid.cuboid;
+import static com.perunlabs.jsolid.JSolid.degrees;
 import static com.perunlabs.jsolid.JSolid.maxZ;
 import static com.perunlabs.jsolid.JSolid.range;
 import static com.perunlabs.jsolid.JSolid.v;
 import static com.perunlabs.jsolid.JSolid.x;
 import static com.perunlabs.jsolid.JSolid.y;
 import static com.perunlabs.jsolid.JSolid.z;
-import static com.perunlabs.jsolid.d1.Angle.degrees;
 import static com.perunlabs.jsolid.d3.Vector3Matchers.closeTo;
 import static org.testory.Testory.given;
 import static org.testory.Testory.thenEqual;

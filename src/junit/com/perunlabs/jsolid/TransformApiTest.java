@@ -1,9 +1,9 @@
 package com.perunlabs.jsolid;
 
 import static com.perunlabs.jsolid.JSolid.cuboid;
+import static com.perunlabs.jsolid.JSolid.degrees;
 import static com.perunlabs.jsolid.JSolid.x;
 import static com.perunlabs.jsolid.JSolid.y;
-import static com.perunlabs.jsolid.d1.Angle.degrees;
 import static org.testory.Testory.any;
 import static org.testory.Testory.given;
 import static org.testory.Testory.spy;

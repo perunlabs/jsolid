@@ -1,6 +1,6 @@
 package com.perunlabs.jsolid.d2;
 
-import static com.perunlabs.jsolid.d1.Angle.degrees;
+import static com.perunlabs.jsolid.JSolid.degrees;
 import static com.perunlabs.jsolid.d2.Vector2.vector2;
 import static java.lang.Double.NaN;
 import static java.lang.Double.POSITIVE_INFINITY;

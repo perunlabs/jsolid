@@ -1,8 +1,8 @@
 package com.perunlabs.jsolid.d1;
 
-import static com.perunlabs.jsolid.d1.Angle.degrees;
-import static com.perunlabs.jsolid.d1.Angle.perigons;
-import static com.perunlabs.jsolid.d1.Angle.radians;
+import static com.perunlabs.jsolid.JSolid.degrees;
+import static com.perunlabs.jsolid.JSolid.perigons;
+import static com.perunlabs.jsolid.JSolid.radians;
 import static java.lang.Math.PI;
 import static org.testory.Testory.given;
 import static org.testory.Testory.thenEqual;
