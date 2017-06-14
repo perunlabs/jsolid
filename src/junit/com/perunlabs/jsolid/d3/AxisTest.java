@@ -75,42 +75,42 @@ public class AxisTest {
   @Test
   public void x_axis_range() throws Exception {
     given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.X.range(cuboid));
+    when(Axis.X.rangeOf(cuboid));
     thenReturned(range(1, 2));
   }
 
   @Test
   public void y_axis_range() throws Exception {
     given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Y.range(cuboid));
+    when(Axis.Y.rangeOf(cuboid));
     thenReturned(range(3, 4));
   }
 
   @Test
   public void z_axis_range() throws Exception {
     given(cuboid = cuboid(range(1, 2), range(3, 4), range(5, 6)));
-    when(Axis.Z.range(cuboid));
+    when(Axis.Z.rangeOf(cuboid));
     thenReturned(range(5, 6));
   }
 
   @Test
   public void sizeX() throws Exception {
     given(cuboid = cuboid(range(1, 2), range(1, 3), range(1, 4)));
-    when(Axis.X.size(cuboid));
+    when(Axis.X.sizeOf(cuboid));
     thenReturned(1.0);
   }
 
   @Test
   public void sizeY() throws Exception {
     given(cuboid = cuboid(range(1, 2), range(1, 3), range(1, 4)));
-    when(Axis.Y.size(cuboid));
+    when(Axis.Y.sizeOf(cuboid));
     thenReturned(2.0);
   }
 
   @Test
   public void sizeZ() throws Exception {
     given(cuboid = cuboid(range(1, 2), range(1, 3), range(1, 4)));
-    when(Axis.Z.size(cuboid));
+    when(Axis.Z.sizeOf(cuboid));
     thenReturned(3.0);
   }
 

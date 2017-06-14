@@ -3,6 +3,7 @@ package com.perunlabs.jsolid.d3;
 import static com.perunlabs.jsolid.JSolid.matrix;
 import static com.perunlabs.jsolid.JSolid.max;
 import static com.perunlabs.jsolid.JSolid.min;
+import static com.perunlabs.jsolid.JSolid.range;
 
 import com.perunlabs.jsolid.JSolid;
 import com.perunlabs.jsolid.d1.Angle;
@@ -21,8 +22,12 @@ public abstract class Axis<A extends Axis<A>> extends Vector3 {
 
   public abstract Vector3 v(double coordinate);
 
-  public Range range(Solid solid) {
-    return JSolid.range(min().on(this).valueIn(solid), max().on(this).valueIn(solid));
+  public Range rangeOf(Solid solid) {
+    return range(min().on(this).valueIn(solid), max().on(this).valueIn(solid));
+  }
+
+  public double sizeOf(Solid solid) {
+    return rangeOf(solid).size();
   }
 
   public abstract Matrix4 rotateMatrix(Angle angle);
@@ -30,10 +35,6 @@ public abstract class Axis<A extends Axis<A>> extends Vector3 {
   public abstract Matrix4 mirrorMatrix();
 
   public abstract Matrix4 scaleMatrix(double factor);
-
-  public double size(Solid solid) {
-    return max().on(this).valueIn(solid) - min().on(this).valueIn(solid);
-  }
 
   public static class XAxis extends Axis<XAxis> {
     public XAxis() {
