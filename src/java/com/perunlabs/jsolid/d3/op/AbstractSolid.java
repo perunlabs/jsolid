@@ -1,6 +1,5 @@
 package com.perunlabs.jsolid.d3.op;
 
-import static com.perunlabs.jsolid.JSolid.degrees;
 import static com.perunlabs.jsolid.JSolid.x;
 import static com.perunlabs.jsolid.JSolid.y;
 import static com.perunlabs.jsolid.JSolid.z;
@@ -112,11 +111,6 @@ public abstract class AbstractSolid implements Solid {
 
   public Solid rotate(Axis<?> axis, Angle angle) {
     return apply(axis.rotateMatrix(angle));
-  }
-
-  @Deprecated
-  public Solid rotate(Axis<?> axis, double angle) {
-    return rotate(axis, degrees(angle));
   }
 
   public Solid mirror(Axis<?> direction) {
