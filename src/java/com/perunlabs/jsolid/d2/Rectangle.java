@@ -6,6 +6,7 @@ import static java.lang.Math.cos;
 import static java.lang.Math.min;
 import static java.lang.Math.sin;
 import static java.util.Arrays.asList;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +19,8 @@ public final class Rectangle implements Polygon {
   private final double cornerR;
 
   public Rectangle(Range xRange, Range yRange, double cornerR) {
-    this.xRange = xRange;
-    this.yRange = yRange;
+    this.xRange = requireNonNull(xRange);
+    this.yRange = requireNonNull(yRange);
     this.cornerR = cornerR;
   }
 

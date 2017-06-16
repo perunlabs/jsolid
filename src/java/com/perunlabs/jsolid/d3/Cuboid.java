@@ -7,6 +7,7 @@ import static com.perunlabs.jsolid.JSolid.rectangle;
 import static com.perunlabs.jsolid.JSolid.x;
 import static com.perunlabs.jsolid.JSolid.y;
 import static com.perunlabs.jsolid.JSolid.z;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
@@ -26,9 +27,9 @@ public final class Cuboid extends AbstractSolid {
 
   public Cuboid(Range xRange, Range yRange, Range zRange, double xRadius, double yRadius,
       double zRadius) {
-    this.xRange = xRange;
-    this.yRange = yRange;
-    this.zRange = zRange;
+    this.xRange = requireNonNull(xRange);
+    this.yRange = requireNonNull(yRange);
+    this.zRange = requireNonNull(zRange);
     this.xRadius = xRadius;
     this.yRadius = yRadius;
     this.zRadius = zRadius;

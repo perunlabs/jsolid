@@ -1,5 +1,7 @@
 package com.perunlabs.jsolid.d3;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Objects;
 
 public class Edge {
@@ -7,8 +9,8 @@ public class Edge {
   public final Vector3 pointB;
 
   public Edge(Vector3 pointA, Vector3 pointB) {
-    this.pointA = pointA;
-    this.pointB = pointB;
+    this.pointA = requireNonNull(pointA);
+    this.pointB = requireNonNull(pointB);
   }
 
   public Edge flip() {

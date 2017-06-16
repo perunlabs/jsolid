@@ -1,5 +1,6 @@
 package com.perunlabs.jsolid.d3;
 
+import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
@@ -11,8 +12,8 @@ public class Anchor3<A extends Axis<A>> {
   private final Anchor1 anchor;
 
   public Anchor3(Axis<A> axis, Anchor1 anchor) {
-    this.axis = axis;
-    this.anchor = anchor;
+    this.axis = requireNonNull(axis);
+    this.anchor = requireNonNull(anchor);
   }
 
   public double valueIn(Solid solid) {
