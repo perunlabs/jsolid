@@ -1,5 +1,7 @@
 package com.perunlabs.jsolid.d3.op;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,8 +15,8 @@ public class TransformedSolid extends AbstractSolid {
   private final Matrix4 matrix;
 
   public TransformedSolid(Solid solid, Matrix4 matrix) {
-    this.solid = solid;
-    this.matrix = matrix;
+    this.solid = requireNonNull(solid);
+    this.matrix = requireNonNull(matrix);
   }
 
   public Solid apply(Matrix4 matrix) {

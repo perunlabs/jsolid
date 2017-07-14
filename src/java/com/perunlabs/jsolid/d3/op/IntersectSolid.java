@@ -1,6 +1,7 @@
 package com.perunlabs.jsolid.d3.op;
 
 import static java.util.Arrays.asList;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
@@ -14,8 +15,8 @@ public class IntersectSolid extends AbstractSolid {
   private final Solid solid2;
 
   public IntersectSolid(Solid solid1, Solid solid2) {
-    this.solid1 = solid1;
-    this.solid2 = solid2;
+    this.solid1 = requireNonNull(solid1);
+    this.solid2 = requireNonNull(solid2);
   }
 
   protected List<Polygon> calculateSides() {

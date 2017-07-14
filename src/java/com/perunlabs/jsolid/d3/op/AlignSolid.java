@@ -1,6 +1,7 @@
 package com.perunlabs.jsolid.d3.op;
 
 import static java.util.Arrays.asList;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +17,8 @@ public class AlignSolid extends AbstractSolid {
   private final List<Alignment> alignments;
 
   public AlignSolid(Solid solid, Solid aligning, List<Alignment> alignments) {
-    this.solid = solid;
-    this.aligning = aligning;
+    this.solid = requireNonNull(solid);
+    this.aligning = requireNonNull(aligning);
     this.alignments = new ArrayList<>(alignments);
   }
 

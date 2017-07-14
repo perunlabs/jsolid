@@ -18,6 +18,7 @@ import com.perunlabs.jsolid.d3.Axis;
 import com.perunlabs.jsolid.d3.Matrix4;
 import com.perunlabs.jsolid.d3.Solid;
 import com.perunlabs.jsolid.d3.Vector3;
+import com.perunlabs.jsolid.util.Check;
 
 import eu.mihosoft.vrl.v3d.Polygon;
 
@@ -89,7 +90,7 @@ public abstract class AbstractSolid implements Solid {
   }
 
   private Solid align(Solid solid, Alignment[] alignments) {
-    return new AlignSolid(solid, this, asList(alignments));
+    return new AlignSolid(solid, this, asList(Check.noNullElements(alignments)));
   }
 
   private static Alignment[] edgesToAlignments(Anchor3<?>[] edges) {

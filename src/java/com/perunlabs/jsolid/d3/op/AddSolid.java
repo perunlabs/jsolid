@@ -1,5 +1,7 @@
 package com.perunlabs.jsolid.d3.op;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 
 import com.perunlabs.jsolid.d3.Solid;
@@ -12,8 +14,8 @@ public class AddSolid extends AbstractSolid {
   private final Solid solid2;
 
   public AddSolid(Solid solid1, Solid solid2) {
-    this.solid1 = solid1;
-    this.solid2 = solid2;
+    this.solid1 = requireNonNull(solid1);
+    this.solid2 = requireNonNull(solid2);
   }
 
   protected List<Polygon> calculateSides() {

@@ -22,6 +22,7 @@ public class EmptyTest {
 
   @Test
   public void subtracting_from_empty_solid_returns_empty_solid() throws Exception {
+    given(solid = cuboid(1, 2, 3));
     when(empty().sub(solid).sides());
     thenReturned(empty().sides());
   }
