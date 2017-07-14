@@ -86,6 +86,19 @@ public class CheckTest {
     thenThrown(iae("Parameter is -Infinity but expected finite double."));
   }
 
+  @Test
+  public void noNullElements_returns_argument() throws Exception {
+    String[] array = new String[] { "abc", "def" };
+    when(() -> Check.noNullElements(array));
+    thenReturned(array);
+  }
+
+  @Test
+  public void noNullElements_fails_when_element_is_null() throws Exception {
+    when(() -> Check.noNullElements(new String[] { "abc", null }));
+    thenThrown(NullPointerException.class);
+  }
+
   private static Matcher<Throwable> iae(String message) {
     return ExceptionMatcher.exception(new IllegalArgumentException(message));
   }
