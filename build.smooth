@@ -18,7 +18,7 @@ dep_jars = [
 
 jsolid_jar =
   javac(
-    sources = sourceFiles,
+    srcs = sourceFiles,
     libs = dep_jars,
     source = "1.8",
     target = "1.8",
@@ -38,7 +38,7 @@ junit_dep_jars = concatenateBlobArrays(dep_jars, with = testing_jars);
 
 test_jar =
   javac(
-    sources = files("//src/junit"),
+    srcs = files("//src/junit"),
     source = "1.8",
     target = "1.8",
     libs = junit_dep_jars,
