@@ -23,7 +23,7 @@ jsolid_jar =
     source = "1.8",
     target = "1.8",
   ) |
-  concatenateFileArrays(with = sourceFiles) |
+  concatenate(array2 = sourceFiles) |
   jar;
 
 testing_jars = [
@@ -34,7 +34,7 @@ testing_jars = [
   testory_jar,
 ];
 
-junit_dep_jars = concatenateBlobArrays(dep_jars, with = testing_jars);
+junit_dep_jars = concatenate(dep_jars, testing_jars);
 
 test_jar =
   javac(
