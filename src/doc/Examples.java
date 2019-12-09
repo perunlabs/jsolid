@@ -8,10 +8,13 @@ import static com.perunlabs.jsolid.JSolid.maxZ;
 import static com.perunlabs.jsolid.JSolid.minY;
 import static com.perunlabs.jsolid.JSolid.prism;
 import static com.perunlabs.jsolid.JSolid.regularPolygon;
+import static com.perunlabs.jsolid.JSolid.v;
 import static com.perunlabs.jsolid.JSolid.vx;
 import static com.perunlabs.jsolid.JSolid.y;
 import static com.perunlabs.jsolid.JSolid.z;
 
+import com.perunlabs.jsolid.JSolid;
+import com.perunlabs.jsolid.d1.Angle;
 import com.perunlabs.jsolid.d3.Solid;
 
 public class Examples {
@@ -89,5 +92,10 @@ public class Examples {
 
   public static Solid prismWithRegularPolygonAsBase() {
     return prism(regularPolygon(4, 8), 4);
+  }
+
+  public static Solid clonedStepFormingStairs() {
+    return cuboid(10, 4, 2)
+        .clone(30, (i, s) -> s.moveBy(v(30, 0, i * 2)).rotate(z(), degrees(i * 6)));
   }
 }

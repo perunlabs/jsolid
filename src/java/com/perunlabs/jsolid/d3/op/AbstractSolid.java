@@ -1,5 +1,6 @@
 package com.perunlabs.jsolid.d3.op;
 
+import static com.perunlabs.jsolid.JSolid.nothing;
 import static com.perunlabs.jsolid.JSolid.x;
 import static com.perunlabs.jsolid.JSolid.y;
 import static com.perunlabs.jsolid.JSolid.z;
@@ -15,6 +16,7 @@ import com.perunlabs.jsolid.d1.Angle;
 import com.perunlabs.jsolid.d3.Alignment;
 import com.perunlabs.jsolid.d3.Anchor3;
 import com.perunlabs.jsolid.d3.Axis;
+import com.perunlabs.jsolid.d3.Cloner;
 import com.perunlabs.jsolid.d3.Matrix4;
 import com.perunlabs.jsolid.d3.Solid;
 import com.perunlabs.jsolid.d3.Vector3;
@@ -130,6 +132,14 @@ public abstract class AbstractSolid implements Solid {
     Solid shifted = moveBy(shift);
     return shifted
         .add(shifted.mirror(getOnlyComponent(shift)));
+  }
+
+  public Solid clone(int count, Cloner cloner) {
+    Solid result = nothing();
+    for (int i = 0; i < count; i++) {
+      result = result.add(cloner.clone(i, this));
+    }
+    return result;
   }
 
   private static Axis<?> getOnlyComponent(Vector3 shift) {

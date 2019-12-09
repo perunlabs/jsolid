@@ -44,4 +44,6 @@ public interface Solid {
   public Solid convexHull();
 
   public Solid mirroredTwins(Vector3 shift);
+
+  public Solid clone(int count, Cloner cloner);
 }

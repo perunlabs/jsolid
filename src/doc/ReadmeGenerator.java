@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import com.perunlabs.jsolid.d3.Solid;
 import com.perunlabs.jsolid.d3.Stl;
 
 public class ReadmeGenerator {
-  private static final String STLS_DIR = "/home/mikoch/source/jsolid/doc/";
+  private static final String STLS_DIR = "/home/mikoch/src/jsolid/doc/";
 
   public static void main(String[] args) throws IOException {
     List<Example> examples = readExamples();
@@ -137,10 +138,12 @@ public class ReadmeGenerator {
 
   private static void writeStls() throws IOException {
     for (Method method : Examples.class.getDeclaredMethods()) {
-      try {
-        save((Solid) method.invoke(null), method.getName());
-      } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-        throw new RuntimeException(e);
+      if (Modifier.isPublic(method.getModifiers())) {
+        try {
+          save((Solid) method.invoke(null), method.getName());
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+          throw new RuntimeException(e);
+        }
       }
     }
   }

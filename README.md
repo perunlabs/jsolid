@@ -137,3 +137,10 @@ prism with regular polygon as base ([preview](./doc/prismWithRegularPolygonAsBas
 prism(regularPolygon(4, 8), 4);
 ```
 
+cloned step forming stairs ([preview](./doc/clonedStepFormingStairs.stl))
+
+```
+cuboid(10, 4, 2)
+  .clone(30, (i, s) -> s.moveBy(v(30, 0, i * 2)).rotate(z(), degrees(i * 6)));
+```
+
