@@ -4,13 +4,13 @@
 # It can be downloaded for free from http://www.smooth-build.org/
 #
 
-vecmath_jar            = file("//lib/vecmath-1.3.1.jar");
-hamcrest_core_jar      = file("//lib/hamcrest-core-1.3.jar");
-hamcrest_library_jar   = file("//lib/hamcrest-library-1.3.jar");
-junit_jar              = file("//lib/junit-4.12.jar");
-testory_jar            = file("//lib/testory-1.1.1.jar");
+vecmath_jar            = aFile("lib/vecmath-1.3.1.jar");
+hamcrest_core_jar      = aFile("lib/hamcrest-core-1.3.jar");
+hamcrest_library_jar   = aFile("lib/hamcrest-library-1.3.jar");
+junit_jar              = aFile("lib/junit-4.12.jar");
+testory_jar            = aFile("lib/testory-1.1.1.jar");
 
-sourceFiles = files("//src/java");
+sourceFiles = files("src/java");
 
 dep_jars = [
   vecmath_jar,
@@ -23,7 +23,7 @@ jsolid_jar =
     source = "1.8",
     target = "1.8",
   ) |
-  concatenate(array2 = sourceFiles) |
+  concat(array2 = sourceFiles) |
   jar;
 
 testing_jars = [
@@ -34,11 +34,11 @@ testing_jars = [
   testory_jar,
 ];
 
-junit_dep_jars = concatenate(dep_jars, testing_jars);
+junit_dep_jars = concat(dep_jars, testing_jars);
 
 test_jar =
   javac(
-    srcs = files("//src/junit"),
+    srcs = files("src/junit"),
     source = "1.8",
     target = "1.8",
     libs = junit_dep_jars,
