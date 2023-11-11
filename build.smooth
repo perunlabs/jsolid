@@ -8,7 +8,7 @@ vecmath_jar            = file("lib/vecmath-1.3.1.jar");
 hamcrest_core_jar      = file("lib/hamcrest-core-1.3.jar");
 hamcrest_library_jar   = file("lib/hamcrest-library-1.3.jar");
 junit_jar              = file("lib/junit-4.12.jar");
-testory_jar            = file("lib/testory-1.1.1.jar");
+testory_jar            = file("lib/testory-1.4.0.jar");
 
 sourceFiles = files("src/java");
 
